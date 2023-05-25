@@ -3,13 +3,53 @@ import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void signIn() {}
+  void signIn() {
+    print("sign in clicked");
+  }
+
+  bool isLoginButtonDisabled() {
+    return (email == "" && password == "");
+  }
+
+  bool isEmailFieldFocus = false;
+  bool isPasswordFieldFocus = false;
+  String email = "";
+  String password = "";
+
+  void handleEmailFieldFocusChange(bool isFocused) {
+    setState(() {
+      isEmailFieldFocus = isFocused;
+    });
+  }
+
+  void handlePasswordFieldFocusChange(bool isFocused) {
+    setState(() {
+      isPasswordFieldFocus = isFocused;
+    });
+  }
+
+  void handleEmailChange(String value) {
+    setState(() {
+      email = value;
+    });
+  }
+
+  void handlePasswordChange(String value) {
+    setState(() {
+      password = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +78,41 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 25,
                   ),
-                  const Text("Email"),
+                  Text(
+                    "Email",
+                    style: TextStyle(
+                        color: isEmailFieldFocus ? Colors.blue : Colors.black),
+                  ),
                   CustomTextField(
-                    controller: emailController,
+                    controller: handleEmailChange,
                     hintText: "contoh@email.com",
                     obscureText: false,
-                    prefixIcon: Icon(Icons.person_outline),
+                    prefixIcon: Icon(Icons.person_outline,
+                        color: isEmailFieldFocus ? Colors.blue : Colors.black),
+                    formFocusHandler: handleEmailFieldFocusChange,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text("Password"),
+                  Text("Password",
+                      style: TextStyle(
+                          color: isPasswordFieldFocus
+                              ? Colors.blue
+                              : Colors.black)),
                   CustomPasswordField(
-                    controller: passwordController,
-                    hintText: "······",
+                    controller: handlePasswordChange,
+                    hintText: "···········",
+                    formFocusHandler: handlePasswordFieldFocusChange,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  CustomButton(
-                    onTap: signIn,
-                    text: "Masuk",
+                  AbsorbPointer(
+                    absorbing: isLoginButtonDisabled(),
+                    child: CustomButton(
+                      onTap: signIn,
+                      text: "Masuk",
+                    ),
                   )
                 ],
               ),
