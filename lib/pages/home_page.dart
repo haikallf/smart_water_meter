@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              // MARK: Heading
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Halo,"),
+                        Text(
+                          "Adang Susanyo",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w700),
+                        )
+                      ],
+                    ),
+                    Text("Image")
+                  ],
+                ),
+              ),
+
+              // MARK: Banner
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 14),
+                child: Image(image: AssetImage('assets/banner-image.jpeg')),
+              ),
+
+              // MARK: Abnormal Sensors
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 14,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "2 Sensor butuh dicek",
+                      style:
+                          TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 133,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          // Padding(
+                          //   padding: EdgeInsets.only(right: 10),
+                          //   child: Container(
+                          //       width: 200,
+                          //       height: 100,
+                          //       color: Colors.blue,
+                          //       child: Text("Item 1")),
+                          // ),
+                          Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: AbnormalSensorCard(),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: AbnormalSensorCard(),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(right: 10),
+                            child: AbnormalSensorCard(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // MARK: All Sensors
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 14),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Semua Sensor",
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w700),
+                      ),
+                      Container(
+                        child: Text("Sensor Kolam 1"),
+                      )
+                    ]),
+              ),
+            ]),
+          ),
+        ),
+      ),
+    );
+  }
+}

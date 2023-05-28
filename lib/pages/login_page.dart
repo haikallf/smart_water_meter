@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
+import 'package:smart_water_meter/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,10 +14,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  void signIn() {
-    print("sign in clicked");
-  }
 
   bool isLoginButtonDisabled() {
     return (email == "" && password == "");
@@ -53,6 +50,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    void signIn() {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
