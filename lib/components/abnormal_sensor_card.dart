@@ -49,7 +49,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                     text: "2",
                     style: const TextStyle(
                         fontSize: 31, fontWeight: FontWeight.w700)),
-                TextSpan(text: " Sensor", style: TextStyle(fontSize: 13))
+                const TextSpan(text: " Sensor", style: TextStyle(fontSize: 13))
               ])),
           Text(
             "Tidak Normal",

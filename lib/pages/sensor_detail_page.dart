@@ -34,7 +34,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                       ),
 
                       // MARK: Sensor Quality Tag
-                      SensorDetailTag(status: "buruk")
+                      SensorDetailTag(sensorStatus: "buruk")
                     ])),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -43,28 +43,64 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                   children: [
                     Column(
                       children: [
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "Suhu Air",
+                          parameterValue: "28",
+                          parameterUnit: " ℃",
+                          parameterStatus: "warning",
+                          parameterRecommendation: "Turunkan suhu air",
+                        ),
                         const SizedBox(
                           height: 14,
                         ),
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "Oksigen",
+                          parameterValue: "75",
+                          parameterUnit: " %",
+                          parameterStatus: "normal",
+                          parameterRecommendation: "Turunkan suhu air",
+                        ),
                         SizedBox(
                           height: 14,
                         ),
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "Amonia",
+                          parameterValue: "50",
+                          parameterUnit: " mg/mL",
+                          parameterStatus: "normal",
+                          parameterRecommendation: "Turunkan suhu air",
+                        ),
                       ],
                     ),
                     Column(
                       children: [
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "pH Air",
+                          parameterValue: "6.5",
+                          parameterUnit: " pH",
+                          parameterStatus: "normal",
+                          parameterRecommendation: "Turunkan suhu air",
+                        ),
                         const SizedBox(
                           height: 14,
                         ),
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "Kekeruhan",
+                          parameterValue: "999",
+                          parameterUnit: " NTU",
+                          parameterStatus: "danger",
+                          parameterRecommendation: "Lakukan koagulasi",
+                        ),
                         const SizedBox(
                           height: 14,
                         ),
-                        SensorParameterCard(),
+                        SensorParameterCard(
+                          parameterName: "Salinitas",
+                          parameterValue: "30.2",
+                          parameterUnit: " %",
+                          parameterStatus: "normal",
+                          parameterRecommendation: "Turunkan suhu air",
+                        ),
                       ],
                     )
                   ]),

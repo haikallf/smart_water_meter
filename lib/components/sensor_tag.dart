@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
 class SensorTag extends StatefulWidget {
-  const SensorTag({super.key, required this.status});
-  final String status; // baik, cukup, buruk
+  const SensorTag({super.key, required this.sensorStatus});
+  final String sensorStatus; // baik, cukup, buruk
 
   @override
   State<SensorTag> createState() => _SensorTagState();
@@ -11,7 +11,7 @@ class SensorTag extends StatefulWidget {
 
 class _SensorTagState extends State<SensorTag> {
   Tuple2<Color, String> getSensorTag() {
-    switch (widget.status) {
+    switch (widget.sensorStatus) {
       case "baik":
         return const Tuple2<Color, String>((Colors.green), "Baik");
       case "cukup":

@@ -31,7 +31,7 @@ class _SensorCardState extends State<SensorCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SensorTag(status: "baik"),
+                  SensorTag(sensorStatus: "baik"),
                   Text(
                     "Sensor Kolam A-1",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
