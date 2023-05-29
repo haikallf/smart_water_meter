@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
             //other options
           )),
-      home: SensorDetailPage(),
+      home: HomePage(),
     );
   }
 }
