@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/sensor_tag.dart';
+import 'package:smart_water_meter/enums/sensor_status.dart';
 
 import '../pages/sensor_detail_page.dart';
 
@@ -31,7 +32,7 @@ class _SensorCardState extends State<SensorCard> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SensorTag(sensorStatus: "baik"),
+                  SensorTag(sensorStatus: SensorStatus.baik),
                   Text(
                     "Sensor Kolam A-1",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),

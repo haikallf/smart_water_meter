@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/sensor_detail_tag.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
+import 'package:smart_water_meter/enums/parameter_status.dart';
+import 'package:smart_water_meter/enums/sensor_status.dart';
 
 class SensorDetailPage extends StatefulWidget {
   const SensorDetailPage({super.key});
@@ -34,7 +36,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                       ),
 
                       // MARK: Sensor Quality Tag
-                      SensorDetailTag(sensorStatus: "buruk")
+                      SensorDetailTag(sensorStatus: SensorStatus.buruk)
                     ])),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -47,7 +49,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "Suhu Air",
                           parameterValue: "28",
                           parameterUnit: " ℃",
-                          parameterStatus: "warning",
+                          parameterStatus: ParameterStatus.warning,
                           parameterRecommendation: "Turunkan suhu air",
                         ),
                         const SizedBox(
@@ -57,8 +59,8 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "Oksigen",
                           parameterValue: "75",
                           parameterUnit: " %",
-                          parameterStatus: "normal",
-                          parameterRecommendation: "Turunkan suhu air",
+                          parameterStatus: ParameterStatus.normal,
+                          parameterRecommendation: "",
                         ),
                         SizedBox(
                           height: 14,
@@ -67,8 +69,8 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "Amonia",
                           parameterValue: "50",
                           parameterUnit: " mg/mL",
-                          parameterStatus: "normal",
-                          parameterRecommendation: "Turunkan suhu air",
+                          parameterStatus: ParameterStatus.warning,
+                          parameterRecommendation: "Tambahkan 10g/mL",
                         ),
                       ],
                     ),
@@ -78,8 +80,8 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "pH Air",
                           parameterValue: "6.5",
                           parameterUnit: " pH",
-                          parameterStatus: "normal",
-                          parameterRecommendation: "Turunkan suhu air",
+                          parameterStatus: ParameterStatus.normal,
+                          parameterRecommendation: "",
                         ),
                         const SizedBox(
                           height: 14,
@@ -88,7 +90,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "Kekeruhan",
                           parameterValue: "999",
                           parameterUnit: " NTU",
-                          parameterStatus: "danger",
+                          parameterStatus: ParameterStatus.danger,
                           parameterRecommendation: "Lakukan koagulasi",
                         ),
                         const SizedBox(
@@ -98,8 +100,8 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterName: "Salinitas",
                           parameterValue: "30.2",
                           parameterUnit: " %",
-                          parameterStatus: "normal",
-                          parameterRecommendation: "Turunkan suhu air",
+                          parameterStatus: ParameterStatus.normal,
+                          parameterRecommendation: "",
                         ),
                       ],
                     )

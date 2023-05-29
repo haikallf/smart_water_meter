@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:tuple/tuple.dart';
 
 class SensorParameterCard extends StatefulWidget {
@@ -13,7 +14,8 @@ class SensorParameterCard extends StatefulWidget {
   final String parameterName;
   final String parameterValue;
   final String parameterUnit;
-  final String parameterStatus; // normal, warning, danger
+  final String
+      parameterStatus; // normal, warning, danger --> enums/parameter_status.dart
   final String? parameterRecommendation;
 
   @override
@@ -23,10 +25,10 @@ class SensorParameterCard extends StatefulWidget {
 class _SensorParameterCardState extends State<SensorParameterCard> {
   Tuple2<Color, AssetImage> getParameterColorAndBackground() {
     switch (widget.parameterStatus) {
-      case "warning":
+      case ParameterStatus.warning:
         return const Tuple2<Color, AssetImage>(
             (Colors.yellow), AssetImage('assets/warning-parameter.jpeg'));
-      case "danger":
+      case ParameterStatus.danger:
         return const Tuple2<Color, AssetImage>(
             (Colors.red), AssetImage('assets/danger-parameter.jpeg'));
       default:
@@ -60,7 +62,7 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                       fontSize: 16, fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  widget.parameterStatus == "normal"
+                  widget.parameterStatus == ParameterStatus.normal
                       ? "Normal"
                       : widget.parameterRecommendation ?? "null",
                   style:
