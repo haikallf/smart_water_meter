@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:tuple/tuple.dart';
 
@@ -26,11 +27,11 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
   Tuple2<Color, AssetImage> getParameterColorAndBackground() {
     switch (widget.parameterStatus) {
       case ParameterStatus.warning:
-        return const Tuple2<Color, AssetImage>(
-            (Colors.yellow), AssetImage('assets/warning-parameter.jpeg'));
+        return const Tuple2<Color, AssetImage>((ColorConstants.warningYellow),
+            AssetImage('assets/warning-parameter.jpeg'));
       case ParameterStatus.danger:
-        return const Tuple2<Color, AssetImage>(
-            (Colors.red), AssetImage('assets/danger-parameter.jpeg'));
+        return const Tuple2<Color, AssetImage>((ColorConstants.dangerRed),
+            AssetImage('assets/danger-parameter.jpeg'));
       default:
         return const Tuple2<Color, AssetImage>(
             (Colors.black), AssetImage('assets/normal-parameter.jpeg'));
@@ -65,8 +66,10 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                   widget.parameterStatus == ParameterStatus.normal
                       ? "Normal"
                       : widget.parameterRecommendation ?? "null",
-                  style:
-                      TextStyle(color: getParameterColorAndBackground().item1),
+                  style: TextStyle(
+                      color: widget.parameterStatus == ParameterStatus.normal
+                          ? ColorConstants.gray
+                          : getParameterColorAndBackground().item1),
                 )
               ],
             ),
@@ -86,7 +89,7 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: Colors.black38))
+                          color: ColorConstants.gray))
                 ])),
           ]),
     );
