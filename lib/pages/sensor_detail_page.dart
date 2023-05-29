@@ -17,7 +17,43 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
         padding: EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [Text("Sensor Kolam A-2"), Text("Normal")],
+          children: [
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 12),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Sensor Kolam A-2",
+                        style: TextStyle(
+                            fontSize: 31, fontWeight: FontWeight.w700),
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(120),
+                            border: Border.all(color: Colors.black)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              size: 10,
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Normal",
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
+                      )
+                    ]))
+          ],
         ),
       )),
     );
