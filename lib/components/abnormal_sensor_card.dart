@@ -28,7 +28,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
           Row(
             children: [
               Icon(Icons.wifi_tethering),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
@@ -37,7 +37,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           RichText(
@@ -47,13 +47,13 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                   children: [
                 TextSpan(
                     text: "2",
-                    style:
-                        TextStyle(fontSize: 31, fontWeight: FontWeight.w700)),
+                    style: const TextStyle(
+                        fontSize: 31, fontWeight: FontWeight.w700)),
                 TextSpan(text: " Sensor", style: TextStyle(fontSize: 13))
               ])),
           Text(
             "Tidak Normal",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           )
         ]),
       ),

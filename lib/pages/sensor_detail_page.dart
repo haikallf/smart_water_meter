@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/components/sensor_detail_tag.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 
 class SensorDetailPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,41 +34,17 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                       ),
 
                       // MARK: Sensor Quality Tag
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(120),
-                            border: Border.all(color: Colors.black)),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              size: 10,
-                              color: Colors.green,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              "Baik",
-                              style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.w700),
-                            )
-                          ],
-                        ),
-                      )
+                      SensorDetailTag(status: "buruk")
                     ])),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 14),
+              padding: const EdgeInsets.symmetric(vertical: 14),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
                         SensorParameterCard(),
-                        SizedBox(
+                        const SizedBox(
                           height: 14,
                         ),
                         SensorParameterCard(),
@@ -80,11 +57,11 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                     Column(
                       children: [
                         SensorParameterCard(),
-                        SizedBox(
+                        const SizedBox(
                           height: 14,
                         ),
                         SensorParameterCard(),
-                        SizedBox(
+                        const SizedBox(
                           height: 14,
                         ),
                         SensorParameterCard(),
