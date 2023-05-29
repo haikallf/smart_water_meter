@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             secondary: Colors.black,
           ),
           appBarTheme: AppBarTheme(
-            color: Colors.black,
+            color: Colors.white,
             //other options
           )),
       home: HomePage(),

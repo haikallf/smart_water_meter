@@ -36,7 +36,11 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                  Text("Image")
+                  // TODO: Change Icon
+                  Icon(
+                    Icons.person,
+                    color: Colors.black,
+                  )
                 ],
               ),
             ),

@@ -11,7 +11,7 @@ class _SensorCardState extends State<SensorCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12),
+      padding: EdgeInsets.only(top: 12, bottom: 12, left: 12),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.black)),
@@ -38,7 +38,11 @@ class _SensorCardState extends State<SensorCard> {
             )
           ],
         ),
-        Text("Icon")
+        // TODO: CHANGE ICON
+        Icon(
+          Icons.chevron_right,
+          size: 32,
+        )
       ]),
     );
   }
