@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
+import 'package:smart_water_meter/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,10 +38,17 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   // TODO: Change Icon
-                  Icon(
-                    Icons.person,
-                    color: Colors.black,
-                  )
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()));
+                      },
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      )),
                 ],
               ),
             ),
