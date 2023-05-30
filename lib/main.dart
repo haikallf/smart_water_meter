@@ -3,6 +3,7 @@ import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
+import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 
 void main() {
   runApp(const MyApp());

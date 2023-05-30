@@ -32,10 +32,10 @@ class _ProfilePageState extends State<ProfilePage> {
     ];
 
     return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
+      backgroundColor: const Color(0xFFF4F4F4),
       appBar: AppBar(
         title: const Text(
-          "Profile",
+          "Profil",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
       ),
@@ -92,20 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 // MARK: ListView
-                Container(
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.12),
-                            spreadRadius: 0,
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          )
-                        ]),
-                    child: CustomListView(listItems: profileList))
+                CustomListView(listItems: profileList)
               ],
             ),
             Padding(
