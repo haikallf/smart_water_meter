@@ -15,7 +15,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: []),
+      appBar: AppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(
