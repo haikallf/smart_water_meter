@@ -30,6 +30,7 @@ class CustomListView extends StatelessWidget {
             },
             separatorBuilder: (context, index) {
               return const Divider(
+                height: 1,
                 color: Color(0x1A000000),
               );
             },

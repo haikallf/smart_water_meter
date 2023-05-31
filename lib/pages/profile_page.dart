@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
@@ -14,6 +15,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void showCustomAlertDialog(
+      BuildContext context,
+      String content,
+      String cancelButtonText,
+      String confirmationButtonText,
+      VoidCallback? onTap,
+      [String? title,
+      bool? isDanger]) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomAlert(
+            content: content,
+            cancelButtonText: cancelButtonText,
+            confirmationButtonText: confirmationButtonText,
+            onTap: onTap);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Tuple2<String, VoidCallback?>> profileList = [
@@ -97,7 +118,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-              child: CustomButton(onTap: () {}, text: "Keluar"),
+              child: CustomButton(
+                  onTap: () {
+                    showCustomAlertDialog(context, "Kamu yakin ingin keluar?",
+                        "Batal", "Keluar", () {});
+                  },
+                  text: "Keluar"),
             )
           ],
         ),
