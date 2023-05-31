@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
@@ -11,6 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3))
+        .then((value) => {FlutterNativeSplash.remove()});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

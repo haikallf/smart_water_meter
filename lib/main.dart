@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
@@ -6,6 +7,10 @@ import 'package:smart_water_meter/pages/sensor_detail_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   runApp(const MyApp());
 }
 
@@ -45,7 +50,7 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
             //other options
           )),
-      home: ProfilePage(),
+      home: HomePage(),
     );
   }
 }
