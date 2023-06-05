@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context) => ProfilePage()));
                       },
                       icon: Icon(
-                        Icons.person,
+                        Iconsax.profile_circle5,
                         color: Colors.black,
                       )),
                 ],
@@ -63,7 +64,9 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // MARK: Banner
-            Padding(
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8), color: Colors.white),
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
               child: Image(image: AssetImage('assets/banner-image.jpeg')),
             ),

@@ -27,7 +27,16 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
-              Icon(Icons.wifi_tethering),
+              Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(1000)),
+                  child: Image(
+                      image: AssetImage(
+                    "assets/sensor-icon.png",
+                  ))),
+              // Icon(Icons.wifi_tethering),
               const SizedBox(
                 width: 8,
               ),

@@ -51,6 +51,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " ℃",
                           parameterStatus: ParameterStatus.warning,
                           parameterRecommendation: "Turunkan suhu air",
+                          parameterBackground: "temp",
                         ),
                         const SizedBox(
                           height: 14,
@@ -61,6 +62,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " %",
                           parameterStatus: ParameterStatus.normal,
                           parameterRecommendation: "",
+                          parameterBackground: "do",
                         ),
                         SizedBox(
                           height: 14,
@@ -71,6 +73,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " mg/mL",
                           parameterStatus: ParameterStatus.warning,
                           parameterRecommendation: "Tambahkan 10g/mL",
+                          parameterBackground: "ammonia",
                         ),
                       ],
                     ),
@@ -82,6 +85,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " pH",
                           parameterStatus: ParameterStatus.normal,
                           parameterRecommendation: "",
+                          parameterBackground: "ph",
                         ),
                         const SizedBox(
                           height: 14,
@@ -92,6 +96,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " NTU",
                           parameterStatus: ParameterStatus.danger,
                           parameterRecommendation: "Lakukan koagulasi",
+                          parameterBackground: "turbidity",
                         ),
                         const SizedBox(
                           height: 14,
@@ -102,6 +107,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterUnit: " %",
                           parameterStatus: ParameterStatus.normal,
                           parameterRecommendation: "",
+                          parameterBackground: "salinity",
                         ),
                       ],
                     )

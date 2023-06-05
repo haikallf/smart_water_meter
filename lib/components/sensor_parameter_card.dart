@@ -10,7 +10,8 @@ class SensorParameterCard extends StatefulWidget {
       required this.parameterValue,
       required this.parameterUnit,
       required this.parameterStatus,
-      this.parameterRecommendation});
+      this.parameterRecommendation,
+      required this.parameterBackground});
 
   final String parameterName;
   final String parameterValue;
@@ -18,23 +19,26 @@ class SensorParameterCard extends StatefulWidget {
   final String
       parameterStatus; // normal, warning, danger --> enums/parameter_status.dart
   final String? parameterRecommendation;
+  final String parameterBackground;
 
   @override
   State<SensorParameterCard> createState() => _SensorParameterCardState();
 }
 
 class _SensorParameterCardState extends State<SensorParameterCard> {
-  Tuple2<Color, AssetImage> getParameterColorAndBackground() {
+  Tuple3<Color, Color, AssetImage> getParameterColorAndBackground() {
     switch (widget.parameterStatus) {
       case ParameterStatus.warning:
-        return const Tuple2<Color, AssetImage>((ColorConstants.warningYellow),
-            AssetImage('assets/warning-parameter.jpeg'));
+        return Tuple3<Color, Color, AssetImage>((Color(0xFF201C01)),
+            (Color(0xFFA1951D)), AssetImage('assets/param-warning.png'));
       case ParameterStatus.danger:
-        return const Tuple2<Color, AssetImage>((ColorConstants.dangerRed),
-            AssetImage('assets/danger-parameter.jpeg'));
+        return Tuple3<Color, Color, AssetImage>((Color(0xFF3E0500)),
+            (Color(0xFFB2857F)), AssetImage('assets/param-danger.png'));
       default:
-        return const Tuple2<Color, AssetImage>(
-            (Colors.black), AssetImage('assets/normal-parameter.jpeg'));
+        return Tuple3<Color, Color, AssetImage>(
+            (Color(0xFF011E2E)),
+            (Color(0xFF747779)),
+            AssetImage('assets/param-${widget.parameterBackground}.png'));
     }
   }
 
@@ -46,9 +50,9 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 17),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: getParameterColorAndBackground().item1),
+          // border: Border.all(color: getParameterColorAndBackground().item1),
           image: DecorationImage(
-              image: getParameterColorAndBackground().item2,
+              image: getParameterColorAndBackground().item3,
               fit: BoxFit.cover)),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,10 +70,8 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                   widget.parameterStatus == ParameterStatus.normal
                       ? "Normal"
                       : widget.parameterRecommendation ?? "null",
-                  style: TextStyle(
-                      color: widget.parameterStatus == ParameterStatus.normal
-                          ? ColorConstants.gray
-                          : getParameterColorAndBackground().item1),
+                  style:
+                      TextStyle(color: getParameterColorAndBackground().item2),
                 )
               ],
             ),
@@ -86,10 +88,10 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                           color: getParameterColorAndBackground().item1)),
                   TextSpan(
                       text: widget.parameterUnit,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: ColorConstants.gray))
+                          color: getParameterColorAndBackground().item2))
                 ])),
           ]),
     );
