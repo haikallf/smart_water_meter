@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
@@ -15,6 +16,21 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String newFullName = "";
+  bool isFullNameFieldFocus = false;
+
+  void handleFullNameChange(String value) {
+    setState(() {
+      newFullName = value;
+    });
+  }
+
+  void handleFullNameFieldFocusChange(bool isFocused) {
+    setState(() {
+      isFullNameFieldFocus = isFocused;
+    });
+  }
+
   void showCustomAlertDialog(
       BuildContext context,
       String content,
@@ -33,6 +49,96 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: onTap);
       },
     );
+  }
+
+  void changeSensorNameModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setModalState) {
+            return IntrinsicHeight(
+              child: Container(
+                color: Colors.white,
+                child: Column(children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                width: 1.0, color: Color(0x1A000000)))),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(Icons.chevron_left)),
+                        Text("Ubah Nama",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Nama Lengkap",
+                              style: TextStyle(
+                                  color: isFullNameFieldFocus
+                                      ? Colors.blue
+                                      : Colors.black)),
+                          Focus(
+                            onFocusChange: (isFocus) {
+                              setModalState(() {
+                                handleFullNameFieldFocusChange(isFocus);
+                              });
+                            },
+                            child: Column(children: [
+                              TextField(
+                                onChanged: (value) {
+                                  handleFullNameChange(value.toString());
+                                },
+                                maxLength: 32,
+                                style: TextStyle(fontSize: 16),
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  contentPadding: const EdgeInsets.all(12),
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.blue)),
+                                  fillColor: Colors.grey[100],
+                                  filled: true,
+                                ),
+                              ),
+                            ]),
+                          )
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: CustomButton(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        text: "Simpan"),
+                  ),
+                  const SizedBox(
+                    height: 32,
+                  ),
+                ]),
+              ),
+            );
+          });
+        });
   }
 
   @override
@@ -74,20 +180,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       // MARK: Profile Avatar
-                      Container(
-                        width: 96,
-                        height: 96,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(48),
-                            color: Color(0xFFD9D9D9)),
-                        child: const Icon(
-                          Icons.person,
-                          size: 48,
-                        ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(48.0),
+                        child: const Image(
+                            height: 96,
+                            width: 96,
+                            image: AssetImage("assets/profile-avatar.png")),
                       ),
 
                       const SizedBox(
-                        height: 16,
+                        height: 8,
                       ),
 
                       // MARK: Edit Username
@@ -96,16 +198,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Text(
                             "Adang Susanyo",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w700),
+                            style: TextStyle(fontSize: 20),
                           ),
-                          // IconButton(
-                          //     onPressed: () {},
-                          //     icon: const Icon(
-                          //       Icons.edit_calendar_outlined,
-                          //       size: 24,
-                          //       color: Colors.black,
-                          //     ))
+                          IconButton(
+                              onPressed: () {
+                                changeSensorNameModalBottomSheet(context);
+                              },
+                              icon: const Icon(
+                                Iconsax.edit,
+                                size: 24,
+                                color: Colors.black,
+                              ))
                         ],
                       )
                     ],

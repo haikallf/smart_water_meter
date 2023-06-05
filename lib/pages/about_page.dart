@@ -5,6 +5,8 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     String content =
         '''Kolam Apps adalah sebuah aplikasi yang dirancang untuk memantau kondisi kolam ikan. Aplikasi ini terintegrasi dengan sensor pintar yang dapat mendeteksi suhu air, kadar pH, salinitas, kadar oksigen terlarut, kekeruhan, dan kadar amonia di dalam air. Dengan adanya Kolam Apps, para peternak ikan tidak perlu lagi khawatir mengalami kegagalan panen karena mereka dapat memantau kondisi kolam secara real-time melalui aplikasi ini.
 
@@ -26,8 +28,10 @@ Untuk menghubungkan sensor pintar dengan aplikasi ini, para pengguna dapat melak
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Placeholder(
-                fallbackHeight: 219,
+              Image(
+                width: width,
+                image: const AssetImage("assets/about-banner.png"),
+                fit: BoxFit.fitWidth,
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -35,7 +39,7 @@ Untuk menghubungkan sensor pintar dengan aplikasi ini, para pengguna dapat melak
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Kolam Sensor App",
+                      "IkanKu App",
                       style: TextStyle(fontSize: 25),
                     ),
                     const SizedBox(
