@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
+import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
@@ -222,11 +223,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomButton(
-                  onTap: () {
-                    showCustomAlertDialog(context, "Kamu yakin ingin keluar?",
-                        "Batal", "Keluar", () {});
-                  },
-                  text: "Keluar"),
+                onTap: () {
+                  showCustomAlertDialog(context, "Kamu yakin ingin keluar?",
+                      "Batal", "Keluar", () {});
+                },
+                text: "Keluar",
+                backgroundColor: ColorConstants.dangerRed,
+              ),
             )
           ],
         ),

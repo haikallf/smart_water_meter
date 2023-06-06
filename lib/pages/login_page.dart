@@ -123,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: CustomButton(
                       onTap: signIn,
                       text: "Masuk",
+                      isDisabled: isLoginButtonDisabled(),
                     ),
                   )
                 ],
