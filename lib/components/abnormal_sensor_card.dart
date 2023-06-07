@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
 
 class AbnormalSensorCard extends StatefulWidget {
@@ -28,11 +29,11 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
           Row(
             children: [
               Container(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.circular(1000)),
-                  child: Image(
+                  child: const Image(
                       image: AssetImage(
                     "assets/sensor-icon.png",
                   ))),
@@ -42,27 +43,25 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
               ),
               Text(
                 "Sensor Kolam A-1",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                style: const TextStyleConstant().heading06,
               )
             ],
           ),
           const SizedBox(
-            height: 16,
+            height: 27,
           ),
           RichText(
               text: TextSpan(
                   text: "",
                   style: DefaultTextStyle.of(context).style,
                   children: [
+                TextSpan(text: "2", style: const TextStyleConstant().heading02),
                 TextSpan(
-                    text: "2",
-                    style: const TextStyle(
-                        fontSize: 31, fontWeight: FontWeight.w700)),
-                const TextSpan(text: " Sensor", style: TextStyle(fontSize: 13))
+                    text: " Sensor", style: const TextStyleConstant().body03)
               ])),
           Text(
             "Tidak Normal",
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            style: const TextStyleConstant().heading05,
           )
         ]),
       ),

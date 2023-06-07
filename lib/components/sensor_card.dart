@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/sensor_tag.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 import '../pages/sensor_detail_page.dart';
 
@@ -26,25 +27,27 @@ class _SensorCardState extends State<SensorCard> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.black)),
-        child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SensorTag(sensorStatus: SensorStatus.baik),
-                  Text(
-                    "Sensor Kolam A-1",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                  )
-                ],
+              SensorTag(sensorStatus: SensorStatus.baik),
+              const SizedBox(
+                height: 4,
               ),
-              // TODO: CHANGE ICON
-              Icon(
-                Icons.chevron_right,
-                size: 32,
+              Text(
+                "Sensor Kolam A-1",
+                style: const TextStyleConstant().heading04,
               )
-            ]),
+            ],
+          ),
+          // TODO: CHANGE ICON
+          const Icon(
+            Icons.chevron_right,
+            size: 32,
+          )
+        ]),
       ),
     );
   }

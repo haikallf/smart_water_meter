@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -37,6 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.controller(value.toString());
           },
           obscureText: widget.obscureText,
+          style: const TextStyleConstant().body02,
           decoration: InputDecoration(
               prefixIcon: widget.prefixIcon ?? const Icon(null),
               enabledBorder: const OutlineInputBorder(

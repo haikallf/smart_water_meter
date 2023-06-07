@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
@@ -42,15 +43,15 @@ class MyApp extends StatelessWidget {
 
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.black,
-            primary: Colors.black,
+            seedColor: ColorConstant.colorsprimary,
+            primary: ColorConstant.colorsprimary,
             secondary: Colors.black,
           ),
           appBarTheme: const AppBarTheme(
             color: Colors.white,
             //other options
           )),
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }

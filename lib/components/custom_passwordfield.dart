@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class CustomPasswordField extends StatefulWidget {
   const CustomPasswordField(
@@ -36,6 +37,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
             widget.controller(value.toString());
           },
           obscureText: _obscureText,
+          style: const TextStyleConstant().body02,
           decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock_outline,

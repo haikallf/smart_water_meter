@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,11 +40,13 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Halo,"),
+                      Text(
+                        "Halo,",
+                        style: const TextStyleConstant().paragraph02,
+                      ),
                       Text(
                         "Adang Susanyo",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w700),
+                        style: const TextStyleConstant().heading04,
                       )
                     ],
                   ),
@@ -68,7 +71,7 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8), color: Colors.white),
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              child: Image(image: AssetImage('assets/banner-image.jpeg')),
+              child: const Image(image: AssetImage('assets/banner-image.jpeg')),
             ),
 
             // MARK: Abnormal Sensors
@@ -78,10 +81,10 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "2 Sensor butuh dicek",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                    "2 Sensor Butuh Dicek",
+                    style: const TextStyleConstant().label02,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -118,16 +121,15 @@ class _HomePageState extends State<HomePage> {
 
             // MARK: All Sensors
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Semua Sensor",
-                      style:
-                          TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                    Text(
+                      "Semua Alat",
+                      style: const TextStyleConstant().label02,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 14,
                     ),
                     SensorCard(),
