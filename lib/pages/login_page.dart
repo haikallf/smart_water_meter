@@ -4,6 +4,7 @@ import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -79,23 +80,24 @@ class _LoginPageState extends State<LoginPage> {
                 // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Masuk",
-                    style: TextStyle(fontSize: 31, fontWeight: FontWeight.w600),
+                    style: const TextStyleConstant().heading02,
                   ),
-                  const Text(
+                  Text(
                     "Masuk untuk mengakses alat kamu",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    style: const TextStyleConstant().paragraph02,
                   ),
                   const SizedBox(
                     height: 25,
                   ),
-                  Text(
-                    "Email",
-                    style: TextStyle(
-                        color: isEmailFieldFocus
-                            ? ColorConstant.colorsprimary
-                            : ColorConstant.colorsNeutral50),
+                  Text("Email",
+                      style: const TextStyleConstant().body03.copyWith(
+                          color: isEmailFieldFocus
+                              ? ColorConstant.colorsprimary
+                              : ColorConstant.colorsNeutral50)),
+                  const SizedBox(
+                    height: 4,
                   ),
                   CustomTextField(
                     controller: handleEmailChange,
@@ -108,20 +110,23 @@ class _LoginPageState extends State<LoginPage> {
                     formFocusHandler: handleEmailFieldFocusChange,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 16,
                   ),
-                  Text("Password",
-                      style: TextStyle(
+                  Text("Kata Sandi",
+                      style: const TextStyleConstant().body03.copyWith(
                           color: isPasswordFieldFocus
                               ? ColorConstant.colorsprimary
                               : ColorConstant.colorsNeutral50)),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   CustomPasswordField(
                     controller: handlePasswordChange,
                     hintText: "···········",
                     formFocusHandler: handlePasswordFieldFocusChange,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 32,
                   ),
                   AbsorbPointer(
                     absorbing: isLoginButtonDisabled(),

@@ -4,6 +4,7 @@ class TextStyleConstant {
   const TextStyleConstant();
 
   TextStyle get heading01 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 39,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -13,6 +14,7 @@ class TextStyleConstant {
       );
 
   TextStyle get heading02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 31,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -22,6 +24,7 @@ class TextStyleConstant {
       );
 
   TextStyle get heading03 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 25,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -31,6 +34,7 @@ class TextStyleConstant {
       );
 
   TextStyle get heading04 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 20,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -40,6 +44,7 @@ class TextStyleConstant {
       );
 
   TextStyle get heading05 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 16,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -49,6 +54,7 @@ class TextStyleConstant {
       );
 
   TextStyle get heading06 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 13,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -58,6 +64,7 @@ class TextStyleConstant {
       );
 
   TextStyle get title01 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 25,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -67,6 +74,7 @@ class TextStyleConstant {
       );
 
   TextStyle get title02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 20,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -76,6 +84,7 @@ class TextStyleConstant {
       );
 
   TextStyle get title03 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 16,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -85,6 +94,7 @@ class TextStyleConstant {
       );
 
   TextStyle get paragraph01 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 20,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -94,6 +104,7 @@ class TextStyleConstant {
       );
 
   TextStyle get paragraph02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 16,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -103,6 +114,7 @@ class TextStyleConstant {
       );
 
   TextStyle get paragraph03 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 13,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -112,6 +124,7 @@ class TextStyleConstant {
       );
 
   TextStyle get body01 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 20,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -121,6 +134,7 @@ class TextStyleConstant {
       );
 
   TextStyle get body02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 16,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -130,6 +144,7 @@ class TextStyleConstant {
       );
 
   TextStyle get body03 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 13,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -139,6 +154,7 @@ class TextStyleConstant {
       );
 
   TextStyle get label01 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 20,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -148,6 +164,7 @@ class TextStyleConstant {
       );
 
   TextStyle get label02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 16,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -157,6 +174,7 @@ class TextStyleConstant {
       );
 
   TextStyle get label03 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 13,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
@@ -175,6 +193,7 @@ class TextStyleConstant {
       );
 
   TextStyle get caption02 => const TextStyle(
+        fontFamily: "Roboto",
         fontSize: 10,
         decoration: TextDecoration.none,
         fontStyle: FontStyle.normal,
