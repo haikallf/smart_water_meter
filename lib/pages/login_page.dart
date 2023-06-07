@@ -26,14 +26,14 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool isLoginButtonDisabled() {
-    return (email == "" && password == "");
-  }
-
   bool isEmailFieldFocus = false;
   bool isPasswordFieldFocus = false;
   String email = "";
   String password = "";
+
+  bool isLoginButtonDisabled() {
+    return (email == "" || password == "");
+  }
 
   void handleEmailFieldFocusChange(bool isFocused) {
     setState(() {
