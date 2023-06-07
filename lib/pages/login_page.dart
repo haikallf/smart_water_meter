@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -92,14 +93,18 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     "Email",
                     style: TextStyle(
-                        color: isEmailFieldFocus ? Colors.blue : Colors.black),
+                        color: isEmailFieldFocus
+                            ? ColorConstant.colorsprimary
+                            : ColorConstant.colorsNeutral50),
                   ),
                   CustomTextField(
                     controller: handleEmailChange,
                     hintText: "contoh@email.com",
                     obscureText: false,
                     prefixIcon: Icon(Icons.person_outline,
-                        color: isEmailFieldFocus ? Colors.blue : Colors.black),
+                        color: isEmailFieldFocus
+                            ? ColorConstant.colorsprimary
+                            : Colors.black),
                     formFocusHandler: handleEmailFieldFocusChange,
                   ),
                   const SizedBox(
@@ -108,8 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                   Text("Password",
                       style: TextStyle(
                           color: isPasswordFieldFocus
-                              ? Colors.blue
-                              : Colors.black)),
+                              ? ColorConstant.colorsprimary
+                              : ColorConstant.colorsNeutral50)),
                   CustomPasswordField(
                     controller: handlePasswordChange,
                     hintText: "···········",

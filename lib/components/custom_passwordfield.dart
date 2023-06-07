@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 
 class CustomPasswordField extends StatefulWidget {
   const CustomPasswordField(
@@ -38,7 +39,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
           decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.lock_outline,
-                color: isFormFocus ? Colors.blue : Colors.black,
+                color: isFormFocus ? ColorConstant.colorsprimary : Colors.black,
               ),
               suffixIcon: GestureDetector(
                 onTap: () {
@@ -48,15 +49,14 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
                 },
                 child: Icon(
                   _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: isFormFocus ? Colors.blue : Colors.black,
+                  color:
+                      isFormFocus ? ColorConstant.colorsprimary : Colors.black,
                 ),
               ),
               enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey)),
+                  borderSide: BorderSide(color: ColorConstant.colorsNeutral50)),
               focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
-              fillColor: Colors.grey[100],
-              filled: true,
+                  borderSide: BorderSide(color: ColorConstant.colorsprimary)),
               hintText: widget.hintText,
               contentPadding: const EdgeInsets.symmetric(horizontal: 12)),
         ),

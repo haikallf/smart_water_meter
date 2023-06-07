@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -39,11 +40,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           decoration: InputDecoration(
               prefixIcon: widget.prefixIcon ?? const Icon(null),
               enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey)),
+                  borderSide: BorderSide(color: ColorConstant.colorsNeutral50)),
               focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue)),
-              fillColor: Colors.grey[100],
-              filled: true,
+                  borderSide: BorderSide(color: ColorConstant.colorsprimary)),
               hintText: widget.hintText,
               contentPadding: const EdgeInsets.symmetric(horizontal: 12)),
         ),

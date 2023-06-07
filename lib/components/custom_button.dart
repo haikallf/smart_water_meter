@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton(
@@ -7,7 +7,7 @@ class CustomButton extends StatefulWidget {
       required this.onTap,
       required this.text,
       this.isDisabled = false,
-      this.backgroundColor = Colors.black});
+      this.backgroundColor = ColorConstant.colorsprimary});
 
   final Function()? onTap;
   final String text;
@@ -25,8 +25,9 @@ class _CustomButtonState extends State<CustomButton> {
       onPressed: widget.onTap,
       style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          backgroundColor: MaterialStateProperty.all<Color>(
-              widget.isDisabled ? Colors.grey : widget.backgroundColor),
+          backgroundColor: MaterialStateProperty.all<Color>(widget.isDisabled
+              ? ColorConstant.colorsNeutral80
+              : widget.backgroundColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
