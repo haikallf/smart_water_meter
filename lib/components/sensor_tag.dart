@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
@@ -13,16 +13,22 @@ class SensorTag extends StatefulWidget {
 }
 
 class _SensorTagState extends State<SensorTag> {
-  Tuple2<Color, String> getSensorTag() {
+  Tuple3<Color, Color, String> getSensorTag() {
     switch (widget.sensorStatus) {
       case SensorStatus.baik:
-        return const Tuple2<Color, String>((ColorConstants.green), "Baik");
+        return const Tuple3<Color, Color, String>(
+            (ColorConstant.colorssuccess), (Colors.black), "Baik");
       case SensorStatus.cukup:
-        return const Tuple2<Color, String>((ColorConstants.yellow), "Cukup");
+        return const Tuple3<Color, Color, String>(
+            (ColorConstant.colorswarningcontainer),
+            (ColorConstant.colorswarning),
+            "Cukup");
       case SensorStatus.buruk:
-        return const Tuple2<Color, String>((ColorConstants.dangerRed), "Buruk");
+        return const Tuple3<Color, Color, String>((ColorConstant.colorsdanger),
+            (ColorConstant.colorsdanger), "Buruk");
       default:
-        return const Tuple2<Color, String>((Colors.black), "null");
+        return const Tuple3<Color, Color, String>(
+            (Colors.black), (Colors.black), "null");
     }
   }
 
@@ -39,8 +45,10 @@ class _SensorTagState extends State<SensorTag> {
           width: 4,
         ),
         Text(
-          getSensorTag().item2,
-          style: const TextStyleConstant().body03,
+          getSensorTag().item3,
+          style: const TextStyleConstant()
+              .body03
+              .copyWith(color: getSensorTag().item2),
         )
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
 
@@ -23,15 +24,18 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
         width: 265,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.black)),
+          color: ColorConstant.colorsVariant90,
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
               Container(
                   padding: const EdgeInsets.all(4),
+                  height: 24,
+                  width: 24,
                   decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: ColorConstant.colorsprimary,
                       borderRadius: BorderRadius.circular(1000)),
                   child: const Image(
                       image: AssetImage(

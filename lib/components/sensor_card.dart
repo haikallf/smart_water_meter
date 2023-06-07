@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/sensor_tag.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 
@@ -26,7 +27,7 @@ class _SensorCardState extends State<SensorCard> {
         padding: const EdgeInsets.only(top: 12, bottom: 12, left: 12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.black)),
+            border: Border.all(color: ColorConstant.colorsNeutral80)),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(
