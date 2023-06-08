@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class ListItem extends StatefulWidget {
   const ListItem({super.key, required this.text, required this.onTap});
@@ -15,12 +16,12 @@ class _ListItemState extends State<ListItem> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(16, 16, 8, 16),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             widget.text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+            style: const TextStyleConstant().label02,
           ),
           const Icon(
             Icons.chevron_right,

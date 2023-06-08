@@ -3,7 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
@@ -77,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: Icon(Icons.chevron_left)),
+                            child: const Icon(Icons.chevron_left)),
                         Text("Ubah Nama",
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w700)),
@@ -160,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F4F4),
+      backgroundColor: ColorConstant.colorsVariant90,
       appBar: AppBar(
         title: const Text(
           "Profil",
@@ -199,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           Text(
                             "Adang Susanyo",
-                            style: TextStyle(fontSize: 20),
+                            style: const TextStyleConstant().title02,
                           ),
                           IconButton(
                               onPressed: () {
@@ -228,7 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       "Batal", "Keluar", () {});
                 },
                 text: "Keluar",
-                backgroundColor: ColorConstants.dangerRed,
+                backgroundColor: ColorConstant.colorsdanger,
               ),
             )
           ],
