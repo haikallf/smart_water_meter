@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
 
 class SensorSettingsPage extends StatefulWidget {
@@ -75,7 +76,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                   child: Column(children: [
                     Container(
                       padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   width: 1.0, color: Color(0x1A000000)))),
@@ -87,21 +88,25 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                               },
                               child: Icon(Icons.chevron_left)),
                           Text("Ubah Nama Alat",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700)),
+                              style: const TextStyleConstant().title03),
                         ],
                       ),
                     ),
                     Container(
-                        padding: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Nama Alat",
-                                style: TextStyle(
-                                    color: isSensorNameFieldFocus
-                                        ? Colors.blue
-                                        : Colors.black)),
+                                style: const TextStyleConstant()
+                                    .body03
+                                    .copyWith(
+                                        color: isSensorNameFieldFocus
+                                            ? ColorConstant.colorssecondary
+                                            : ColorConstant.colorsNeutral50)),
+                            const SizedBox(
+                              height: 4,
+                            ),
                             Focus(
                               onFocusChange: (isFocus) {
                                 setModalState(() {
@@ -114,18 +119,18 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                                     handleSensorNameChange(value.toString());
                                   },
                                   maxLength: 32,
-                                  style: TextStyle(fontSize: 16),
-                                  decoration: InputDecoration(
+                                  style: const TextStyleConstant().body02,
+                                  decoration: const InputDecoration(
                                     isDense: true,
-                                    contentPadding: const EdgeInsets.all(12),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.blue)),
-                                    fillColor: Colors.grey[100],
-                                    filled: true,
+                                    contentPadding: EdgeInsets.all(12),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                ColorConstant.colorsNeutral50)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color:
+                                                ColorConstant.colorssecondary)),
                                   ),
                                 ),
                               ]),
@@ -173,10 +178,9 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                             onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: Icon(Icons.chevron_left)),
+                            child: const Icon(Icons.chevron_left)),
                         Text("Sensor Kolam A-1",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w700)),
+                            style: const TextStyleConstant().title03),
                       ],
                     ),
                   ),
@@ -186,13 +190,12 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(16),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Ubah Nama Sensor",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700)),
-                          Icon(Icons.chevron_right),
+                              style: const TextStyleConstant().label02),
+                          const Icon(Icons.chevron_right),
                         ],
                       ),
                     ),
@@ -208,14 +211,13 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(16),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text("Hapus Alat",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorConstants.red)),
+                              style: const TextStyleConstant()
+                                  .label02
+                                  .copyWith(color: ColorConstant.colorsdanger)),
                         ],
                       ),
                     ),
