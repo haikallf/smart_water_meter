@@ -3,6 +3,7 @@ import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
+import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
@@ -17,6 +18,10 @@ class SensorSettingsPage extends StatefulWidget {
 class _SensorSettingsPageState extends State<SensorSettingsPage> {
   String newSensorName = "";
   bool isSensorNameFieldFocus = false;
+  String snackBarMessage = "";
+
+  String selectedSensorId = "";
+  String selectedSensorName = "";
 
   void handleSensorNameChange(String value) {
     setState(() {
@@ -30,6 +35,19 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
     });
   }
 
+  void setSnackBarMessage(String value) {
+    setState(() {
+      snackBarMessage = value;
+    });
+  }
+
+  void setSelectedSensor(String sensorId, String sensorName) {
+    setState(() {
+      selectedSensorId = sensorId;
+      selectedSensorName = sensorName;
+    });
+  }
+
   void forceRebuild() {
     setState(() {});
   }
@@ -37,6 +55,10 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
   void closeAllModalBottomSheet() {
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+  }
+
+  bool isAbleToChangeSensorName() {
+    return newSensorName != "" && newSensorName != selectedSensorName;
   }
 
   void showCustomAlertDialog(
@@ -62,6 +84,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
   @override
   Widget build(BuildContext context) {
     void changeSensorNameModalBottomSheet(BuildContext context) {
+      handleSensorNameChange("");
       showModalBottomSheet(
           context: context,
           shape: RoundedRectangleBorder(
@@ -119,18 +142,21 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                               child: Column(children: [
                                 TextField(
                                   onChanged: (value) {
-                                    handleSensorNameChange(value.toString());
+                                    setModalState(() {
+                                      handleSensorNameChange(value.toString());
+                                    });
                                   },
                                   maxLength: 32,
                                   style: const TextStyleConstant().body02,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
+                                    hintText: selectedSensorName,
                                     isDense: true,
-                                    contentPadding: EdgeInsets.all(12),
-                                    enabledBorder: OutlineInputBorder(
+                                    contentPadding: const EdgeInsets.all(12),
+                                    enabledBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color:
                                                 ColorConstant.colorsNeutral50)),
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: const OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color:
                                                 ColorConstant.colorssecondary)),
@@ -142,11 +168,24 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                         )),
                     Padding(
                       padding: const EdgeInsets.all(16),
-                      child: CustomButton(
-                          onTap: () {
-                            closeAllModalBottomSheet();
-                          },
-                          text: "Simpan"),
+                      child: AbsorbPointer(
+                        absorbing: !isAbleToChangeSensorName(),
+                        child: CustomButton(
+                            isDisabled: !isAbleToChangeSensorName(),
+                            onTap: () {
+                              closeAllModalBottomSheet();
+
+                              setSnackBarMessage(
+                                  "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  CustomSnackBar(
+                                      content: Text(snackBarMessage)));
+
+                              setSelectedSensor("", "");
+                              handleSensorNameChange("");
+                            },
+                            text: "Simpan"),
+                      ),
                     ),
                     const SizedBox(
                       height: 32,
@@ -239,13 +278,19 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
 
     List<Tuple2<String, VoidCallback?>> sensorList = [
       Tuple2<String, VoidCallback?>("Sensor Kolam A-1", () {
+        setSelectedSensor("A-1", "Sensor Kolam A-1");
         sensorSettingModalBottomSheet(context);
       }),
-      Tuple2<String, VoidCallback?>("Sensor Kolam A-2", () {}),
-      Tuple2<String, VoidCallback?>("Sensor Kolam A-3", () {}),
+      Tuple2<String, VoidCallback?>("Sensor Kolam A-2", () {
+        setSelectedSensor("A-2", "Sensor Kolam A-2");
+        sensorSettingModalBottomSheet(context);
+      }),
+      Tuple2<String, VoidCallback?>("Sensor Kolam A-3", () {
+        setSelectedSensor("A-3", "Sensor Kolam A-3");
+        sensorSettingModalBottomSheet(context);
+      }),
       Tuple2<String, VoidCallback?>("Sensor Kolam B-1", () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SensorSettingsPage()));
+        setSelectedSensor("B-1", "Sensor Kolam B-1");
       }),
     ];
 

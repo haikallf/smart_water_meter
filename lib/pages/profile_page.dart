@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
-import 'package:iconoir_flutter/nav_arrow_left.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
+import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
@@ -21,6 +21,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String newFullName = "";
   bool isFullNameFieldFocus = false;
+  bool isSnackbarShown = false;
+  String snackBarMessage = "";
 
   void handleFullNameChange(String value) {
     setState(() {
@@ -31,6 +33,18 @@ class _ProfilePageState extends State<ProfilePage> {
   void handleFullNameFieldFocusChange(bool isFocused) {
     setState(() {
       isFullNameFieldFocus = isFocused;
+    });
+  }
+
+  void handleShowSnackBar(bool value) {
+    setState(() {
+      isSnackbarShown = value;
+    });
+  }
+
+  void handlsnackBarMessage(String value) {
+    setState(() {
+      snackBarMessage = value;
     });
   }
 
@@ -51,7 +65,15 @@ class _ProfilePageState extends State<ProfilePage> {
             confirmationButtonText: confirmationButtonText,
             onTap: onTap);
       },
-    );
+    ).then((value) => {
+          if (isSnackbarShown)
+            {
+              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+                content: Text(snackBarMessage),
+              )),
+              handleShowSnackBar(false)
+            }
+        });
   }
 
   void changeSensorNameModalBottomSheet(BuildContext context) {
@@ -60,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        builder: (context) {
+        builder: (bc) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
             return IntrinsicHeight(
@@ -140,6 +162,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(16),
                     child: CustomButton(
                         onTap: () {
+                          handlsnackBarMessage("Sukses");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              CustomSnackBar(content: Text(snackBarMessage)));
+
                           Navigator.of(context).pop();
                         },
                         text: "Simpan"),
@@ -237,8 +263,11 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               child: CustomButton(
                 onTap: () {
-                  showCustomAlertDialog(context, "Kamu yakin ingin keluar?",
-                      "Batal", "Keluar", () {});
+                  showCustomAlertDialog(
+                      context, "Kamu yakin ingin keluar?", "Batal", "Keluar",
+                      () {
+                    Navigator.of(context).pop();
+                  });
                 },
                 text: "Keluar",
                 backgroundColor: ColorConstant.colorsdanger,
