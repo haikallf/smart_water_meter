@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/sensor_detail_tag.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
@@ -16,7 +17,11 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const iconoir.NavArrowLeft()),
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
           child: Padding(

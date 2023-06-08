@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 
@@ -58,9 +59,10 @@ class _HomePageState extends State<HomePage> {
                             MaterialPageRoute(
                                 builder: (context) => ProfilePage()));
                       },
-                      icon: Icon(
-                        Iconsax.profile_circle5,
-                        color: Colors.black,
+                      icon: const ProfileCircle(
+                        height: 32,
+                        width: 32,
+                        color: ColorConstant.colorsprimary,
                       )),
                 ],
               ),
@@ -92,14 +94,6 @@ class _HomePageState extends State<HomePage> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        // Padding(
-                        //   padding: EdgeInsets.only(right: 10),
-                        //   child: Container(
-                        //       width: 200,
-                        //       height: 100,
-                        //       color: Colors.blue,
-                        //       child: Text("Item 1")),
-                        // ),
                         Container(
                           margin: const EdgeInsets.only(right: 10),
                           child: AbnormalSensorCard(),

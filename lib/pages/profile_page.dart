@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+import 'package:iconoir_flutter/nav_arrow_left.dart';
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
@@ -78,10 +79,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: const Icon(Icons.chevron_left)),
+                            child: const iconoir.Cancel()),
+                        const SizedBox(
+                          width: 8,
+                        ),
                         Text("Ubah Nama",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w700)),
+                            style: const TextStyleConstant().title03),
                       ],
                     ),
                   ),
@@ -93,8 +96,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text("Nama Lengkap",
                               style: TextStyle(
                                   color: isFullNameFieldFocus
-                                      ? Colors.blue
-                                      : Colors.black)),
+                                      ? ColorConstant.colorssecondary
+                                      : ColorConstant.colorsNeutral50)),
+                          const SizedBox(
+                            height: 4,
+                          ),
                           Focus(
                             onFocusChange: (isFocus) {
                               setModalState(() {
@@ -107,18 +113,23 @@ class _ProfilePageState extends State<ProfilePage> {
                                   handleFullNameChange(value.toString());
                                 },
                                 maxLength: 32,
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyleConstant().body02,
                                 decoration: InputDecoration(
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: iconoir.User(
+                                        color: isFullNameFieldFocus
+                                            ? ColorConstant.colorsprimary
+                                            : Colors.black),
+                                  ),
                                   isDense: true,
                                   contentPadding: const EdgeInsets.all(12),
                                   enabledBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.grey)),
                                   focusedBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue)),
-                                  fillColor: Colors.grey[100],
-                                  filled: true,
+                                      borderSide: BorderSide(
+                                          color: ColorConstant.colorsprimary)),
                                 ),
                               ),
                             ]),
@@ -163,6 +174,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: ColorConstant.colorsVariant90,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const iconoir.NavArrowLeft()),
         title: const Text(
           "Profil",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -206,10 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               onPressed: () {
                                 changeSensorNameModalBottomSheet(context);
                               },
-                              icon: const Icon(
-                                Iconsax.edit,
-                                size: 24,
-                                color: Colors.black,
+                              icon: const iconoir.EditPencil(
+                                color: ColorConstant.colorssecondary,
                               ))
                         ],
                       )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class AboutPage extends StatelessWidget {
@@ -17,6 +18,9 @@ Untuk menghubungkan sensor pintar dengan aplikasi ini, para pengguna dapat melak
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: const iconoir.NavArrowLeft()),
         title: const Text(
           "Tentang Aplikasi",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

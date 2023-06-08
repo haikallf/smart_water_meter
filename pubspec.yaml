@@ -36,8 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   tuple: ^2.0.1
   flutter_native_splash: ^2.3.0
-  iconsax: ^0.0.8
   iconoir_flutter: ^6.8.0
+  flutter_svg: ^2.0.6
 
 dev_dependencies:
   flutter_test:

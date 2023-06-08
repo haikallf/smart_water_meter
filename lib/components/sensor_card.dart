@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/sensor_tag.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
@@ -24,7 +25,7 @@ class _SensorCardState extends State<SensorCard> {
     return GestureDetector(
       onTap: goToDetailPage,
       child: Container(
-        padding: const EdgeInsets.only(top: 12, bottom: 12, left: 12),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: ColorConstant.colorsNeutral80)),
@@ -43,11 +44,7 @@ class _SensorCardState extends State<SensorCard> {
               )
             ],
           ),
-          // TODO: CHANGE ICON
-          const Icon(
-            Icons.chevron_right,
-            size: 32,
-          )
+          const iconoir.NavArrowRight()
         ]),
       ),
     );

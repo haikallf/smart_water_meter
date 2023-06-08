@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
@@ -38,7 +39,6 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
     Navigator.of(context).pop();
   }
 
-//
   void showCustomAlertDialog(
       BuildContext context,
       String content,
@@ -86,7 +86,10 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                               onTap: () {
                                 Navigator.of(context).pop();
                               },
-                              child: Icon(Icons.chevron_left)),
+                              child: const iconoir.NavArrowLeft()),
+                          const SizedBox(
+                            width: 8,
+                          ),
                           Text("Ubah Nama Alat",
                               style: const TextStyleConstant().title03),
                         ],
@@ -178,7 +181,10 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                             onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: const Icon(Icons.chevron_left)),
+                            child: const iconoir.Cancel()),
+                        const SizedBox(
+                          width: 8,
+                        ),
                         Text("Sensor Kolam A-1",
                             style: const TextStyleConstant().title03),
                       ],
@@ -195,7 +201,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                         children: [
                           Text("Ubah Nama Sensor",
                               style: const TextStyleConstant().label02),
-                          const Icon(Icons.chevron_right),
+                          const iconoir.NavArrowRight(),
                         ],
                       ),
                     ),
@@ -245,10 +251,13 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
+          leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const iconoir.NavArrowLeft()),
           title: const Text(
-        "Pengaturan Alat",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-      )),
+            "Pengaturan Alat",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          )),
       backgroundColor: ColorConstant.colorsVariant90,
       body: SafeArea(child: CustomListView(listItems: sensorList)),
     );

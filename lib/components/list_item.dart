@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class ListItem extends StatefulWidget {
@@ -23,10 +24,7 @@ class _ListItemState extends State<ListItem> {
             widget.text,
             style: const TextStyleConstant().label02,
           ),
-          const Icon(
-            Icons.chevron_right,
-            size: 24,
-          )
+          const iconoir.NavArrowRight()
         ]),
       ),
     );

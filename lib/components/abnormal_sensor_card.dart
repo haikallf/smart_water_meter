@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
@@ -37,11 +39,16 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                   decoration: BoxDecoration(
                       color: ColorConstant.colorsprimary,
                       borderRadius: BorderRadius.circular(1000)),
-                  child: const Image(
-                      image: AssetImage(
-                    "assets/sensor-icon.png",
-                  ))),
-              // Icon(Icons.wifi_tethering),
+                  child: SvgPicture.asset(
+                    "assets/wifi.svg",
+                    colorFilter:
+                        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    // color: Colors.white,
+                  )
+                  //     const iconoir.Wifi(
+                  //   color: Colors.white,
+                  // )
+                  ),
               const SizedBox(
                 width: 8,
               ),

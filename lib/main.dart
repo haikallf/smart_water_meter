@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
             //other options
           )),
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }
