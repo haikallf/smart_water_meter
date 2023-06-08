@@ -4,7 +4,6 @@ import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';

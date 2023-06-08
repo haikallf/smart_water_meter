@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
@@ -16,11 +16,14 @@ class _SensorDetailTagState extends State<SensorDetailTag> {
   Tuple2<Color, String> getSensorTag() {
     switch (widget.sensorStatus) {
       case SensorStatus.baik:
-        return const Tuple2<Color, String>((ColorConstants.green), "Baik");
+        return const Tuple2<Color, String>(
+            (ColorConstant.colorssuccess), "Baik");
       case SensorStatus.cukup:
-        return const Tuple2<Color, String>((ColorConstants.yellow), "Cukup");
+        return const Tuple2<Color, String>(
+            (ColorConstant.colorswarning), "Cukup");
       case SensorStatus.buruk:
-        return const Tuple2<Color, String>((ColorConstants.dangerRed), "Buruk");
+        return const Tuple2<Color, String>(
+            (ColorConstant.colorsdanger), "Buruk");
       default:
         return const Tuple2<Color, String>((Colors.black), "null");
     }

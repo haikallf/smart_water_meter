@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';

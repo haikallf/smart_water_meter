@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_water_meter/enums/color_constants.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 
 class CustomAlert extends StatefulWidget {
   const CustomAlert(
@@ -77,7 +77,7 @@ class _CustomAlertState extends State<CustomAlert> {
                       },
                       style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(
-                              ColorConstants.dangerRed),
+                              ColorConstant.colorsdanger),
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
                           shape:
@@ -85,7 +85,7 @@ class _CustomAlertState extends State<CustomAlert> {
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                       side: const BorderSide(
-                                          color: ColorConstants.dangerRed)))),
+                                          color: ColorConstant.colorsdanger)))),
                       child: Text(
                         widget.confirmationButtonText,
                         style: const TextStyle(
