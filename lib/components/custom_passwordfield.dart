@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 
@@ -39,22 +40,33 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
           obscureText: _obscureText,
           style: const TextStyleConstant().body02,
           decoration: InputDecoration(
-              prefixIcon: Icon(
-                Icons.lock_outline,
-                color: isFormFocus ? ColorConstant.colorsprimary : Colors.black,
-              ),
+              prefixIcon: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: KeyAltBack(
+                    color: isFormFocus
+                        ? ColorConstant.colorsprimary
+                        : Colors.black,
+                  )),
               suffixIcon: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _obscureText = !_obscureText;
-                  });
-                },
-                child: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color:
-                      isFormFocus ? ColorConstant.colorsprimary : Colors.black,
-                ),
-              ),
+                  onTap: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    child: _obscureText
+                        ? EyeEmpty(
+                            color: isFormFocus
+                                ? ColorConstant.colorsprimary
+                                : Colors.black,
+                          )
+                        : EyeOff(
+                            color: isFormFocus
+                                ? ColorConstant.colorsprimary
+                                : Colors.black,
+                          ),
+                  )),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: ColorConstant.colorsNeutral50)),
               focusedBorder: const OutlineInputBorder(

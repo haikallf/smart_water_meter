@@ -15,7 +15,7 @@ class CustomTextField extends StatefulWidget {
   final Function(String) controller;
   final String hintText;
   final bool obscureText;
-  final Icon? prefixIcon;
+  final Widget? prefixIcon;
   final Function(bool) formFocusHandler;
 
   @override

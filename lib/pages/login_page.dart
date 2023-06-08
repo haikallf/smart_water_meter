@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
@@ -103,10 +104,13 @@ class _LoginPageState extends State<LoginPage> {
                     controller: handleEmailChange,
                     hintText: "contoh@email.com",
                     obscureText: false,
-                    prefixIcon: Icon(Icons.person_outline,
-                        color: isEmailFieldFocus
-                            ? ColorConstant.colorsprimary
-                            : Colors.black),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: iconoir.User(
+                          color: isEmailFieldFocus
+                              ? ColorConstant.colorsprimary
+                              : Colors.black),
+                    ),
                     formFocusHandler: handleEmailFieldFocusChange,
                   ),
                   const SizedBox(
