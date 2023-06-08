@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
 
 class SensorDetailTag extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SensorDetailTagState extends State<SensorDetailTag> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(120),
           border: Border.all(color: Colors.black)),
@@ -45,7 +46,7 @@ class _SensorDetailTagState extends State<SensorDetailTag> {
           ),
           Text(
             getSensorTag().item2,
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+            style: const TextStyleConstant().body03,
           )
         ],
       ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/color_constants.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
 
 class SensorParameterCard extends StatefulWidget {
@@ -29,15 +31,19 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
   Tuple3<Color, Color, AssetImage> getParameterColorAndBackground() {
     switch (widget.parameterStatus) {
       case ParameterStatus.warning:
-        return Tuple3<Color, Color, AssetImage>((Color(0xFF201C01)),
-            (Color(0xFFA1951D)), AssetImage('assets/param-warning.png'));
+        return const Tuple3<Color, Color, AssetImage>(
+            (ColorConstant.colorsonwarningcontainer),
+            (ColorConstant.colorsWarning60),
+            AssetImage('assets/param-warning.png'));
       case ParameterStatus.danger:
-        return Tuple3<Color, Color, AssetImage>((Color(0xFF3E0500)),
-            (Color(0xFFB2857F)), AssetImage('assets/param-danger.png'));
+        return const Tuple3<Color, Color, AssetImage>(
+            (ColorConstant.colorsondangercontainer),
+            (ColorConstant.colorsDanger70),
+            AssetImage('assets/param-danger.png'));
       default:
         return Tuple3<Color, Color, AssetImage>(
-            (Color(0xFF011E2E)),
-            (Color(0xFF747779)),
+            (ColorConstant.colorsonsecondarycontainer),
+            (ColorConstant.colorsNeutral50),
             AssetImage('assets/param-${widget.parameterBackground}.png'));
     }
   }
@@ -63,15 +69,15 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
               children: [
                 Text(
                   widget.parameterName,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w700),
+                  style: const TextStyleConstant().title03,
                 ),
                 Text(
                   widget.parameterStatus == ParameterStatus.normal
                       ? "Normal"
                       : widget.parameterRecommendation ?? "null",
-                  style:
-                      TextStyle(color: getParameterColorAndBackground().item2),
+                  style: const TextStyleConstant()
+                      .body03
+                      .copyWith(color: getParameterColorAndBackground().item2),
                 )
               ],
             ),
@@ -82,15 +88,11 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                     children: [
                   TextSpan(
                       text: widget.parameterValue,
-                      style: TextStyle(
-                          fontSize: 39,
-                          fontWeight: FontWeight.w700,
+                      style: const TextStyleConstant().heading01.copyWith(
                           color: getParameterColorAndBackground().item1)),
                   TextSpan(
                       text: widget.parameterUnit,
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                      style: const TextStyleConstant().heading04.copyWith(
                           color: getParameterColorAndBackground().item2))
                 ])),
           ]),

@@ -3,6 +3,7 @@ import 'package:smart_water_meter/components/sensor_detail_tag.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class SensorDetailPage extends StatefulWidget {
   const SensorDetailPage({super.key});
@@ -31,10 +32,11 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                     children: [
                       Text(
                         "Sensor Kolam A-2",
-                        style: TextStyle(
-                            fontSize: 31, fontWeight: FontWeight.w700),
+                        style: const TextStyleConstant().heading02,
                       ),
-
+                      const SizedBox(
+                        height: 8,
+                      ),
                       // MARK: Sensor Quality Tag
                       SensorDetailTag(sensorStatus: SensorStatus.buruk)
                     ])),
