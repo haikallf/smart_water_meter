@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class CustomAlert extends StatefulWidget {
   const CustomAlert(
@@ -38,7 +39,7 @@ class _CustomAlertState extends State<CustomAlert> {
             Text(
               widget.content,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyleConstant().title02,
             ),
             const SizedBox(height: 16),
             Row(
@@ -52,7 +53,7 @@ class _CustomAlertState extends State<CustomAlert> {
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
                           backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF121212).withOpacity(0.6)),
+                              ColorConstant.colorsNeutral80),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -60,8 +61,7 @@ class _CustomAlertState extends State<CustomAlert> {
                           ))),
                       child: Text(
                         widget.cancelButtonText,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                        style: const TextStyleConstant().label02,
                       )),
                 ),
                 const SizedBox(
@@ -80,16 +80,17 @@ class _CustomAlertState extends State<CustomAlert> {
                               ColorConstant.colorsdanger),
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
+                          shadowColor: MaterialStateProperty.all<Color>(
+                              Colors.transparent),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8.0),
                                       side: const BorderSide(
-                                          color: ColorConstant.colorsdanger)))),
+                                          color: Colors.black)))),
                       child: Text(
                         widget.confirmationButtonText,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
+                        style: const TextStyleConstant().label02,
                       )),
                 ),
               ],
