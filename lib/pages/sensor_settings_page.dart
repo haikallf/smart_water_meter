@@ -177,9 +177,10 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
 
                               setSnackBarMessage(
                                   "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
+
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  CustomSnackBar(
-                                      content: Text(snackBarMessage)));
+                                  CustomSnackBar()
+                                      .showSnackBar(snackBarMessage));
 
                               setSelectedSensor("", "");
                               handleSensorNameChange("");

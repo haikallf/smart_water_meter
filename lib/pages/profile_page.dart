@@ -66,13 +66,13 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: onTap);
       },
     ).then((value) => {
-          if (isSnackbarShown)
-            {
-              ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-                content: Text(snackBarMessage),
-              )),
-              handleShowSnackBar(false)
-            }
+          // if (isSnackbarShown)
+          //   {
+          //     ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
+          //       content: Text(snackBarMessage),
+          //     )),
+          //     handleShowSnackBar(false)
+          //   }
         });
   }
 
@@ -163,8 +163,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: CustomButton(
                         onTap: () {
                           handlsnackBarMessage("Sukses");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              CustomSnackBar(content: Text(snackBarMessage)));
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //     CustomSnackBar(content: Text(snackBarMessage)));
 
                           Navigator.of(context).pop();
                         },
