@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_water_meter/enums/text_style_constant.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -38,14 +39,17 @@ Untuk menghubungkan sensor pintar dengan aplikasi ini, para pengguna dapat melak
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "IkanKu App",
-                      style: TextStyle(fontSize: 25),
+                      style: const TextStyleConstant().heading03,
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    Text(content)
+                    Text(
+                      content,
+                      style: const TextStyleConstant().paragraph02,
+                    )
                   ],
                 ),
               )

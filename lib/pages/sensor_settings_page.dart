@@ -249,7 +249,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
         "Pengaturan Alat",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       )),
-      backgroundColor: const Color(0xFFF4F4F4),
+      backgroundColor: ColorConstant.colorsVariant90,
       body: SafeArea(child: CustomListView(listItems: sensorList)),
     );
   }
