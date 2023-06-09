@@ -203,9 +203,9 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const iconoir.NavArrowLeft()),
-        title: const Text(
+        title: Text(
           "Profil",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: const TextStyleConstant().title03,
         ),
       ),
       body: SafeArea(
