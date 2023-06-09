@@ -78,7 +78,13 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
             confirmationButtonText: confirmationButtonText,
             onTap: onTap);
       },
-    );
+    )
+        .then((value) =>
+            setSnackBarMessage("Alat $selectedSensorName berasil diapus"))
+        .then((value) => Navigator.of(context).pop())
+        .then((value) => ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage)))
+        .then((value) => setSnackBarMessage(""));
   }
 
   @override
