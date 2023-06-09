@@ -24,6 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isSnackbarShown = false;
   String snackBarMessage = "";
 
+  String fullName = "Adang Susanyo";
+
   void handleFullNameChange(String value) {
     setState(() {
       newFullName = value;
@@ -42,10 +44,14 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  void handlsnackBarMessage(String value) {
+  void setSnackBarMessage(String value) {
     setState(() {
       snackBarMessage = value;
     });
+  }
+
+  bool isAbleToChangeFullName() {
+    return newFullName != "" && newFullName != fullName;
   }
 
   void showCustomAlertDialog(
@@ -65,18 +71,11 @@ class _ProfilePageState extends State<ProfilePage> {
             confirmationButtonText: confirmationButtonText,
             onTap: onTap);
       },
-    ).then((value) => {
-          // if (isSnackbarShown)
-          //   {
-          //     ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar(
-          //       content: Text(snackBarMessage),
-          //     )),
-          //     handleShowSnackBar(false)
-          //   }
-        });
+    );
   }
 
   void changeSensorNameModalBottomSheet(BuildContext context) {
+    handleFullNameChange("");
     showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
@@ -132,11 +131,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Column(children: [
                               TextField(
                                 onChanged: (value) {
-                                  handleFullNameChange(value.toString());
+                                  setModalState(() {
+                                    handleFullNameChange(value.toString());
+                                  });
                                 },
                                 maxLength: 32,
                                 style: const TextStyleConstant().body02,
                                 decoration: InputDecoration(
+                                  hintText: fullName,
                                   prefixIcon: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: iconoir.User(
@@ -160,15 +162,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       )),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: CustomButton(
-                        onTap: () {
-                          handlsnackBarMessage("Sukses");
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //     CustomSnackBar(content: Text(snackBarMessage)));
-
-                          Navigator.of(context).pop();
-                        },
-                        text: "Simpan"),
+                    child: AbsorbPointer(
+                      absorbing: !isAbleToChangeFullName(),
+                      child: CustomButton(
+                          onTap: () {
+                            setSnackBarMessage("Nama baru: $newFullName");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                CustomSnackBar().showSnackBar(snackBarMessage));
+                            Navigator.of(context).pop();
+                            setSnackBarMessage("");
+                          },
+                          isDisabled: !isAbleToChangeFullName(),
+                          text: "Simpan"),
+                    ),
                   ),
                   const SizedBox(
                     height: 32,
