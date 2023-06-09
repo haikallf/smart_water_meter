@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
+import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/sensor_card.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
+import 'package:smart_water_meter/utils/notification_manager.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,10 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late final NotificationManager notificationManager;
   @override
   void initState() {
     super.initState();
-
+    notificationManager = NotificationManager();
+    notificationManager.initialize();
+    // notificationManager.init();
     Future.delayed(Duration(seconds: 3))
         .then((value) => {FlutterNativeSplash.remove()});
   }
@@ -129,6 +134,18 @@ class _HomePageState extends State<HomePage> {
                     SensorCard(),
                   ]),
             ),
+
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: CustomButton(
+                  onTap: () async {
+                    await notificationManager.showNotification(
+                        id: 0,
+                        title: "Notification Title",
+                        body: "Notification Body");
+                  },
+                  text: "Trigger Notif"),
+            )
           ]),
         ),
       ),

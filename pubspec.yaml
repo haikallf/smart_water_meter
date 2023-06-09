@@ -38,6 +38,7 @@ dependencies:
   flutter_native_splash: ^2.3.0
   iconoir_flutter: ^6.8.0
   flutter_svg: ^2.0.6
+  flutter_local_notifications: ^14.1.1
 
 dev_dependencies:
   flutter_test:
