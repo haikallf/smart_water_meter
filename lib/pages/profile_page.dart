@@ -74,112 +74,121 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void changeSensorNameModalBottomSheet(BuildContext context) {
+  void changeFullNameModalBottomSheet(BuildContext context) {
     handleFullNameChange("");
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         builder: (bc) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
-            return IntrinsicHeight(
-              child: Container(
-                color: Colors.white,
-                child: Column(children: [
+            return Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Wrap(
+                children: [
                   Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1.0, color: Color(0x1A000000)))),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const iconoir.Cancel()),
-                        const SizedBox(
-                          width: 8,
+                    color: Colors.white,
+                    child: Column(children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1.0, color: Color(0x1A000000)))),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const iconoir.Cancel()),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text("Ubah Nama",
+                                style: const TextStyleConstant().title03),
+                          ],
                         ),
-                        Text("Ubah Nama",
-                            style: const TextStyleConstant().title03),
-                      ],
-                    ),
-                  ),
-                  Container(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Nama Lengkap",
-                              style: TextStyle(
-                                  color: isFullNameFieldFocus
-                                      ? ColorConstant.colorssecondary
-                                      : ColorConstant.colorsNeutral50)),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Focus(
-                            onFocusChange: (isFocus) {
-                              setModalState(() {
-                                handleFullNameFieldFocusChange(isFocus);
-                              });
-                            },
-                            child: Column(children: [
-                              TextField(
-                                onChanged: (value) {
+                      ),
+                      Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Nama Lengkap",
+                                  style: TextStyle(
+                                      color: isFullNameFieldFocus
+                                          ? ColorConstant.colorssecondary
+                                          : ColorConstant.colorsNeutral50)),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Focus(
+                                onFocusChange: (isFocus) {
                                   setModalState(() {
-                                    handleFullNameChange(value.toString());
+                                    handleFullNameFieldFocusChange(isFocus);
                                   });
                                 },
-                                maxLength: 32,
-                                style: const TextStyleConstant().body02,
-                                decoration: InputDecoration(
-                                  hintText: fullName,
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: iconoir.User(
-                                        color: isFullNameFieldFocus
-                                            ? ColorConstant.colorsprimary
-                                            : Colors.black),
+                                child: Column(children: [
+                                  TextField(
+                                    onChanged: (value) {
+                                      setModalState(() {
+                                        handleFullNameChange(value.toString());
+                                      });
+                                    },
+                                    maxLength: 32,
+                                    style: const TextStyleConstant().body02,
+                                    decoration: InputDecoration(
+                                      hintText: fullName,
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: iconoir.User(
+                                            color: isFullNameFieldFocus
+                                                ? ColorConstant.colorsprimary
+                                                : Colors.black),
+                                      ),
+                                      isDense: true,
+                                      contentPadding: const EdgeInsets.all(12),
+                                      enabledBorder: const OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.grey)),
+                                      focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color:
+                                                  ColorConstant.colorsprimary)),
+                                    ),
                                   ),
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.all(12),
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.grey)),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: ColorConstant.colorsprimary)),
-                                ),
-                              ),
-                            ]),
-                          )
-                        ],
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: AbsorbPointer(
-                      absorbing: !isAbleToChangeFullName(),
-                      child: CustomButton(
-                          onTap: () {
-                            setSnackBarMessage("Nama baru: $newFullName");
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                CustomSnackBar().showSnackBar(snackBarMessage));
-                            Navigator.of(context).pop();
-                            setSnackBarMessage("");
-                          },
-                          isDisabled: !isAbleToChangeFullName(),
-                          text: "Simpan"),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                ]),
+                                ]),
+                              )
+                            ],
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: AbsorbPointer(
+                          absorbing: !isAbleToChangeFullName(),
+                          child: CustomButton(
+                              onTap: () {
+                                setSnackBarMessage("Nama baru: $newFullName");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    CustomSnackBar()
+                                        .showSnackBar(snackBarMessage));
+                                Navigator.of(context).pop();
+                                setSnackBarMessage("");
+                              },
+                              isDisabled: !isAbleToChangeFullName(),
+                              text: "Simpan"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                    ]),
+                  )
+                ],
               ),
             );
           });
@@ -204,6 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: ColorConstant.colorsVariant90,
       appBar: AppBar(
         leading: IconButton(
@@ -250,7 +260,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           IconButton(
                               onPressed: () {
-                                changeSensorNameModalBottomSheet(context);
+                                changeFullNameModalBottomSheet(context);
                               },
                               icon: const iconoir.EditPencil(
                                 color: ColorConstant.colorssecondary,

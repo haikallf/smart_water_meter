@@ -93,111 +93,121 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
       handleSensorNameChange("");
       showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
           builder: (context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
-              return IntrinsicHeight(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(children: [
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Wrap(
+                  children: [
                     Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 1.0, color: Color(0x1A000000)))),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const iconoir.NavArrowLeft()),
-                          const SizedBox(
-                            width: 8,
+                      color: Colors.white,
+                      child: Column(children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1.0, color: Color(0x1A000000)))),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const iconoir.NavArrowLeft()),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text("Ubah Nama Alat",
+                                  style: const TextStyleConstant().title03),
+                            ],
                           ),
-                          Text("Ubah Nama Alat",
-                              style: const TextStyleConstant().title03),
-                        ],
-                      ),
-                    ),
-                    Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Nama Alat",
-                                style: const TextStyleConstant()
-                                    .body03
-                                    .copyWith(
-                                        color: isSensorNameFieldFocus
-                                            ? ColorConstant.colorssecondary
-                                            : ColorConstant.colorsNeutral50)),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Focus(
-                              onFocusChange: (isFocus) {
-                                setModalState(() {
-                                  handleSensorNameFieldFocusChange(isFocus);
-                                });
-                              },
-                              child: Column(children: [
-                                TextField(
-                                  onChanged: (value) {
+                        ),
+                        Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Nama Alat",
+                                    style: const TextStyleConstant()
+                                        .body03
+                                        .copyWith(
+                                            color: isSensorNameFieldFocus
+                                                ? ColorConstant.colorssecondary
+                                                : ColorConstant
+                                                    .colorsNeutral50)),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Focus(
+                                  onFocusChange: (isFocus) {
                                     setModalState(() {
-                                      handleSensorNameChange(value.toString());
+                                      handleSensorNameFieldFocusChange(isFocus);
                                     });
                                   },
-                                  maxLength: 32,
-                                  style: const TextStyleConstant().body02,
-                                  decoration: InputDecoration(
-                                    hintText: selectedSensorName,
-                                    isDense: true,
-                                    contentPadding: const EdgeInsets.all(12),
-                                    enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color:
-                                                ColorConstant.colorsNeutral50)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color:
-                                                ColorConstant.colorssecondary)),
-                                  ),
-                                ),
-                              ]),
-                            )
-                          ],
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: AbsorbPointer(
-                        absorbing: !isAbleToChangeSensorName(),
-                        child: CustomButton(
-                            isDisabled: !isAbleToChangeSensorName(),
-                            onTap: () {
-                              closeAllModalBottomSheet();
+                                  child: Column(children: [
+                                    TextField(
+                                      onChanged: (value) {
+                                        setModalState(() {
+                                          handleSensorNameChange(
+                                              value.toString());
+                                        });
+                                      },
+                                      maxLength: 32,
+                                      style: const TextStyleConstant().body02,
+                                      decoration: InputDecoration(
+                                        hintText: selectedSensorName,
+                                        isDense: true,
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorsNeutral50)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorssecondary)),
+                                      ),
+                                    ),
+                                  ]),
+                                )
+                              ],
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: AbsorbPointer(
+                            absorbing: !isAbleToChangeSensorName(),
+                            child: CustomButton(
+                                isDisabled: !isAbleToChangeSensorName(),
+                                onTap: () {
+                                  closeAllModalBottomSheet();
 
-                              setSnackBarMessage(
-                                  "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
+                                  setSnackBarMessage(
+                                      "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  CustomSnackBar()
-                                      .showSnackBar(snackBarMessage));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      CustomSnackBar()
+                                          .showSnackBar(snackBarMessage));
 
-                              setSelectedSensor("", "");
-                              handleSensorNameChange("");
-                            },
-                            text: "Simpan"),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                  ]),
+                                  setSelectedSensor("", "");
+                                  handleSensorNameChange("");
+                                },
+                                text: "Simpan"),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                      ]),
+                    )
+                  ],
                 ),
               );
             });
