@@ -313,6 +313,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
+          centerTitle: true,
           leading: IconButton(
               onPressed: () => Navigator.of(context).pop(),
               icon: const iconoir.NavArrowLeft()),

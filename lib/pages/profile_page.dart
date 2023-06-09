@@ -216,6 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorConstant.colorsVariant90,
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const iconoir.NavArrowLeft()),
