@@ -4,7 +4,7 @@ class NotificationManager {
   final _notifications = FlutterLocalNotificationsPlugin();
 
   Future initialize({bool initScheduled = false}) async {
-    const android = AndroidInitializationSettings('ic_launcher');
+    const android = AndroidInitializationSettings('splash');
     DarwinInitializationSettings iOS = DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
