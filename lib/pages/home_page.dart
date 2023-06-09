@@ -75,10 +75,17 @@ class _HomePageState extends State<HomePage> {
 
             // MARK: Banner
             Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8), color: Colors.white),
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              child: const Image(image: AssetImage('assets/banner-image.jpeg')),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.black),
+                child: const FittedBox(
+                    fit: BoxFit.fill,
+                    child:
+                        Image(image: AssetImage('assets/banner-image.jpeg'))),
+              ),
             ),
 
             // MARK: Abnormal Sensors
