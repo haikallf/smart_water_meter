@@ -57,23 +57,36 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void showCustomAlertDialog(
-      BuildContext context,
-      String content,
-      String cancelButtonText,
-      String confirmationButtonText,
-      VoidCallback? onTap,
-      [String? title,
-      bool? isDanger]) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CustomAlert(
-            content: content,
-            cancelButtonText: cancelButtonText,
-            confirmationButtonText: confirmationButtonText,
-            onTap: onTap);
-      },
-    );
+    BuildContext context,
+    String content,
+    String cancelButtonText,
+    String confirmationButtonText,
+  ) async {
+    switch (await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlert(
+              content: content,
+              cancelButtonText: cancelButtonText,
+              confirmationButtonText: confirmationButtonText,
+              onTap: () {});
+        })) {
+      case true:
+        await LocalStorage.clearEmail();
+        if (context.mounted) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => LoginPage()),
+              (Route<dynamic> route) => false);
+        }
+        return;
+
+      case false:
+        print(false);
+        Navigator.of(context).pop();
+
+      default:
+        Navigator.of(context).pop();
+    }
   }
 
   void changeFullNameModalBottomSheet(BuildContext context) {
@@ -283,17 +296,11 @@ class _ProfilePageState extends State<ProfilePage> {
               child: CustomButton(
                 onTap: () {
                   showCustomAlertDialog(
-                      context, "Kamu yakin ingin keluar?", "Batal", "Keluar",
-                      () async {
-                    // await LocalStorage.clearEmail();
-                    // if (context.mounted) {
-                    //   Navigator.of(context).pushAndRemoveUntil(
-                    //       MaterialPageRoute(builder: (context) => LoginPage()),
-                    //       (Route<dynamic> route) => false);
-
-                    // }
-                    Navigator.of(context).pop();
-                  });
+                    context,
+                    "Kamu yakin ingin keluar?",
+                    "Batal",
+                    "Keluar",
+                  );
                 },
                 text: "Keluar",
                 backgroundColor: ColorConstant.colorsdanger,
