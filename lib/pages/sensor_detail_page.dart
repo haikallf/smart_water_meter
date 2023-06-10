@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/sensor_detail_tag.dart';
@@ -5,6 +7,7 @@ import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/sensor_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:web_socket_channel/io.dart';
 
 class SensorDetailPage extends StatefulWidget {
   const SensorDetailPage({super.key});
@@ -14,6 +17,32 @@ class SensorDetailPage extends StatefulWidget {
 }
 
 class _SensorDetailPageState extends State<SensorDetailPage> {
+  final channel =
+      IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
+
+  String btcUsdtPrice = "0";
+
+  @override
+  void initState() {
+    super.initState();
+
+    streamListener();
+  }
+
+  streamListener() {
+    channel.stream.listen((message) {
+      // channel.sink.add("received data");
+      // channel.sink.close();
+      Map getData = jsonDecode(message);
+
+      setState(() {
+        btcUsdtPrice = getData["value"];
+      });
+
+      print(btcUsdtPrice);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +83,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                       children: [
                         SensorParameterCard(
                           parameterName: "Suhu Air",
-                          parameterValue: "28",
+                          parameterValue: btcUsdtPrice,
                           parameterUnit: " ℃",
                           parameterStatus: ParameterStatus.warning,
                           parameterRecommendation: "Turunkan suhu air",
