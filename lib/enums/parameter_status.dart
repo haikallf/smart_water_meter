@@ -1,5 +1,5 @@
 class ParameterStatus {
   static const String normal = "normal";
   static const String warning = "warning";
-  static const String danger = "danger";
+  static const String abnormal = "abnormal";
 }

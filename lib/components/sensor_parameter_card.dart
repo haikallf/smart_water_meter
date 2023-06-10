@@ -18,7 +18,7 @@ class SensorParameterCard extends StatefulWidget {
   final String parameterValue;
   final String parameterUnit;
   final String
-      parameterStatus; // normal, warning, danger --> enums/parameter_status.dart
+      parameterStatus; // normal, warning, abnormal --> enums/parameter_status.dart
   final String? parameterRecommendation;
   final String parameterBackground;
 
@@ -34,14 +34,14 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
             (ColorConstant.colorsonwarningcontainer),
             (ColorConstant.colorsWarning60),
             AssetImage('assets/param-warning.png'));
-      case ParameterStatus.danger:
-        return const Tuple3<Color, Color, AssetImage>(
-            (ColorConstant.colorsondangercontainer),
-            (ColorConstant.colorsDanger70),
-            AssetImage('assets/param-danger.png'));
-      default:
+      case ParameterStatus.normal:
         return Tuple3<Color, Color, AssetImage>(
             (ColorConstant.colorsonsecondarycontainer),
+            (ColorConstant.colorsNeutral50),
+            AssetImage('assets/param-${widget.parameterBackground}.png'));
+      default:
+        return Tuple3<Color, Color, AssetImage>(
+            (ColorConstant.colorsNeutral50),
             (ColorConstant.colorsNeutral50),
             AssetImage('assets/param-${widget.parameterBackground}.png'));
     }
@@ -86,7 +86,9 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                     style: DefaultTextStyle.of(context).style,
                     children: [
                   TextSpan(
-                      text: widget.parameterValue,
+                      text: widget.parameterStatus == ParameterStatus.abnormal
+                          ? "--"
+                          : widget.parameterValue,
                       style: const TextStyleConstant().heading01.copyWith(
                           color: getParameterColorAndBackground().item1)),
                   TextSpan(
