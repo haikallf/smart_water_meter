@@ -6,9 +6,12 @@ import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
+import 'package:smart_water_meter/utils/local_storage.dart';
 
-void main() {
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  await LocalStorage.init();
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
                       Colors.grey.withOpacity(0.05)))),
           textSelectionTheme: const TextSelectionThemeData(
               cursorColor: ColorConstant.colorsprimary)),
-      home: HomePage(),
+      home: LocalStorage.getEmail() != null ? HomePage() : LoginPage(),
     );
   }
 }

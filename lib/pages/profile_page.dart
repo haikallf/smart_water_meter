@@ -7,8 +7,10 @@ import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
+import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
+import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:tuple/tuple.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -282,7 +284,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () {
                   showCustomAlertDialog(
                       context, "Kamu yakin ingin keluar?", "Batal", "Keluar",
-                      () {
+                      () async {
+                    // await LocalStorage.clearEmail();
+                    // if (context.mounted) {
+                    //   Navigator.of(context).pushAndRemoveUntil(
+                    //       MaterialPageRoute(builder: (context) => LoginPage()),
+                    //       (Route<dynamic> route) => false);
+
+                    // }
                     Navigator.of(context).pop();
                   });
                 },

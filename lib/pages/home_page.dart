@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
@@ -7,6 +6,7 @@ import 'package:smart_water_meter/components/sensor_card.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
+import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:smart_water_meter/utils/notification_manager.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,11 +18,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
+  String currentEmail = "";
   @override
   void initState() {
     super.initState();
     notificationManager = NotificationManager();
     notificationManager.initialize();
+    setState(() {
+      currentEmail = LocalStorage.getEmail() ?? "NULL";
+    });
     // notificationManager.init();
   }
 
@@ -49,12 +53,12 @@ class _HomePageState extends State<HomePage> {
                         style: const TextStyleConstant().paragraph02,
                       ),
                       Text(
-                        "Adang Susanyo",
+                        currentEmail,
                         style: const TextStyleConstant().heading04,
                       )
                     ],
                   ),
-                  // TODO: Change Icon
+                  // MARK: Change Icon
                   IconButton(
                       onPressed: () {
                         Navigator.push(

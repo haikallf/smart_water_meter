@@ -73,9 +73,9 @@ class _CustomAlertState extends State<CustomAlert> {
                   width: 158,
                   height: 43,
                   child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         widget.onTap;
-                        Navigator.of(context).pop();
+                        // Navigator.of(context).pop();
                       },
                       style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(

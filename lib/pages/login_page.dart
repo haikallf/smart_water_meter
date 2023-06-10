@@ -7,6 +7,7 @@ import 'package:smart_water_meter/components/custom_textfield.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
+import 'package:smart_water_meter/utils/local_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -62,9 +63,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    void signIn() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomePage()));
+    void signIn(BuildContext context) async {
+      await LocalStorage.setEmail(email);
+      if (context.mounted) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
     }
 
     return Scaffold(
@@ -135,7 +139,9 @@ class _LoginPageState extends State<LoginPage> {
                   AbsorbPointer(
                     absorbing: isLoginButtonDisabled(),
                     child: CustomButton(
-                      onTap: signIn,
+                      onTap: () {
+                        signIn(context);
+                      },
                       text: "Masuk",
                       isDisabled: isLoginButtonDisabled(),
                     ),
