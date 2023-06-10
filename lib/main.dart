@@ -13,6 +13,9 @@ void main() {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   runApp(const MyApp());
+
+  Future.delayed(Duration(seconds: 2))
+      .then((value) => {FlutterNativeSplash.remove()});
 }
 
 class MyApp extends StatelessWidget {

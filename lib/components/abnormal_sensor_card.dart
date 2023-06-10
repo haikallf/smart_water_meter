@@ -43,12 +43,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                     "assets/wifi.svg",
                     colorFilter:
                         const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                    // color: Colors.white,
-                  )
-                  //     const iconoir.Wifi(
-                  //   color: Colors.white,
-                  // )
-                  ),
+                  )),
               const SizedBox(
                 width: 8,
               ),

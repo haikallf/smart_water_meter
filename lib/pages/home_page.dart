@@ -24,8 +24,6 @@ class _HomePageState extends State<HomePage> {
     notificationManager = NotificationManager();
     notificationManager.initialize();
     // notificationManager.init();
-    Future.delayed(Duration(seconds: 3))
-        .then((value) => {FlutterNativeSplash.remove()});
   }
 
   @override

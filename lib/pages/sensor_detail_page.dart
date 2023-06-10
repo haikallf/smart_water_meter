@@ -24,7 +24,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
   void initState() {
     super.initState();
 
-    streamListener();
+    // streamListener();
   }
 
   streamListener() {
@@ -72,13 +72,16 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                     Column(
                       children: [
                         SensorParameterCard(
-                          parameterName: "Suhu Air",
-                          parameterValue: btcUsdtPrice,
-                          parameterUnit: " ℃",
-                          parameterStatus: ParameterStatus.warning,
-                          parameterRecommendation: "Turunkan suhu air",
-                          parameterBackground: "temp",
-                        ),
+                            parameterName: "Suhu Air",
+                            parameterValue: btcUsdtPrice,
+                            parameterUnit: " ℃",
+                            parameterStatus: ParameterStatus.warning,
+                            parameterRecommendation: "Turunkan suhu air",
+                            parameterBackground: "temp",
+                            parameterValuePrediction: "30",
+                            parameterWarningPrediction: "Suhu Air Tinggi",
+                            parameterRecommendationPrediction:
+                                "Matikan Heater"),
                         const SizedBox(
                           height: 14,
                         ),
