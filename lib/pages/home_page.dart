@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
               child: Image(
-                image: AssetImage(
+                image: const AssetImage(
                   'assets/banner-image.jpeg',
                 ),
                 fit: BoxFit.fitWidth,

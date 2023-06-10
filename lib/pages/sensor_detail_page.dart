@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
-import 'package:smart_water_meter/components/sensor_detail_tag.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
-import 'package:smart_water_meter/enums/sensor_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -60,20 +58,12 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
           children: [
             // MARK: Sensor Detail Heading
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Sensor Kolam A-2",
-                        style: const TextStyleConstant().heading02,
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      // MARK: Sensor Quality Tag
-                      SensorDetailTag(sensorStatus: SensorStatus.buruk)
-                    ])),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Text(
+                "Sensor Kolam A-2",
+                style: const TextStyleConstant().heading02,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: Row(
