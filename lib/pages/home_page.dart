@@ -77,14 +77,12 @@ class _HomePageState extends State<HomePage> {
             Container(
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.black),
-                child: const FittedBox(
-                    fit: BoxFit.fill,
-                    child:
-                        Image(image: AssetImage('assets/banner-image.jpeg'))),
+              child: Image(
+                image: AssetImage(
+                  'assets/banner-image.jpeg',
+                ),
+                fit: BoxFit.fitWidth,
+                width: MediaQuery.of(context).size.width,
               ),
             ),
 
