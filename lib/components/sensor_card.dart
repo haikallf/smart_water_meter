@@ -29,17 +29,9 @@ class _SensorCardState extends State<SensorCard> {
             border: Border.all(color: ColorConstant.colorsNeutral80)),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                "Sensor Kolam A-1",
-                style: const TextStyleConstant().heading04,
-              )
-            ],
+          Text(
+            "Sensor Kolam A-1",
+            style: const TextStyleConstant().heading04,
           ),
           const iconoir.NavArrowRight()
         ]),
