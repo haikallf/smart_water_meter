@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
     String cancelButtonText,
     String confirmationButtonText,
   ) async {
-    switch (await showDialog<bool>(
+    bool? dialogResult = await showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
           return CustomAlert(
@@ -70,22 +70,17 @@ class _ProfilePageState extends State<ProfilePage> {
               cancelButtonText: cancelButtonText,
               confirmationButtonText: confirmationButtonText,
               onTap: () {});
-        })) {
-      case true:
+        });
+
+    if (context.mounted) {
+      if (dialogResult == true) {
         await LocalStorage.clearEmail();
         if (context.mounted) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginPage()),
               (Route<dynamic> route) => false);
         }
-        return;
-
-      case false:
-        print(false);
-      // Navigator.of(context).pop();
-
-      default:
-      // Navigator.of(context).pop();
+      }
     }
   }
 

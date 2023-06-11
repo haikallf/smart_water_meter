@@ -15,7 +15,6 @@ class LocalStorage {
   static String? getEmail() => _preferences.getString(_keyEmail);
 
   static Future clearEmail() async {
-    print("removed");
     return await _preferences.remove(_keyEmail);
   }
 }

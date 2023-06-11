@@ -5,6 +5,6 @@ class TermsAndConditionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("T&C");
+    return const Text("T&C");
   }
 }

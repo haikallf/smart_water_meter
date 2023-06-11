@@ -3,9 +3,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
-import 'package:smart_water_meter/pages/profile_page.dart';
-import 'package:smart_water_meter/pages/sensor_detail_page.dart';
-import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 
 void main() async {

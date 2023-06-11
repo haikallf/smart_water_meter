@@ -93,7 +93,7 @@ class _SensorDetailPageState extends State<SensorDetailPage> {
                           parameterRecommendation: "",
                           parameterBackground: "do",
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 14,
                         ),
                         SensorParameterCard(

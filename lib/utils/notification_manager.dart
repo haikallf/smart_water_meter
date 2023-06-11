@@ -33,11 +33,7 @@ class NotificationManager {
           payload: payload);
 
   void _onDidReceiveLocalNotification(
-      int id, String? title, String? body, String? payload) async {
-    print("id: $id");
-  }
+      int id, String? title, String? body, String? payload) async {}
 
-  void onSelectNotification(String? payload) {
-    print("payload: $payload");
-  }
+  void onSelectNotification(String? payload) {}
 }
