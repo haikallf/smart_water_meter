@@ -92,6 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         builder: (bc) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {

@@ -43,6 +43,7 @@ class _CustomAlertState extends State<CustomAlert> {
             ),
             const SizedBox(height: 16),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
                   width: 158,

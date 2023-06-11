@@ -102,6 +102,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           builder: (context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
@@ -225,6 +226,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           builder: (BuildContext context) {
             return IntrinsicHeight(
               child: Container(
