@@ -8,6 +8,8 @@ import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:smart_water_meter/utils/notification_manager.dart';
+import 'package:web_socket_channel/io.dart';
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +21,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
   String currentEmail = "";
+
+  final channel =
+      IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
+
+  String btcUsdtPrice = "0";
+
   @override
   void initState() {
     super.initState();
@@ -27,7 +35,25 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       currentEmail = LocalStorage.getEmail() ?? "NULL";
     });
+    // streamListener();
     // notificationManager.init();
+  }
+
+  streamListener() async {
+    channel.stream.listen((message) async {
+      // channel.sink.add("received data");
+      // channel.sink.close();
+      Map getData = jsonDecode(message);
+
+      setState(() {
+        btcUsdtPrice = getData["value"];
+      });
+
+      print(btcUsdtPrice);
+
+      await notificationManager.showNotification(
+          id: 0, title: "Notification Title", body: btcUsdtPrice);
+    });
   }
 
   @override
