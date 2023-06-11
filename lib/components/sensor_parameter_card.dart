@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+import 'package:smart_water_meter/components/warning_fade_icon.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
@@ -210,40 +211,40 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.parameterName,
-                      style: const TextStyleConstant().title03,
-                    ),
-                    if (widget.parameterValuePrediction != null &&
-                        widget.parameterRecommendationPrediction != null)
-                      GestureDetector(
-                        onTap: () {
-                          sensorPredictionModalBottomSheet(context);
-                        },
-                        child: SvgPicture.asset(
-                          "assets/warning.svg",
-                          colorFilter: const ColorFilter.mode(
-                              Colors.black, BlendMode.srcIn),
-                          height: 16,
-                          width: 16,
-                        ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.parameterName,
+                        style: const TextStyleConstant().title03,
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        widget.parameterStatus == ParameterStatus.normal
+                            ? "Normal"
+                            : widget.parameterRecommendation ?? "null",
+                        style: const TextStyleConstant().body03.copyWith(
+                            color: getParameterColorAndBackground().item2),
+                        // softWrap: true,
+                        // overflow: TextOverflow.ellipsis,
                       )
-                  ],
+                    ],
+                  ),
                 ),
-                Text(
-                  widget.parameterStatus == ParameterStatus.normal
-                      ? "Normal"
-                      : widget.parameterRecommendation ?? "null",
-                  style: const TextStyleConstant()
-                      .body03
-                      .copyWith(color: getParameterColorAndBackground().item2),
-                )
+                if (widget.parameterValuePrediction != null &&
+                    widget.parameterRecommendationPrediction != null)
+                  WarningFadeIcon(
+                    onTap: () {
+                      sensorPredictionModalBottomSheet(context);
+                    },
+                  )
               ],
             ),
             RichText(
