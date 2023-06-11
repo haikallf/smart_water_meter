@@ -105,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                     height: 133,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(right: 6),
                       children: [
                         Container(
                           margin: const EdgeInsets.only(right: 10),
