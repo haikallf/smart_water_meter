@@ -68,8 +68,8 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
       String confirmationButtonText,
       VoidCallback? onTap,
       [String? title,
-      bool? isDanger]) {
-    showDialog(
+      bool? isDanger]) async {
+    bool? dialogResult = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
         return CustomAlert(
@@ -78,13 +78,18 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
             confirmationButtonText: confirmationButtonText,
             onTap: onTap);
       },
-    )
-        .then((value) =>
-            setSnackBarMessage("Alat $selectedSensorName berasil diapus"))
-        .then((value) => Navigator.of(context).pop())
-        .then((value) => ScaffoldMessenger.of(context)
-            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage)))
-        .then((value) => setSnackBarMessage(""));
+    );
+    if (context.mounted) {
+      if (dialogResult == true) {
+        setSnackBarMessage("Alat $selectedSensorName berasil diapus");
+        Navigator.of(context).pop();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        setSnackBarMessage("");
+      } else {
+        Navigator.of(context).pop();
+      }
+    }
   }
 
   @override
