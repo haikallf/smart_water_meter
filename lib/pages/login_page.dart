@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
+import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
@@ -17,13 +18,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    Future.delayed(Duration(seconds: 3))
-        .then((value) => {FlutterNativeSplash.remove()});
-  }
+  //   Future.delayed(Duration(seconds: 3))
+  //       .then((value) => {FlutterNativeSplash.remove()});
+  // }
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -32,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isPasswordFieldFocus = false;
   String email = "";
   String password = "";
+  String snackBarMessage = "";
 
   bool isLoginButtonDisabled() {
     return (email == "" || password == "");
@@ -61,13 +63,32 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  void setSnackBarMessage(String message) {
+    setState(() {
+      snackBarMessage = message;
+    });
+  }
+
+  bool isEmailValid(String email) {
+    return RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
+
   @override
   Widget build(BuildContext context) {
     void signIn(BuildContext context) async {
-      await LocalStorage.setEmail(email);
-      if (context.mounted) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+      if (isEmailValid(email)) {
+        await LocalStorage.setEmail(email);
+        if (context.mounted) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+      } else {
+        setSnackBarMessage("Email tidak valid");
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        setSnackBarMessage("");
       }
     }
 

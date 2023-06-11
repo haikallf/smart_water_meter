@@ -82,10 +82,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
       case false:
         print(false);
-        Navigator.of(context).pop();
+      // Navigator.of(context).pop();
 
       default:
-        Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     }
   }
 
