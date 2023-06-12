@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     notificationManager = NotificationManager();
     notificationManager.initialize();
     setState(() {
-      currentEmail = LocalStorage.getEmail() ?? "NULL";
+      currentEmail = LocalStorage.getFullname() ?? "NULL";
     });
     // streamListener();
     // notificationManager.init();

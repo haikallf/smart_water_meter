@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
@@ -75,6 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (context.mounted) {
       if (dialogResult == true) {
         await LocalStorage.clearEmail();
+        await SessionManager().destroy();
         if (context.mounted) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginPage()),

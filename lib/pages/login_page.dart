@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:http/http.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
@@ -39,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   String snackBarMessage = "";
 
   final authController = AuthController();
+  var sessionManager = SessionManager();
 
   bool isLoginButtonDisabled() {
     return (email == "" || password == "");
@@ -85,17 +87,23 @@ class _LoginPageState extends State<LoginPage> {
     void signIn(BuildContext context) async {
       // Nanti tuker
       if (!isEmailValid(email)) {
-        await LocalStorage.setEmail(email);
+        //TODO: if (isEmailValid(email))
+
         var response = await authController.signIn(email, password);
 
-        if (context.mounted) {
-          if (response["message"] != null) {
-            setSnackBarMessage(response["message"]);
+        if (response["message"] != null) {
+          setSnackBarMessage(response["message"]);
+          if (context.mounted) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
-            setSnackBarMessage("");
-          } else {
-            Navigator.push(
+          }
+          setSnackBarMessage("");
+        } else {
+          await LocalStorage.setFullname(
+              '${response["firstName"]} ${response["lastName"]}');
+          await sessionManager.set("token", response["token"]);
+          if (context.mounted) {
+            Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         }
