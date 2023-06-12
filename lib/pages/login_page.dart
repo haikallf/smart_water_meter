@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
 import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/components/custom_textfield.dart';
+import 'package:smart_water_meter/controllers/auth.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
@@ -33,6 +37,8 @@ class _LoginPageState extends State<LoginPage> {
   String email = "";
   String password = "";
   String snackBarMessage = "";
+
+  final authController = AuthController();
 
   bool isLoginButtonDisabled() {
     return (email == "" || password == "");
@@ -77,11 +83,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     void signIn(BuildContext context) async {
-      if (isEmailValid(email)) {
+      // Nanti tuker
+      if (!isEmailValid(email)) {
         await LocalStorage.setEmail(email);
+        var response = await authController.signIn(email, password);
+
         if (context.mounted) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          if (response["message"] != null) {
+            setSnackBarMessage(response["message"]);
+            ScaffoldMessenger.of(context)
+                .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+            setSnackBarMessage("");
+          } else {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          }
         }
       } else {
         setSnackBarMessage("Email tidak valid");
