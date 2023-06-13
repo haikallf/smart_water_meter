@@ -27,7 +27,13 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isSnackbarShown = false;
   String snackBarMessage = "";
 
-  String fullName = "Adang Susanyo";
+  String fullName = "";
+
+  @override
+  void initState() {
+    super.initState();
+    fullName = LocalStorage.getFullname() ?? "";
+  }
 
   void handleFullNameChange(String value) {
     setState(() {
@@ -269,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Adang Susanyo",
+                            fullName,
                             style: const TextStyleConstant().title02,
                           ),
                           IconButton(
