@@ -145,11 +145,14 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                                 style: const TextStyleConstant().heading04,
                               ),
                               const SizedBox(
-                                height: 2,
+                                height: 12,
                               ),
                               Text(
                                 widget.parameterWarningPrediction ?? "",
                                 style: const TextStyleConstant().body03,
+                              ),
+                              const SizedBox(
+                                height: 24,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -179,7 +182,7 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                                                     .colorsVariant20),
                                       ),
                                       const SizedBox(
-                                        height: 24,
+                                        height: 57,
                                       )
                                     ],
                                   )

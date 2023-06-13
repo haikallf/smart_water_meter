@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^2.1.2
   http: ^1.0.0
   flutter_session_manager: ^1.0.3
+  permission_handler: ^10.3.0
 
 dev_dependencies:
   flutter_test:

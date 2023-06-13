@@ -5,6 +5,7 @@ import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -42,4 +43,10 @@ void main() async {
 
   Future.delayed(Duration(seconds: 2))
       .then((value) => {FlutterNativeSplash.remove()});
+
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
 }

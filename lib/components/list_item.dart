@@ -16,6 +16,7 @@ class _ListItemState extends State<ListItem> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
+      behavior: HitTestBehavior.opaque,
       child: Container(
         padding: const EdgeInsets.fromLTRB(16, 16, 8, 16),
         child:
