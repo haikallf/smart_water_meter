@@ -51,7 +51,7 @@
 		<false/>
 		<key>NSAppTransportSecurity</key>
 		<dict>
-		<key>NSAllowsArbitraryLoads</key>
+			<key>NSAllowsArbitraryLoads</key>
 			<true/>
 		</dict>
 	</dict>

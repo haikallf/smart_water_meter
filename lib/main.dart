@@ -6,6 +6,7 @@ import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,8 @@ void main() async {
   dynamic isLoggedIn = await SessionManager().containsKey("token");
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  HttpOverrides.global = MyHttpOverrides();
 
   runApp(MaterialApp(
     title: 'Flutter Demo',
@@ -49,4 +52,13 @@ void main() async {
       Permission.notification.request();
     }
   });
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host,
+          int port) => true;
+  }
 }
