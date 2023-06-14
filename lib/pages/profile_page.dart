@@ -11,6 +11,7 @@ import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/sensor_settings_page.dart';
 import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
+import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:tuple/tuple.dart';
 
@@ -159,6 +160,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         handleFullNameChange(value.toString());
                                       });
                                     },
+                                    textCapitalization:
+                                        TextCapitalization.words,
                                     maxLength: 32,
                                     style: const TextStyleConstant().body02,
                                     decoration: InputDecoration(
@@ -191,7 +194,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           absorbing: !isAbleToChangeFullName(),
                           child: CustomButton(
                               onTap: () {
-                                setSnackBarMessage("Nama baru: $newFullName");
+                                setSnackBarMessage(
+                                    "Nama baru: ${newFullName.toTitleCase()}");
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     CustomSnackBar()
                                         .showSnackBar(snackBarMessage));
@@ -275,7 +279,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            fullName,
+                            fullName.toTitleCase(),
                             style: const TextStyleConstant().title02,
                           ),
                           IconButton(

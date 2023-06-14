@@ -6,6 +6,7 @@ import 'package:smart_water_meter/components/sensor_card.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
+import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:smart_water_meter/utils/notification_manager.dart';
 import 'package:web_socket_channel/io.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
-  String currentEmail = "";
+  String currentFullName = "";
 
   final channel =
       IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     notificationManager = NotificationManager();
     notificationManager.initialize();
     setState(() {
-      currentEmail = LocalStorage.getFullname() ?? "NULL";
+      currentFullName = LocalStorage.getFullname() ?? "NULL";
     });
     // streamListener();
     // notificationManager.init();
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                         style: const TextStyleConstant().paragraph02,
                       ),
                       Text(
-                        currentEmail,
+                        currentFullName.toTitleCase(),
                         style: const TextStyleConstant().heading04,
                       )
                     ],
