@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
           }
           setSnackBarMessage("");
         } else {
-          await LocalStorage.setFullname(
+          await LocalStorage.setFullName(
               '${response["firstName"]} ${response["lastName"]}');
           await sessionManager.set("token", response["token"]);
           if (context.mounted) {

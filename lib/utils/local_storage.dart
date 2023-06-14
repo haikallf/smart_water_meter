@@ -5,7 +5,7 @@ class LocalStorage {
 
   static const _keyEmail = "email";
 
-  static const _keyFullname = "fullname";
+  static const _keyFullName = "fullName";
 
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
@@ -20,12 +20,13 @@ class LocalStorage {
     return await _preferences.remove(_keyEmail);
   }
 
-  static Future setFullname(String fullname) async =>
-      await _preferences.setString(_keyFullname, fullname);
+  static Future setFullName(String fullname) async =>
+      await _preferences.setString(_keyFullName, fullname);
 
-  static String? getFullname() => _preferences.getString(_keyFullname);
+  static String? getFullName() => _preferences.getString(_keyFullName);
 
-  static Future clearFullname() async {
-    return await _preferences.remove(_keyFullname);
-  }
+  static Future clearFullName() async =>
+      await _preferences.remove(_keyFullName);
+
+  static Future clearAll() async => await _preferences.clear();
 }

@@ -7,7 +7,7 @@ class AuthController {
   static const String baseUrl = "https://dummyjson.com";
 
   Future<dynamic> signIn(String email, String password) async {
-    var url = Uri.parse(baseUrl + "/auth/login");
+    var url = Uri.parse("$baseUrl/auth/login");
     var _headers = {'Content-Type': 'application/json'};
     var _body = json.encode({
       "username": email,

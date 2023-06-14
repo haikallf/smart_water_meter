@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    fullName = LocalStorage.getFullname() ?? "";
+    fullName = LocalStorage.getFullName() ?? "";
   }
 
   void handleFullNameChange(String value) {
