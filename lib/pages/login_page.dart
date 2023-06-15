@@ -85,10 +85,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     void signIn(BuildContext context) async {
-      // Nanti tuker
-      if (!isEmailValid(email)) {
-        //TODO: if (isEmailValid(email))
-
+      if (isEmailValid(email)) {
         var response = await authController.signIn(email, password);
 
         if (response["message"] != null) {
@@ -99,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
           }
           setSnackBarMessage("");
         } else {
-          await LocalStorage.setFullName(
-              '${response["firstName"]} ${response["lastName"]}');
+          await LocalStorage.setFullName('${response["name"]}');
           await sessionManager.set("token", response["token"]);
           if (context.mounted) {
             Navigator.pushReplacement(
