@@ -1,10 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import "dart:io" show Platform;
 
 class AuthController {
   var client = http.Client();
 
-  static const String baseUrl = "http://localhost:8000";
+  String baseUrl =
+      Platform.isAndroid ? "http://10.0.2.2:8000" : "http://localhost:8000";
 
   Future<dynamic> signIn(String email, String password) async {
     var url = Uri.parse("$baseUrl/user/login");
