@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
-import 'package:http/http.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_passwordfield.dart';
@@ -11,6 +8,7 @@ import 'package:smart_water_meter/components/custom_textfield.dart';
 import 'package:smart_water_meter/controllers/auth.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/models/user_response_model.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 
@@ -86,18 +84,19 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     void signIn(BuildContext context) async {
       if (isEmailValid(email)) {
-        var response = await authController.signIn(email, password);
+        UserResponseModel response =
+            await authController.signIn(email, password);
 
-        if (response["message"] != null) {
-          setSnackBarMessage(response["message"]);
+        if (response.responseStatusCode == 400) {
+          setSnackBarMessage("Login Gagal!");
           if (context.mounted) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
           }
           setSnackBarMessage("");
         } else {
-          await LocalStorage.setFullName('${response["name"]}');
-          await sessionManager.set("token", response["token"]);
+          await LocalStorage.setFullName('${response.currentUser?.name}');
+          await sessionManager.set("token", response.currentUser?.token);
           if (context.mounted) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => HomePage()));

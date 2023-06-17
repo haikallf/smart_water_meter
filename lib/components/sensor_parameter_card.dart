@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/warning_fade_icon.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
