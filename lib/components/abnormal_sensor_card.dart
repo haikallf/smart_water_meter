@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
-import 'package:smart_water_meter/pages/sensor_detail_page.dart';
+import 'package:smart_water_meter/pages/device_detail_page.dart';
 
 class AbnormalSensorCard extends StatefulWidget {
   const AbnormalSensorCard(
@@ -20,7 +19,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
   Widget build(BuildContext context) {
     void goToDetailPage() {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SensorDetailPage()));
+          context, MaterialPageRoute(builder: (context) => DeviceDetailPage()));
     }
 
     return GestureDetector(

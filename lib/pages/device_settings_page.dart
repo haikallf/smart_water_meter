@@ -8,14 +8,14 @@ import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
 
-class SensorSettingsPage extends StatefulWidget {
-  const SensorSettingsPage({super.key});
+class DeviceSettingsPage extends StatefulWidget {
+  const DeviceSettingsPage({super.key});
 
   @override
-  State<SensorSettingsPage> createState() => _SensorSettingsPageState();
+  State<DeviceSettingsPage> createState() => _DeviceSettingsPageState();
 }
 
-class _SensorSettingsPageState extends State<SensorSettingsPage> {
+class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
   String newSensorName = "";
   bool isSensorNameFieldFocus = false;
   String snackBarMessage = "";
@@ -262,7 +262,7 @@ class _SensorSettingsPageState extends State<SensorSettingsPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Ubah Nama Sensor",
+                          Text("Ubah Nama Alat",
                               style: const TextStyleConstant().label02),
                           const iconoir.NavArrowRight(),
                         ],

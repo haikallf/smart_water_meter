@@ -9,7 +9,7 @@ import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
-import 'package:smart_water_meter/pages/sensor_settings_page.dart';
+import 'package:smart_water_meter/pages/device_settings_page.dart';
 import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
 import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
@@ -221,16 +221,20 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     List<Tuple2<String, VoidCallback?>> profileList = [
       Tuple2<String, VoidCallback?>("Pengaturan Alat", () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SensorSettingsPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const DeviceSettingsPage()));
       }),
       Tuple2<String, VoidCallback?>("Tentang Aplikasi", () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AboutPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const AboutPage()));
       }),
       Tuple2<String, VoidCallback?>("Syarat & Ketentuan", () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const TermsAndConditionsPage()));
       }),
     ];
 

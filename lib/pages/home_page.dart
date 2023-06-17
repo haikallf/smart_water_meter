@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
-import 'package:smart_water_meter/components/sensor_card.dart';
+import 'package:smart_water_meter/components/device_card.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "2 Sensor Butuh Dicek",
+                    "2 Alat Butuh Dicek",
                     style: const TextStyleConstant().label02,
                   ),
                   const SizedBox(
@@ -172,13 +172,13 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 14,
                     ),
-                    SensorCard(
+                    DeviceCard(
                       sensorName: "Sensor Kolam A-1",
                     ),
                     const SizedBox(
                       height: 14,
                     ),
-                    SensorCard(
+                    DeviceCard(
                       sensorName: "Sensor Kolam A-2",
                     )
                   ]),

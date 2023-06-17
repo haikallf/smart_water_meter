@@ -7,14 +7,14 @@ import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:web_socket_channel/io.dart';
 
-class SensorDetailPage extends StatefulWidget {
-  const SensorDetailPage({super.key});
+class DeviceDetailPage extends StatefulWidget {
+  const DeviceDetailPage({super.key});
 
   @override
-  State<SensorDetailPage> createState() => _SensorDetailPageState();
+  State<DeviceDetailPage> createState() => _DeviceDetailPageState();
 }
 
-class _SensorDetailPageState extends State<SensorDetailPage> {
+class _DeviceDetailPageState extends State<DeviceDetailPage> {
   final channel =
       IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
 
