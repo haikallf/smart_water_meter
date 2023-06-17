@@ -136,16 +136,22 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(right: 10),
-                          child: AbnormalSensorCard(),
+                          child: AbnormalSensorCard(
+                            sensorName: "Sensor Kolam A-1",
+                            sensorCount: "3",
+                          ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(right: 10),
-                          child: AbnormalSensorCard(),
+                          child: AbnormalSensorCard(
+                            sensorName: "Sensor Kolam A-2",
+                            sensorCount: "2",
+                          ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: AbnormalSensorCard(),
-                        ),
+                        // Container(
+                        //   margin: const EdgeInsets.only(right: 10),
+                        //   child: AbnormalSensorCard(),
+                        // ),
                       ],
                     ),
                   ),
@@ -166,21 +172,29 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 14,
                     ),
-                    SensorCard(),
+                    SensorCard(
+                      sensorName: "Sensor Kolam A-1",
+                    ),
+                    const SizedBox(
+                      height: 14,
+                    ),
+                    SensorCard(
+                      sensorName: "Sensor Kolam A-2",
+                    )
                   ]),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: CustomButton(
-                  onTap: () async {
-                    await notificationManager.showNotification(
-                        id: 0,
-                        title: "Notification Title",
-                        body: "Notification Body");
-                  },
-                  text: "Trigger Notif"),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: CustomButton(
+            //       onTap: () async {
+            //         await notificationManager.showNotification(
+            //             id: 0,
+            //             title: "Notification Title",
+            //             body: "Notification Body");
+            //       },
+            //       text: "Trigger Notif"),
+            // )
           ]),
         ),
       ),

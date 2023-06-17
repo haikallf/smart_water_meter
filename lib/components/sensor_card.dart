@@ -6,7 +6,8 @@ import 'package:smart_water_meter/enums/text_style_constant.dart';
 import '../pages/sensor_detail_page.dart';
 
 class SensorCard extends StatefulWidget {
-  const SensorCard({super.key});
+  const SensorCard({super.key, required this.sensorName});
+  final String sensorName;
 
   @override
   State<SensorCard> createState() => _SensorCardState();
@@ -30,7 +31,7 @@ class _SensorCardState extends State<SensorCard> {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
-            "Sensor Kolam A-1",
+            widget.sensorName,
             style: const TextStyleConstant().heading04,
           ),
           const iconoir.NavArrowRight()

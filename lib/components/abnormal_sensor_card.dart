@@ -6,7 +6,10 @@ import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/pages/sensor_detail_page.dart';
 
 class AbnormalSensorCard extends StatefulWidget {
-  const AbnormalSensorCard({super.key});
+  const AbnormalSensorCard(
+      {super.key, required this.sensorName, required this.sensorCount});
+  final String sensorName;
+  final String sensorCount;
 
   @override
   State<AbnormalSensorCard> createState() => _AbnormalSensorCardState();
@@ -48,7 +51,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                 width: 8,
               ),
               Text(
-                "Sensor Kolam A-1",
+                widget.sensorName,
                 style: const TextStyleConstant().heading06,
               )
             ],
@@ -61,7 +64,9 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
                   text: "",
                   style: DefaultTextStyle.of(context).style,
                   children: [
-                TextSpan(text: "2", style: const TextStyleConstant().heading02),
+                TextSpan(
+                    text: widget.sensorCount,
+                    style: const TextStyleConstant().heading02),
                 TextSpan(
                     text: " Sensor", style: const TextStyleConstant().body03)
               ])),
