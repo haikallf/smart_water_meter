@@ -194,8 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           absorbing: !isAbleToChangeFullName(),
                           child: CustomButton(
                               onTap: () {
-                                setSnackBarMessage(
-                                    "Nama baru: ${newFullName.toTitleCase()}");
+                                setSnackBarMessage("Nama berhasil diubah");
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     CustomSnackBar()
                                         .showSnackBar(snackBarMessage));
