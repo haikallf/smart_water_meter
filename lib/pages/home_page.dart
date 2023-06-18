@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/device_card.dart';
+import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/pages/device_detail_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
@@ -28,6 +32,33 @@ class _HomePageState extends State<HomePage> {
 
   String btcUsdtPrice = "0";
 
+  List<dynamic> devices = [];
+  List<dynamic> predictions = [];
+
+  void loadData() async {
+    final devicesTemp = await DevicesDummyController().getAllDevices();
+    final predictionsTemp =
+        await DevicesDummyController().getAllAbnormalSensors();
+    setState(() {
+      devices = devicesTemp;
+      predictions = predictionsTemp;
+    });
+    print("devices: $devices");
+    print("predictions: $predictions");
+  }
+
+  void goToDeviceDetailPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DeviceDetailPage()),
+    ).then((result) async {
+      if (result != null && mounted) {
+        loadData();
+      }
+      return Future.value();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       currentFullName = LocalStorage.getFullName() ?? "NULL";
     });
+    loadData();
     // streamListener();
     // notificationManager.init();
   }
@@ -128,30 +160,24 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Container(
+                  SizedBox(
                     height: 133,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.only(right: 6),
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: AbnormalSensorCard(
-                            sensorName: "Sensor Kolam A-1",
-                            sensorCount: "3",
+                        for (int i = 0; i < predictions.length; i++) ...[
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: AbnormalSensorCard(
+                              sensorName: predictions[i]["name"],
+                              sensorCount: predictions[i]["predictions"]
+                                  .length
+                                  .toString(),
+                              onBack: goToDeviceDetailPage,
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          child: AbnormalSensorCard(
-                            sensorName: "Sensor Kolam A-2",
-                            sensorCount: "2",
-                          ),
-                        ),
-                        // Container(
-                        //   margin: const EdgeInsets.only(right: 10),
-                        //   child: AbnormalSensorCard(),
-                        // ),
+                        ],
                       ],
                     ),
                   ),
@@ -172,15 +198,14 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 14,
                     ),
-                    DeviceCard(
-                      sensorName: "Sensor Kolam A-1",
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    DeviceCard(
-                      sensorName: "Sensor Kolam A-2",
-                    )
+                    for (int i = 0; i < devices.length; i++) ...[
+                      DeviceCard(
+                        sensorName: devices[i]["name"],
+                      ),
+                      SizedBox(
+                        height: (i < devices.length - 1) ? 14 : 0,
+                      )
+                    ],
                   ]),
             ),
 

@@ -6,9 +6,13 @@ import 'package:smart_water_meter/pages/device_detail_page.dart';
 
 class AbnormalSensorCard extends StatefulWidget {
   const AbnormalSensorCard(
-      {super.key, required this.sensorName, required this.sensorCount});
+      {super.key,
+      required this.sensorName,
+      required this.sensorCount,
+      required this.onBack});
   final String sensorName;
   final String sensorCount;
+  final VoidCallback? onBack;
 
   @override
   State<AbnormalSensorCard> createState() => _AbnormalSensorCardState();
@@ -23,7 +27,7 @@ class _AbnormalSensorCardState extends State<AbnormalSensorCard> {
     }
 
     return GestureDetector(
-      onTap: goToDetailPage,
+      onTap: widget.onBack,
       child: Container(
         width: 265,
         padding: const EdgeInsets.all(12),
