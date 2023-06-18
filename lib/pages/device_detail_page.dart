@@ -46,7 +46,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context, true),
             icon: const iconoir.NavArrowLeft()),
       ),
       backgroundColor: Colors.white,
