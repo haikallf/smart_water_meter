@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class SensorParameterModel {
   String? name;
   ParameterDetailsModel? parameterDetails;
@@ -16,7 +14,7 @@ class SensorParameterModel {
 }
 
 class ParameterDetailsModel {
-  Int? sensorValue;
+  int? sensorValue;
   String? condition;
   String? recommendation;
 
