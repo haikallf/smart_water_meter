@@ -218,8 +218,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                                   if (response == 200) {
                                     closeAllModalBottomSheet();
 
-                                    setSnackBarMessage(
-                                        "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
+                                    setSnackBarMessage("Nama berhasil diubah");
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         CustomSnackBar()
