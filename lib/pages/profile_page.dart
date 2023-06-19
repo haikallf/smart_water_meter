@@ -244,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context, true),
             icon: const iconoir.NavArrowLeft()),
         title: Text(
           "Profil",
