@@ -158,44 +158,45 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // MARK: Abnormal Sensors
-            Padding(
-              padding: const EdgeInsets.only(top: 14, left: 16, bottom: 14),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "2 Alat Butuh Dicek",
-                    style: const TextStyleConstant().label02,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    height: 133,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.only(right: 6),
-                      children: [
-                        for (int i = 0; i < predictions.length; i++) ...[
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            child: AbnormalSensorCard(
-                              deviceName: predictions[i]["name"],
-                              sensorCount: predictions[i]["predictions"]
-                                  .length
-                                  .toString(),
-                              onBack: () {
-                                goToDeviceDetailPage(predictions[i]["id"]);
-                              },
-                            ),
-                          ),
-                        ],
-                      ],
+            if (predictions.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 14, left: 16, bottom: 14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${predictions.length} Alat Butuh Dicek",
+                      style: const TextStyleConstant().label02,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      height: 133,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.only(right: 6),
+                        children: [
+                          for (int i = 0; i < predictions.length; i++) ...[
+                            Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              child: AbnormalSensorCard(
+                                deviceName: predictions[i]["name"],
+                                sensorCount: predictions[i]["predictions"]
+                                    .length
+                                    .toString(),
+                                onBack: () {
+                                  goToDeviceDetailPage(predictions[i]["id"]);
+                                },
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
             // MARK: All Sensors
             Padding(

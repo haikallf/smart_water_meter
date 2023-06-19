@@ -3,8 +3,6 @@ import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 
-import '../pages/device_detail_page.dart';
-
 class DeviceCard extends StatefulWidget {
   const DeviceCard({super.key, required this.sensorName, required this.onTap});
   final String sensorName;

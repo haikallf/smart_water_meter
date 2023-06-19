@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import "dart:io" show Platform;
 
 import 'package:smart_water_meter/models/device_model.dart';
 
@@ -47,6 +46,23 @@ class DevicesDummyController {
       response = await client.patch(url2, headers: _headers, body: _body);
       if (response.statusCode == 200) {
         response = await client.patch(url3, headers: _headers, body: _body);
+      }
+    }
+    return response.statusCode;
+  }
+
+  Future<dynamic> deleteDeviceNameById(String id) async {
+    var url = Uri.parse("$baseUrl/all_pools/$id");
+    var url2 = Uri.parse("$baseUrl/all_pools_predictions_only/$id");
+    var url3 = Uri.parse("$baseUrl/get_pool_details_by_id/$id");
+
+    var _headers = {'Content-Type': 'application/json'};
+
+    var response = await client.delete(url, headers: _headers);
+    if (response.statusCode == 200) {
+      response = await client.delete(url2, headers: _headers);
+      if (response.statusCode == 200) {
+        response = await client.delete(url3, headers: _headers);
       }
     }
     return response.statusCode;
