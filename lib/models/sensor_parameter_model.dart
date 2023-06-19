@@ -14,18 +14,18 @@ class SensorParameterModel {
 }
 
 class ParameterDetailsModel {
-  int? sensorValue;
+  String? sensorValue;
   String? condition;
   String? recommendation;
 
   ParameterDetailsModel(
       {this.sensorValue, this.condition, this.recommendation});
 
-  factory ParameterDetailsModel.fromJson(Map<String, dynamic> responseBody) {
+  factory ParameterDetailsModel.fromJson(Map<String, dynamic>? responseBody) {
     return ParameterDetailsModel(
-      sensorValue: responseBody['sensor_value'],
-      condition: responseBody['condition'],
-      recommendation: responseBody['recommendation'],
+      sensorValue: responseBody?['sensor_value'].toString(),
+      condition: responseBody?['condition'],
+      recommendation: responseBody?['recommendation'],
     );
   }
 }

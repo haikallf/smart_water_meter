@@ -6,8 +6,9 @@ import 'package:smart_water_meter/enums/text_style_constant.dart';
 import '../pages/device_detail_page.dart';
 
 class DeviceCard extends StatefulWidget {
-  const DeviceCard({super.key, required this.sensorName});
+  const DeviceCard({super.key, required this.sensorName, required this.onTap});
   final String sensorName;
+  final VoidCallback? onTap;
 
   @override
   State<DeviceCard> createState() => _DeviceCardState();
@@ -16,13 +17,8 @@ class DeviceCard extends StatefulWidget {
 class _DeviceCardState extends State<DeviceCard> {
   @override
   Widget build(BuildContext context) {
-    void goToDetailPage() {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DeviceDetailPage()));
-    }
-
     return GestureDetector(
-      onTap: goToDetailPage,
+      onTap: widget.onTap,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

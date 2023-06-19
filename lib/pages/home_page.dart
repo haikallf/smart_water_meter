@@ -47,10 +47,13 @@ class _HomePageState extends State<HomePage> {
     print("predictions: $predictions");
   }
 
-  void goToDeviceDetailPage() {
+  void goToDeviceDetailPage(String deviceId) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DeviceDetailPage()),
+      MaterialPageRoute(
+          builder: (context) => DeviceDetailPage(
+                deviceId: deviceId,
+              )),
     ).then((result) async {
       if (result != null && mounted) {
         loadData();
@@ -123,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ProfilePage()));
+                                builder: (context) => const ProfilePage()));
                       },
                       icon: const ProfileCircle(
                         height: 32,
@@ -170,11 +173,13 @@ class _HomePageState extends State<HomePage> {
                           Container(
                             margin: const EdgeInsets.only(right: 10),
                             child: AbnormalSensorCard(
-                              sensorName: predictions[i]["name"],
+                              deviceName: predictions[i]["name"],
                               sensorCount: predictions[i]["predictions"]
                                   .length
                                   .toString(),
-                              onBack: goToDeviceDetailPage,
+                              onBack: () {
+                                goToDeviceDetailPage(predictions[i]["id"]);
+                              },
                             ),
                           ),
                         ],
@@ -201,6 +206,9 @@ class _HomePageState extends State<HomePage> {
                     for (int i = 0; i < devices.length; i++) ...[
                       DeviceCard(
                         sensorName: devices[i]["name"],
+                        onTap: () {
+                          goToDeviceDetailPage(devices[i]["id"]);
+                        },
                       ),
                       SizedBox(
                         height: (i < devices.length - 1) ? 14 : 0,
