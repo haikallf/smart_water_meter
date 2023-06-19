@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
-import 'package:smart_water_meter/pages/device_detail_page.dart';
 
 class AbnormalSensorCard extends StatefulWidget {
   const AbnormalSensorCard(

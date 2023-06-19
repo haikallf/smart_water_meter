@@ -75,7 +75,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     return newSensorName != "" && newSensorName != selectedSensorName;
   }
 
-  void showCustomAlertDialog(
+  void showDeleteDeviceAlertDialog(
       BuildContext context,
       String content,
       String cancelButtonText,
@@ -95,11 +95,16 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     );
     if (context.mounted) {
       if (dialogResult == true) {
-        setSnackBarMessage("Alat $selectedSensorName berasil diapus");
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(context)
-            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
-        setSnackBarMessage("");
+        var response = await DevicesDummyController()
+            .deleteDeviceNameById(selectedSensorId);
+        if (response == 200) {
+          setSnackBarMessage("Alat $selectedSensorName berasil diapus");
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+          setSnackBarMessage("");
+          loadData();
+        }
       } else {
         Navigator.of(context).pop();
       }
@@ -210,7 +215,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                                   var response = await DevicesDummyController()
                                       .updateDeviceNameById(
                                           selectedSensorId, newSensorName);
-                                  if (response != null) {
+                                  if (response == 200) {
                                     closeAllModalBottomSheet();
 
                                     setSnackBarMessage(
@@ -292,7 +297,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      showCustomAlertDialog(
+                      showDeleteDeviceAlertDialog(
                           context,
                           "Apakah kamu yakin ingin menghapus alat ini?",
                           "Kembali",
