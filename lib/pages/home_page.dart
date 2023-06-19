@@ -62,6 +62,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void goToProfilePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfilePage()),
+    ).then((result) async {
+      if (result != null && mounted) {
+        loadData();
+      }
+      return Future.value();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -122,12 +134,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   // MARK: Change Icon
                   IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ProfilePage()));
-                      },
+                      onPressed: goToProfilePage,
                       icon: const ProfileCircle(
                         height: 32,
                         width: 32,

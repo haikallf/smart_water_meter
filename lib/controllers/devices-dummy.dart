@@ -13,14 +13,9 @@ class DevicesDummyController {
   Future<dynamic> getAllDevices() async {
     var url = Uri.parse("$baseUrl/all_pools");
     var _headers = {'Content-Type': 'application/json'};
-    // var _body = json.encode({
-    //   "email": email,
-    //   "password": password,
-    // });
 
     var response = await client.get(url, headers: _headers);
-    var devices = jsonDecode(response.body);
-    return devices["devices"];
+    return jsonDecode(response.body);
   }
 
   Future<dynamic> getAllAbnormalSensors() async {
@@ -28,8 +23,7 @@ class DevicesDummyController {
     var _headers = {'Content-Type': 'application/json'};
 
     var response = await client.get(url, headers: _headers);
-    var devices = jsonDecode(response.body);
-    return devices["devices"];
+    return jsonDecode(response.body);
   }
 
   Future<dynamic> getSensorDetailsById(String id) async {
@@ -38,5 +32,23 @@ class DevicesDummyController {
 
     var response = await client.get(url, headers: _headers);
     return DeviceModel.fromJson(jsonDecode(response.body));
+  }
+
+  Future<dynamic> updateDeviceNameById(String id, String newName) async {
+    var url = Uri.parse("$baseUrl/all_pools/$id");
+    var url2 = Uri.parse("$baseUrl/all_pools_predictions_only/$id");
+    var url3 = Uri.parse("$baseUrl/get_pool_details_by_id/$id");
+
+    var _headers = {'Content-Type': 'application/json'};
+    var _body = jsonEncode({"name": newName});
+
+    var response = await client.patch(url, headers: _headers, body: _body);
+    if (response.statusCode == 200) {
+      response = await client.patch(url2, headers: _headers, body: _body);
+      if (response.statusCode == 200) {
+        response = await client.patch(url3, headers: _headers, body: _body);
+      }
+    }
+    return response.statusCode;
   }
 }

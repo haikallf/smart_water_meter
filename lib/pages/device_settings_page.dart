@@ -4,6 +4,7 @@ import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/components/custom_snackbar.dart';
+import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:tuple/tuple.dart';
@@ -22,6 +23,15 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
 
   String selectedSensorId = "";
   String selectedSensorName = "";
+
+  List<dynamic> devices = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    loadData();
+  }
 
   void handleSensorNameChange(String value) {
     setState(() {
@@ -48,8 +58,12 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     });
   }
 
-  void forceRebuild() {
-    setState(() {});
+  void loadData() async {
+    final devicesTemp = await DevicesDummyController().getAllDevices();
+    setState(() {
+      devices = devicesTemp;
+    });
+    print("devices: $devices");
   }
 
   void closeAllModalBottomSheet() {
@@ -192,18 +206,25 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                             absorbing: !isAbleToChangeSensorName(),
                             child: CustomButton(
                                 isDisabled: !isAbleToChangeSensorName(),
-                                onTap: () {
-                                  closeAllModalBottomSheet();
+                                onTap: () async {
+                                  var response = await DevicesDummyController()
+                                      .updateDeviceNameById(
+                                          selectedSensorId, newSensorName);
+                                  if (response != null) {
+                                    closeAllModalBottomSheet();
 
-                                  setSnackBarMessage(
-                                      "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
+                                    setSnackBarMessage(
+                                        "ID Alat: $selectedSensorId Nama Baru: $newSensorName");
 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      CustomSnackBar()
-                                          .showSnackBar(snackBarMessage));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        CustomSnackBar()
+                                            .showSnackBar(snackBarMessage));
 
-                                  setSelectedSensor("", "");
-                                  handleSensorNameChange("");
+                                    setSelectedSensor("", "");
+                                    handleSensorNameChange("");
+
+                                    loadData();
+                                  }
                                 },
                                 text: "Simpan"),
                           ),
@@ -248,7 +269,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                         const SizedBox(
                           width: 8,
                         ),
-                        Text("Sensor Kolam A-1",
+                        Text(selectedSensorName,
                             style: const TextStyleConstant().title03),
                       ],
                     ),
@@ -300,23 +321,16 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
           });
     }
 
-    List<Tuple2<String, VoidCallback?>> sensorList = [
-      Tuple2<String, VoidCallback?>("Sensor Kolam A-1", () {
-        setSelectedSensor("A-1", "Sensor Kolam A-1");
-        sensorSettingModalBottomSheet(context);
-      }),
-      Tuple2<String, VoidCallback?>("Sensor Kolam A-2", () {
-        setSelectedSensor("A-2", "Sensor Kolam A-2");
-        sensorSettingModalBottomSheet(context);
-      }),
-      Tuple2<String, VoidCallback?>("Sensor Kolam A-3", () {
-        setSelectedSensor("A-3", "Sensor Kolam A-3");
-        sensorSettingModalBottomSheet(context);
-      }),
-      Tuple2<String, VoidCallback?>("Sensor Kolam B-1", () {
-        setSelectedSensor("B-1", "Sensor Kolam B-1");
-      }),
-    ];
+    List<Tuple2<String, VoidCallback?>> getSensorList() {
+      List<Tuple2<String, VoidCallback?>> sensorList = [];
+      for (var device in devices) {
+        sensorList.add(Tuple2<String, VoidCallback?>(device["name"], () {
+          setSelectedSensor(device["id"], device["name"]);
+          sensorSettingModalBottomSheet(context);
+        }));
+      }
+      return sensorList;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -329,7 +343,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             style: const TextStyleConstant().title03,
           )),
       backgroundColor: ColorConstant.colorsVariant90,
-      body: SafeArea(child: CustomListView(listItems: sensorList)),
+      body: SafeArea(child: CustomListView(listItems: getSensorList())),
     );
   }
 }
