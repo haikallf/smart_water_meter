@@ -59,11 +59,12 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFFFBFCFE),
         leading: IconButton(
             onPressed: () => Navigator.pop(context, true),
             icon: const iconoir.NavArrowLeft()),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFBFCFE),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
