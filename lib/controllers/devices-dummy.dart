@@ -7,7 +7,7 @@ class DevicesDummyController {
   var client = http.Client();
   // var ip = "192.168.100.4";
 
-  String baseUrl = "http://10.128.95.63:3000";
+  String baseUrl = "http://192.168.100.4:3000";
 
   Future<dynamic> getAllDevices() async {
     var url = Uri.parse("$baseUrl/all_pools");

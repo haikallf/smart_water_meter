@@ -3,6 +3,7 @@ import 'dart:convert';
 import "dart:io" show Platform;
 
 import 'package:smart_water_meter/models/user_response_model.dart';
+import 'package:smart_water_meter/utils/local_storage.dart';
 
 class AuthController {
   var client = http.Client();
@@ -13,10 +14,10 @@ class AuthController {
   Future<UserResponseModel> signIn(String email, String password) async {
     var url = Uri.parse("$baseUrl/user/login");
     var _headers = {'Content-Type': 'application/json'};
-    var _body = json.encode({
-      "email": email,
-      "password": password,
-    });
+    var device_id = LocalStorage.getDeviceToken();
+    print("device_id: $device_id");
+    var _body = json
+        .encode({"email": email, "password": password, "device_id": device_id});
 
     var response = await client.post(url, headers: _headers, body: _body);
     print(response.statusCode);

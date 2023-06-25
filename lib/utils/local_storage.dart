@@ -7,6 +7,8 @@ class LocalStorage {
 
   static const _keyFullName = "fullName";
 
+  static const _keyDeviceToken = "deviceToken";
+
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
   }
@@ -29,4 +31,13 @@ class LocalStorage {
       await _preferences.remove(_keyFullName);
 
   static Future clearAll() async => await _preferences.clear();
+
+  static Future setDeviceToken(String deviceToken) async =>
+      await _preferences.setString(_keyDeviceToken, deviceToken);
+
+  static String? getDeviceToken() => _preferences.getString(_keyDeviceToken);
+
+  static Future clearDeviceToken() async {
+    return await _preferences.remove(_keyDeviceToken);
+  }
 }

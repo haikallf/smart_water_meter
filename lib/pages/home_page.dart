@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
@@ -76,9 +77,23 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   if (event.notification == null) return;
+    //   showDialog(
+    //       context: context,
+    //       builder: (builder) {
+    //         return Column(
+    //           children: [
+    //             Text(event.notification?.title ?? ""),
+    //             Text(event.notification?.body ?? "")
+    //           ],
+    //         );
+    //       });
+    // });
     super.initState();
-    notificationManager = NotificationManager();
-    notificationManager.initialize();
+    //TODO: Recheck
+    // notificationManager = NotificationManager();
+    // notificationManager.initialize();
     setState(() {
       currentFullName = LocalStorage.getFullName() ?? "NULL";
     });

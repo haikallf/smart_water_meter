@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "924670692752",
+    "project_id": "ikanku-d709b",
+    "storage_bucket": "ikanku-d709b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924670692752:android:bb2bc44a21ad2c3bc6b715",
+        "android_client_info": {
+          "package_name": "com.example.smart_water_meter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924670692752-ir6jmuobccvjid48j5683mdi8dbvhbuk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrK-NmeC-zqX17cWdYWLstbo8o4VnKzIQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924670692752-ir6jmuobccvjid48j5683mdi8dbvhbuk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "924670692752-4pqf7e28gejt4fkao10gb4sfm917s03e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ikanku"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

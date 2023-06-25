@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:smart_water_meter/controllers/firebase_api.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
+import 'package:smart_water_meter/firebase_options.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
@@ -10,9 +13,16 @@ import 'dart:io';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  widgetsBinding;
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  FirebaseApi firebaseApi = FirebaseApi();
+  await firebaseApi.initNotifications();
 
   await LocalStorage.init();
   dynamic isLoggedIn = await SessionManager().containsKey("token");
+
+  await LocalStorage.setDeviceToken(firebaseApi.getDeviceToken() ?? "");
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -47,18 +57,18 @@ void main() async {
   Future.delayed(Duration(seconds: 2))
       .then((value) => {FlutterNativeSplash.remove()});
 
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+  // await Permission.notification.isDenied.then((value) {
+  //   if (value) {
+  //     Permission.notification.request();
+  //   }
+  // });
 }
 
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host,
-          int port) => true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
