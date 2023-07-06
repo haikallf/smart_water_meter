@@ -18,8 +18,7 @@ class DeviceDetailPage extends StatefulWidget {
 }
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
-  final channel =
-      IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
+  final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
 
   String btcUsdtPrice = "0";
 
@@ -29,7 +28,8 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
   void initState() {
     super.initState();
     loadData();
-    // streamListener();
+    streamListener();
+    channel.sink.add("64981d179e96fce4ddb7b2ef");
   }
 
   void loadData() async {
@@ -43,15 +43,15 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
 
   streamListener() {
     channel.stream.listen((message) {
-      // channel.sink.add("received data");
       // channel.sink.close();
-      Map getData = jsonDecode(message);
+      // Map getData = jsonDecode(message);
+      print(message);
 
-      setState(() {
-        btcUsdtPrice = getData["value"];
-      });
+      // setState(() {
+      //   btcUsdtPrice = getData["value"];
+      // });
 
-      print(btcUsdtPrice);
+      // print(btcUsdtPrice);
     });
   }
 

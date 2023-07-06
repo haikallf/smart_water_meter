@@ -80,7 +80,7 @@ class FirebaseApi {
     deviceToken = fCMToken ?? "";
 
     print("token: $fCMToken");
-    initNotifications();
+    // initNotifications();
     notificationManager.initialize();
     // initLocalNotifications();
   }

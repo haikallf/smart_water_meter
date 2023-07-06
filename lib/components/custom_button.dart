@@ -7,12 +7,16 @@ class CustomButton extends StatefulWidget {
       required this.onTap,
       required this.text,
       this.isDisabled = false,
-      this.backgroundColor = ColorConstant.colorsprimary});
+      this.backgroundColor = ColorConstant.colorsprimary,
+      this.foregroundColor = Colors.white,
+      this.borderColor = Colors.transparent});
 
   final Function()? onTap;
   final String text;
   final bool isDisabled;
   final Color backgroundColor;
+  final Color foregroundColor;
+  final Color borderColor;
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -24,14 +28,16 @@ class _CustomButtonState extends State<CustomButton> {
     return ElevatedButton(
       onPressed: widget.onTap,
       style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+          foregroundColor:
+              MaterialStateProperty.all<Color>(widget.foregroundColor),
           backgroundColor: MaterialStateProperty.all<Color>(widget.isDisabled
               ? ColorConstant.colorsNeutral80
               : widget.backgroundColor),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ))),
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: widget.borderColor)))),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Center(

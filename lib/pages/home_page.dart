@@ -28,8 +28,7 @@ class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
   String currentFullName = "";
 
-  final channel =
-      IOWebSocketChannel.connect("wss://socketsbay.com/wss/v2/1/demo/");
+  final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
 
   String btcUsdtPrice = "0";
 
@@ -92,8 +91,8 @@ class _HomePageState extends State<HomePage> {
     // });
     super.initState();
     //TODO: Recheck
-    // notificationManager = NotificationManager();
-    // notificationManager.initialize();
+    notificationManager = NotificationManager();
+    notificationManager.initialize();
     setState(() {
       currentFullName = LocalStorage.getFullName() ?? "NULL";
     });
@@ -108,14 +107,16 @@ class _HomePageState extends State<HomePage> {
       // channel.sink.close();
       Map getData = jsonDecode(message);
 
-      setState(() {
-        btcUsdtPrice = getData["value"];
-      });
+      print(getData);
 
-      print(btcUsdtPrice);
+      // setState(() {
+      //   btcUsdtPrice = getData["value"];
+      // });
 
-      await notificationManager.showNotification(
-          id: 0, title: "Notification Title", body: btcUsdtPrice);
+      // print(btcUsdtPrice);
+
+      // await notificationManager.showNotification(
+      //     id: 0, title: "Notification Title", body: btcUsdtPrice);
     });
   }
 
@@ -240,17 +241,17 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
 
-            // Padding(
-            //   padding: const EdgeInsets.all(16),
-            //   child: CustomButton(
-            //       onTap: () async {
-            //         await notificationManager.showNotification(
-            //             id: 0,
-            //             title: "Notification Title",
-            //             body: "Notification Body");
-            //       },
-            //       text: "Trigger Notif"),
-            // )
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: CustomButton(
+                  onTap: () async {
+                    await notificationManager.showNotification(
+                        id: 0,
+                        title: "Notification Title",
+                        body: "Notification Body");
+                  },
+                  text: "Trigger Notif"),
+            )
           ]),
         ),
       ),

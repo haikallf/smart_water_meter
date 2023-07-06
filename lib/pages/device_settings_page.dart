@@ -24,6 +24,11 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
   String selectedSensorId = "";
   String selectedSensorName = "";
 
+  String allNewSensorName = "";
+  String allNewSensorId = "";
+  bool isAllNewSensorNameFieldFocus = false;
+  bool isAllNewSensorIdFieldFocus = false;
+
   List<dynamic> devices = [];
 
   @override
@@ -39,9 +44,33 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     });
   }
 
+  void handleAllSensorNameChange(String value) {
+    setState(() {
+      allNewSensorName = value;
+    });
+  }
+
+  void handleAllNewSensorIdChange(String value) {
+    setState(() {
+      allNewSensorId = value;
+    });
+  }
+
   void handleSensorNameFieldFocusChange(bool isFocused) {
     setState(() {
       isSensorNameFieldFocus = isFocused;
+    });
+  }
+
+  void handleNewSensorIdFieldFocusChange(bool isFocused) {
+    setState(() {
+      isAllNewSensorIdFieldFocus = isFocused;
+    });
+  }
+
+  void handleNewSensorNameFieldFocusChange(bool isFocused) {
+    setState(() {
+      isAllNewSensorNameFieldFocus = isFocused;
     });
   }
 
@@ -73,6 +102,10 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
 
   bool isAbleToChangeSensorName() {
     return newSensorName != "" && newSensorName != selectedSensorName;
+  }
+
+  bool isAbleToAddNewSensor() {
+    return allNewSensorName != "" && allNewSensorId != "";
   }
 
   void showDeleteDeviceAlertDialog(
@@ -325,6 +358,169 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
           });
     }
 
+    void addSensorModalBottomSheet(BuildContext context) {
+      handleAllNewSensorIdChange("");
+      handleAllSensorNameChange("");
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          builder: (context) {
+            return StatefulBuilder(
+                builder: (BuildContext context, StateSetter setModalState) {
+              return Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Wrap(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: Column(children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1.0, color: Color(0x1A000000)))),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const iconoir.Cancel()),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text("Tambah Alat",
+                                  style: const TextStyleConstant().title03),
+                            ],
+                          ),
+                        ),
+                        Container(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("ID Alat",
+                                    style: const TextStyleConstant()
+                                        .body03
+                                        .copyWith(
+                                            color: isAllNewSensorIdFieldFocus
+                                                ? ColorConstant.colorssecondary
+                                                : ColorConstant
+                                                    .colorsNeutral50)),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Focus(
+                                  onFocusChange: (isFocus) {
+                                    setModalState(() {
+                                      handleNewSensorIdFieldFocusChange(
+                                          isFocus);
+                                    });
+                                  },
+                                  child: Column(children: [
+                                    TextField(
+                                      onChanged: (value) {
+                                        setModalState(() {
+                                          handleAllNewSensorIdChange(
+                                              value.toString());
+                                        });
+                                      },
+                                      maxLength: 32,
+                                      style: const TextStyleConstant().body02,
+                                      decoration: InputDecoration(
+                                        hintText: selectedSensorName,
+                                        isDense: true,
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorsNeutral50)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorssecondary)),
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                                Text("Nama Alat",
+                                    style: const TextStyleConstant()
+                                        .body03
+                                        .copyWith(
+                                            color: isAllNewSensorNameFieldFocus
+                                                ? ColorConstant.colorssecondary
+                                                : ColorConstant
+                                                    .colorsNeutral50)),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Focus(
+                                  onFocusChange: (isFocus) {
+                                    setModalState(() {
+                                      handleNewSensorNameFieldFocusChange(
+                                          isFocus);
+                                    });
+                                  },
+                                  child: Column(children: [
+                                    TextField(
+                                      onChanged: (value) {
+                                        setModalState(() {
+                                          handleAllSensorNameChange(
+                                              value.toString());
+                                        });
+                                      },
+                                      maxLength: 32,
+                                      style: const TextStyleConstant().body02,
+                                      decoration: InputDecoration(
+                                        hintText: selectedSensorName,
+                                        isDense: true,
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorsNeutral50)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: ColorConstant
+                                                    .colorssecondary)),
+                                      ),
+                                    ),
+                                  ]),
+                                )
+                              ],
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: AbsorbPointer(
+                            absorbing: !isAbleToAddNewSensor(),
+                            child: CustomButton(
+                                isDisabled: !isAbleToAddNewSensor(),
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                },
+                                text: "Simpan"),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                      ]),
+                    )
+                  ],
+                ),
+              );
+            });
+          });
+    }
+
     List<Tuple2<String, VoidCallback?>> getSensorList() {
       List<Tuple2<String, VoidCallback?>> sensorList = [];
       for (var device in devices) {
@@ -347,7 +543,28 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             style: const TextStyleConstant().title03,
           )),
       backgroundColor: ColorConstant.colorsVariant90,
-      body: SafeArea(child: CustomListView(listItems: getSensorList())),
+      body: SafeArea(
+          bottom: false,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SafeArea(child: CustomListView(listItems: getSensorList())),
+              Container(
+                padding: EdgeInsets.fromLTRB(
+                    16, 12, 16, MediaQuery.of(context).padding.bottom + 12),
+                color: Colors.white,
+                child: CustomButton(
+                  onTap: () {
+                    addSensorModalBottomSheet(context);
+                  },
+                  text: "Tambah Alat",
+                  backgroundColor: Colors.white,
+                  foregroundColor: ColorConstant.colorsprimary,
+                  borderColor: ColorConstant.colorsNeutral40,
+                ),
+              )
+            ],
+          )),
     );
   }
 }

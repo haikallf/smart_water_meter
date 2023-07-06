@@ -20,8 +20,15 @@ class AuthController {
         .encode({"email": email, "password": password, "device_id": device_id});
 
     var response = await client.post(url, headers: _headers, body: _body);
-    print(response.statusCode);
+    print(response.body);
     return UserResponseModel.fromJson(
         jsonDecode(response.body), response.statusCode);
+  }
+
+  Future triggerNotif() async {
+    var url = Uri.parse("$baseUrl/haikalfadil@email.com");
+    var _headers = {'Content-Type': 'application/json'};
+
+    await client.post(url, headers: _headers, body: {});
   }
 }
