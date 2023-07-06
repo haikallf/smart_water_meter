@@ -5,8 +5,11 @@ import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/components/custom_snackbar.dart';
 import 'package:smart_water_meter/controllers/devices-dummy.dart';
+import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/models/device_model.dart';
+import 'package:smart_water_meter/models/device_response_model.dart';
 import 'package:tuple/tuple.dart';
 
 class DeviceSettingsPage extends StatefulWidget {
@@ -29,12 +32,11 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
   bool isAllNewSensorNameFieldFocus = false;
   bool isAllNewSensorIdFieldFocus = false;
 
-  List<dynamic> devices = [];
+  List<DeviceModel> devices = [];
 
   @override
   void initState() {
     super.initState();
-
     loadData();
   }
 
@@ -88,9 +90,9 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
   }
 
   void loadData() async {
-    final devicesTemp = await DevicesDummyController().getAllDevices();
+    final allDevices = await DevicesController().getAllDevices();
     setState(() {
-      devices = devicesTemp;
+      devices = allDevices.devices ?? [];
     });
     print("devices: $devices");
   }
@@ -142,6 +144,30 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
         Navigator.of(context).pop();
       }
     }
+  }
+
+  void changeDeviceName(BuildContext context) async {
+    int responseStatusCode = await DevicesController()
+        .changeDeviceNameById(selectedSensorId, newSensorName);
+    if (responseStatusCode == 200) {
+      setSnackBarMessage("Nama berhasil diubah");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        closeAllModalBottomSheet();
+      }
+      loadData();
+    } else {
+      setSnackBarMessage("Pengubahan nama alat gagal!");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        closeAllModalBottomSheet();
+      }
+    }
+    setSnackBarMessage("");
+    setSelectedSensor("", "");
+    handleSensorNameChange("");
   }
 
   @override
@@ -245,23 +271,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                             child: CustomButton(
                                 isDisabled: !isAbleToChangeSensorName(),
                                 onTap: () async {
-                                  var response = await DevicesDummyController()
-                                      .updateDeviceNameById(
-                                          selectedSensorId, newSensorName);
-                                  if (response == 200) {
-                                    closeAllModalBottomSheet();
-
-                                    setSnackBarMessage("Nama berhasil diubah");
-
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        CustomSnackBar()
-                                            .showSnackBar(snackBarMessage));
-
-                                    setSelectedSensor("", "");
-                                    handleSensorNameChange("");
-
-                                    loadData();
-                                  }
+                                  changeDeviceName(context);
                                 },
                                 text: "Simpan"),
                           ),
@@ -524,8 +534,8 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     List<Tuple2<String, VoidCallback?>> getSensorList() {
       List<Tuple2<String, VoidCallback?>> sensorList = [];
       for (var device in devices) {
-        sensorList.add(Tuple2<String, VoidCallback?>(device["name"], () {
-          setSelectedSensor(device["id"], device["name"]);
+        sensorList.add(Tuple2<String, VoidCallback?>(device.name ?? "", () {
+          setSelectedSensor(device.id ?? "", device.name ?? "");
           sensorSettingModalBottomSheet(context);
         }));
       }

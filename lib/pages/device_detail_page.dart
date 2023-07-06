@@ -18,41 +18,41 @@ class DeviceDetailPage extends StatefulWidget {
 }
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
-  // final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
+  final channel = IOWebSocketChannel.connect("ws://localhost:8000/ws");
 
-  String btcUsdtPrice = "0";
+  // String btcUsdtPrice = "0";
 
   DeviceModel1 device = DeviceModel1();
 
   @override
   void initState() {
     super.initState();
+    channel.sink.add(widget.deviceId);
     loadData();
-    // streamListener();
-    // channel.sink.add("64981d179e96fce4ddb7b2ef");
+    streamListener();
   }
 
   void loadData() async {
     final detailsTemp =
-        await DevicesDummyController().getSensorDetailsById(widget.deviceId);
+        await DevicesDummyController().getSensorDetailsById("dev001");
     setState(() {
       device = detailsTemp;
     });
   }
 
-  // streamListener() {
-  //   channel.stream.listen((message) {
-  //     // channel.sink.close();
-  //     // Map getData = jsonDecode(message);
-  //     print(message);
+  streamListener() {
+    channel.stream.listen((message) {
+      // channel.sink.close();
+      // Map getData = jsonDecode(message);
+      print(message);
 
-  //     // setState(() {
-  //     //   btcUsdtPrice = getData["value"];
-  //     // });
+      // setState(() {
+      //   btcUsdtPrice = getData["value"];
+      // });
 
-  //     // print(btcUsdtPrice);
-  //   });
-  // }
+      // print(btcUsdtPrice);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

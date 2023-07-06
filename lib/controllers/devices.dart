@@ -26,9 +26,37 @@ class DevicesController {
     );
     print(response.body);
     if (response.statusCode == 200) {
-      return DeviceResponseModel.fromJson(jsonDecode(response.body));
+      return DeviceResponseModel.fromJson(
+          jsonDecode(response.body), response.statusCode);
     } else {
-      return DeviceResponseModel();
+      return DeviceResponseModel.fromJson(
+          jsonDecode({} as dynamic), response.statusCode);
     }
+  }
+
+  Future<int> changeDeviceNameById(String deviceId, String name) async {
+    var url = Uri.parse("$baseUrl/pool/$deviceId/change-name");
+    dynamic token = await SessionManager().get("token");
+    print(token);
+
+    var _headers = {
+      HttpHeaders.acceptHeader: "application/json",
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
+
+    var _body = json.encode({"name": name});
+
+    var response = await client.put(url, headers: _headers, body: _body);
+
+    print(response.body);
+    return response.statusCode;
+    // if (response.statusCode == 200) {
+    //   return DeviceResponseModel.fromJson(
+    //       jsonDecode(response.body), response.statusCode);
+    // } else {
+    //   return DeviceResponseModel.fromJson(
+    //       jsonDecode({} as dynamic), response.statusCode);
+    // }
   }
 }
