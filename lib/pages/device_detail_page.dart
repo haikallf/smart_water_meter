@@ -6,7 +6,7 @@ import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
-import 'package:smart_water_meter/models/device_model.dart';
+import 'package:smart_water_meter/models/device_model1.dart';
 import 'package:web_socket_channel/io.dart';
 
 class DeviceDetailPage extends StatefulWidget {
@@ -18,18 +18,18 @@ class DeviceDetailPage extends StatefulWidget {
 }
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
-  final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
+  // final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
 
   String btcUsdtPrice = "0";
 
-  DeviceModel device = DeviceModel();
+  DeviceModel1 device = DeviceModel1();
 
   @override
   void initState() {
     super.initState();
     loadData();
-    streamListener();
-    channel.sink.add("64981d179e96fce4ddb7b2ef");
+    // streamListener();
+    // channel.sink.add("64981d179e96fce4ddb7b2ef");
   }
 
   void loadData() async {
@@ -38,22 +38,21 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     setState(() {
       device = detailsTemp;
     });
-    print(device.predictions?["temp"]?.sensorValue);
   }
 
-  streamListener() {
-    channel.stream.listen((message) {
-      // channel.sink.close();
-      // Map getData = jsonDecode(message);
-      print(message);
+  // streamListener() {
+  //   channel.stream.listen((message) {
+  //     // channel.sink.close();
+  //     // Map getData = jsonDecode(message);
+  //     print(message);
 
-      // setState(() {
-      //   btcUsdtPrice = getData["value"];
-      // });
+  //     // setState(() {
+  //     //   btcUsdtPrice = getData["value"];
+  //     // });
 
-      // print(btcUsdtPrice);
-    });
-  }
+  //     // print(btcUsdtPrice);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

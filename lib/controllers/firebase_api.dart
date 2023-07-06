@@ -79,7 +79,7 @@ class FirebaseApi {
     final fCMToken = await firebaseMesssaging.getToken();
     deviceToken = fCMToken ?? "";
 
-    print("token: $fCMToken");
+    print("FCM Token: $fCMToken");
     // initNotifications();
     notificationManager.initialize();
     // initLocalNotifications();

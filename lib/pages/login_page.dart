@@ -28,9 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   //       .then((value) => {FlutterNativeSplash.remove()});
   // }
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   bool isEmailFieldFocus = false;
   bool isPasswordFieldFocus = false;
   String email = "";
@@ -97,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           await LocalStorage.setFullName('${response.currentUser?.name}');
           await sessionManager.set("token", response.currentUser?.token);
+          print("Auth Token ${response.currentUser?.token}");
           if (context.mounted) {
             Navigator.pushReplacement(
                 context, MaterialPageRoute(builder: (context) => HomePage()));

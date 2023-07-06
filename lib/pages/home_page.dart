@@ -7,15 +7,15 @@ import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/device_card.dart';
 import 'package:smart_water_meter/controllers/devices-dummy.dart';
+import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/models/device_model.dart';
 import 'package:smart_water_meter/pages/device_detail_page.dart';
 import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:smart_water_meter/utils/notification_manager.dart';
-import 'package:web_socket_channel/io.dart';
-import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,23 +28,27 @@ class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
   String currentFullName = "";
 
-  final channel = IOWebSocketChannel.connect("ws://10.0.2.2:8000/ws");
-
   String btcUsdtPrice = "0";
 
-  List<dynamic> devices = [];
+  List<DeviceModel> devices = [];
+  List<DeviceModel> anomalyDevices = [];
   List<dynamic> predictions = [];
 
   void loadData() async {
-    final devicesTemp = await DevicesDummyController().getAllDevices();
-    final predictionsTemp =
-        await DevicesDummyController().getAllAbnormalSensors();
+    // final devicesTemp = await DevicesDummyController().getAllDevices();
+    // final predictionsTemp =
+    //     await DevicesDummyController().getAllAbnormalSensors();
+
+    final allDevices = await DevicesController().getAllDevices();
+
     setState(() {
-      devices = devicesTemp;
-      predictions = predictionsTemp;
+      devices = allDevices.devices ?? [];
+      anomalyDevices =
+          devices.where((device) => device.anomalies.isNotEmpty).toList();
+      // predictions = predictionsTemp;
     });
-    print("devices: $devices");
-    print("predictions: $predictions");
+    print("devices: ${devices[0]}");
+    print("anomalies: $anomalyDevices");
   }
 
   void goToDeviceDetailPage(String deviceId) {
@@ -69,6 +73,9 @@ class _HomePageState extends State<HomePage> {
     ).then((result) async {
       if (result != null && mounted) {
         loadData();
+        setState(() {
+          currentFullName = LocalStorage.getFullName() ?? "NULL";
+        });
       }
       return Future.value();
     });
@@ -97,27 +104,7 @@ class _HomePageState extends State<HomePage> {
       currentFullName = LocalStorage.getFullName() ?? "NULL";
     });
     loadData();
-    // streamListener();
     // notificationManager.init();
-  }
-
-  streamListener() async {
-    channel.stream.listen((message) async {
-      // channel.sink.add("received data");
-      // channel.sink.close();
-      Map getData = jsonDecode(message);
-
-      print(getData);
-
-      // setState(() {
-      //   btcUsdtPrice = getData["value"];
-      // });
-
-      // print(btcUsdtPrice);
-
-      // await notificationManager.showNotification(
-      //     id: 0, title: "Notification Title", body: btcUsdtPrice);
-    });
   }
 
   @override
@@ -174,7 +161,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
             // MARK: Abnormal Sensors
-            if (predictions.isNotEmpty)
+            if (anomalyDevices.isNotEmpty)
               Padding(
                 padding: const EdgeInsets.only(top: 14, left: 16, bottom: 14),
                 child: Column(
@@ -197,12 +184,14 @@ class _HomePageState extends State<HomePage> {
                             Container(
                               margin: const EdgeInsets.only(right: 10),
                               child: AbnormalSensorCard(
-                                deviceName: predictions[i]["name"],
-                                sensorCount: predictions[i]["predictions"]
+                                deviceName: anomalyDevices[i].name ?? "",
+                                sensorCount: anomalyDevices[i]
+                                    .anomalies
                                     .length
                                     .toString(),
                                 onBack: () {
-                                  goToDeviceDetailPage(predictions[i]["id"]);
+                                  goToDeviceDetailPage(
+                                      anomalyDevices[i].id ?? "");
                                 },
                               ),
                             ),
@@ -229,9 +218,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     for (int i = 0; i < devices.length; i++) ...[
                       DeviceCard(
-                        sensorName: devices[i]["name"],
+                        sensorName: devices[i].name ?? "",
                         onTap: () {
-                          goToDeviceDetailPage(devices[i]["id"]);
+                          goToDeviceDetailPage(devices[i].id ?? "");
                         },
                       ),
                       SizedBox(

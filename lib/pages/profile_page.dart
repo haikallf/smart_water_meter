@@ -5,8 +5,10 @@ import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/components/custom_snackbar.dart';
+import 'package:smart_water_meter/controllers/auth.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/models/user_response_model.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/device_settings_page.dart';
@@ -194,12 +196,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           absorbing: !isAbleToChangeFullName(),
                           child: CustomButton(
                               onTap: () {
-                                setSnackBarMessage("Nama berhasil diubah");
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    CustomSnackBar()
-                                        .showSnackBar(snackBarMessage));
-                                Navigator.of(context).pop();
-                                setSnackBarMessage("");
+                                changeFullName(context);
+                                // setSnackBarMessage("Nama berhasil diubah");
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //     CustomSnackBar()
+                                //         .showSnackBar(snackBarMessage));
+                                // Navigator.of(context).pop();
+                                // setSnackBarMessage("");
                               },
                               isDisabled: !isAbleToChangeFullName(),
                               text: "Simpan"),
@@ -215,6 +218,30 @@ class _ProfilePageState extends State<ProfilePage> {
             );
           });
         });
+  }
+
+  void changeFullName(BuildContext context) async {
+    UserResponseModel response = await AuthController().changeName(newFullName);
+    if (response.responseStatusCode == 200) {
+      setSnackBarMessage("Nama berhasil diubah");
+      await LocalStorage.setFullName('${response.currentUser?.name}');
+      setState(() {
+        fullName = LocalStorage.getFullName() ?? "NULL";
+      });
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        Navigator.of(context).pop();
+      }
+      setSnackBarMessage("");
+    } else {
+      setSnackBarMessage("Pengubahan nama gagal!");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        Navigator.of(context).pop();
+      }
+    }
   }
 
   @override
