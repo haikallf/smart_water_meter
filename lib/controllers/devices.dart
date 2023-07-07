@@ -53,6 +53,25 @@ class DevicesController {
     return response.statusCode;
   }
 
+  Future<int> addNewPool(String deviceId, String name) async {
+    var url = Uri.parse("$baseUrl/pool/add");
+    dynamic token = await SessionManager().get("token");
+    print(token);
+
+    var _headers = {
+      HttpHeaders.acceptHeader: "application/json",
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
+
+    var _body = json.encode({"id": deviceId, "name": name});
+
+    var response = await client.post(url, headers: _headers, body: _body);
+
+    print(response.body);
+    return response.statusCode;
+  }
+
   Future<int> setPoolToNormalById(String deviceId) async {
     var url = Uri.parse("$baseUrl/pool/$deviceId/set-normal");
     dynamic token = await SessionManager().get("token");

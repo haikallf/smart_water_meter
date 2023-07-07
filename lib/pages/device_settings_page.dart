@@ -170,6 +170,29 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
     handleSensorNameChange("");
   }
 
+  void addNewDevice(BuildContext context) async {
+    int responseStatusCode =
+        await DevicesController().addNewPool(allNewSensorId, allNewSensorName);
+    if (responseStatusCode == 200) {
+      setSnackBarMessage("Alat berhasil ditambahkan");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        Navigator.of(context).pop();
+      }
+      loadData();
+    } else {
+      setSnackBarMessage("Penambahan alat gagal!");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+        Navigator.of(context).pop();
+      }
+    }
+    setSnackBarMessage("");
+    handleSensorNameChange("");
+  }
+
   @override
   Widget build(BuildContext context) {
     void changeSensorNameModalBottomSheet(BuildContext context) {
@@ -514,7 +537,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                             child: CustomButton(
                                 isDisabled: !isAbleToAddNewSensor(),
                                 onTap: () async {
-                                  Navigator.of(context).pop();
+                                  addNewDevice(context);
                                 },
                                 text: "Simpan"),
                           ),
