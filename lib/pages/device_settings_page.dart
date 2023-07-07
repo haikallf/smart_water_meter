@@ -128,21 +128,28 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             onTap: onTap);
       },
     );
-    if (context.mounted) {
-      if (dialogResult == true) {
-        var response = await DevicesDummyController()
-            .deleteDeviceNameById(selectedSensorId);
-        if (response == 200) {
-          setSnackBarMessage("Alat $selectedSensorName berasil diapus");
-          Navigator.of(context).pop();
+
+    if (dialogResult == true) {
+      var responseStatusCode =
+          await DevicesController().deletePoolById(selectedSensorId);
+      if (responseStatusCode == 200) {
+        setSnackBarMessage("Alat berhasil dihapus");
+        if (context.mounted) {
           ScaffoldMessenger.of(context)
               .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
-          setSnackBarMessage("");
-          loadData();
+          Navigator.of(context).pop();
         }
+        loadData();
       } else {
-        Navigator.of(context).pop();
+        setSnackBarMessage("Penghapusan alat gagal!");
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(CustomSnackBar().showSnackBar(snackBarMessage));
+          Navigator.of(context).pop();
+        }
       }
+      setSnackBarMessage("");
+      handleSensorNameChange("");
     }
   }
 
@@ -466,16 +473,15 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                                       },
                                       maxLength: 32,
                                       style: const TextStyleConstant().body02,
-                                      decoration: InputDecoration(
-                                        hintText: selectedSensorName,
+                                      decoration: const InputDecoration(
+                                        hintText: "ID Alat Baru",
                                         isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.all(12),
-                                        enabledBorder: const OutlineInputBorder(
+                                        contentPadding: EdgeInsets.all(12),
+                                        enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstant
                                                     .colorsNeutral50)),
-                                        focusedBorder: const OutlineInputBorder(
+                                        focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstant
                                                     .colorssecondary)),
@@ -511,16 +517,15 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                                       },
                                       maxLength: 32,
                                       style: const TextStyleConstant().body02,
-                                      decoration: InputDecoration(
-                                        hintText: selectedSensorName,
+                                      decoration: const InputDecoration(
+                                        hintText: "Nama Alat Baru",
                                         isDense: true,
-                                        contentPadding:
-                                            const EdgeInsets.all(12),
-                                        enabledBorder: const OutlineInputBorder(
+                                        contentPadding: EdgeInsets.all(12),
+                                        enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstant
                                                     .colorsNeutral50)),
-                                        focusedBorder: const OutlineInputBorder(
+                                        focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstant
                                                     .colorssecondary)),

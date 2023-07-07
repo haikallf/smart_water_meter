@@ -72,6 +72,23 @@ class DevicesController {
     return response.statusCode;
   }
 
+  Future<int> deletePoolById(String deviceId) async {
+    var url = Uri.parse("$baseUrl/pool/$deviceId/delete");
+    dynamic token = await SessionManager().get("token");
+    print(token);
+
+    var _headers = {
+      HttpHeaders.acceptHeader: "application/json",
+      HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.authorizationHeader: "Bearer $token"
+    };
+
+    var response = await client.delete(url, headers: _headers);
+
+    print(response.body);
+    return response.statusCode;
+  }
+
   Future<int> setPoolToNormalById(String deviceId) async {
     var url = Uri.parse("$baseUrl/pool/$deviceId/set-normal");
     dynamic token = await SessionManager().get("token");
