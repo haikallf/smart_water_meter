@@ -47,16 +47,17 @@ class _HomePageState extends State<HomePage> {
           devices.where((device) => device.anomalies.isNotEmpty).toList();
       // predictions = predictionsTemp;
     });
-    print("devices: ${devices[0]}");
+    print("devices: ${devices}");
     print("anomalies: $anomalyDevices");
   }
 
-  void goToDeviceDetailPage(String deviceId) {
+  void goToDeviceDetailPage(String deviceId, String deviceName) {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => DeviceDetailPage(
                 deviceId: deviceId,
+                deviceName: deviceName,
               )),
     ).then((result) async {
       if (result != null && mounted) {
@@ -83,28 +84,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // FirebaseMessaging.onMessage.listen((event) {
-    //   if (event.notification == null) return;
-    //   showDialog(
-    //       context: context,
-    //       builder: (builder) {
-    //         return Column(
-    //           children: [
-    //             Text(event.notification?.title ?? ""),
-    //             Text(event.notification?.body ?? "")
-    //           ],
-    //         );
-    //       });
-    // });
     super.initState();
-    //TODO: Recheck
-    notificationManager = NotificationManager();
-    notificationManager.initialize();
+
     setState(() {
       currentFullName = LocalStorage.getFullName() ?? "NULL";
     });
     loadData();
-    // notificationManager.init();
   }
 
   @override
@@ -168,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${predictions.length} Alat Butuh Dicek",
+                      "${anomalyDevices.length} Alat Butuh Dicek",
                       style: const TextStyleConstant().label02,
                     ),
                     const SizedBox(
@@ -180,18 +165,19 @@ class _HomePageState extends State<HomePage> {
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.only(right: 6),
                         children: [
-                          for (int i = 0; i < predictions.length; i++) ...[
+                          for (int i = 0; i < anomalyDevices.length; i++) ...[
                             Container(
                               margin: const EdgeInsets.only(right: 10),
                               child: AbnormalSensorCard(
-                                deviceName: anomalyDevices[i].name ?? "",
+                                deviceName: anomalyDevices[i].name ?? "NULL",
                                 sensorCount: anomalyDevices[i]
                                     .anomalies
                                     .length
                                     .toString(),
                                 onBack: () {
                                   goToDeviceDetailPage(
-                                      anomalyDevices[i].id ?? "");
+                                      anomalyDevices[i].id ?? "",
+                                      anomalyDevices[i].name ?? "");
                                 },
                               ),
                             ),
@@ -220,7 +206,8 @@ class _HomePageState extends State<HomePage> {
                       DeviceCard(
                         sensorName: devices[i].name ?? "",
                         onTap: () {
-                          goToDeviceDetailPage(devices[i].id ?? "");
+                          goToDeviceDetailPage(
+                              devices[i].id ?? "", devices[i].name ?? "");
                         },
                       ),
                       SizedBox(
@@ -230,17 +217,17 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: CustomButton(
-                  onTap: () async {
-                    await notificationManager.showNotification(
-                        id: 0,
-                        title: "Notification Title",
-                        body: "Notification Body");
-                  },
-                  text: "Trigger Notif"),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.all(16),
+            //   child: CustomButton(
+            //       onTap: () async {
+            //         await notificationManager.showNotification(
+            //             id: 0,
+            //             title: "Notification Title",
+            //             body: "Notification Body");
+            //       },
+            //       text: "Trigger Notif"),
+            // )
           ]),
         ),
       ),

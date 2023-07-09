@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import "dart:io" show Platform;
 
 import 'package:smart_water_meter/models/device_model1.dart';
 
@@ -7,7 +8,9 @@ class DevicesDummyController {
   var client = http.Client();
   // var ip = "192.168.100.4";
 
-  String baseUrl = "http://127.0.0.1:3000";
+  String baseUrl = Platform.isAndroid
+      ? "http://192.168.0.94:3000"
+      : "http://192.168.0.94:3000";
 
   Future<dynamic> getAllDevices() async {
     var url = Uri.parse("$baseUrl/all_pools");
@@ -26,7 +29,7 @@ class DevicesDummyController {
   }
 
   Future<dynamic> getSensorDetailsById(String id) async {
-    var url = Uri.parse("$baseUrl/get_pool_details_by_id/$id");
+    var url = Uri.parse("$baseUrl/get_pool_details_by_id/dev001");
     var _headers = {'Content-Type': 'application/json'};
 
     var response = await client.get(url, headers: _headers);

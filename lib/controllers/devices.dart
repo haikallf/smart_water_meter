@@ -11,12 +11,13 @@ class DevicesController {
   String baseUrl = GlobalConfig.baseUrl;
 
   Future<DeviceResponseModel> getAllDevices() async {
-    var url = Uri.parse("$baseUrl/pool");
+    var url = Uri.parse("$baseUrl/pool/");
     dynamic token = await SessionManager().get("token");
     print(token);
 
     var _headers = {
       HttpHeaders.contentTypeHeader: "application/json",
+      HttpHeaders.acceptHeader: "application/json",
       HttpHeaders.authorizationHeader: "Bearer $token"
     };
 
@@ -29,8 +30,7 @@ class DevicesController {
       return DeviceResponseModel.fromJson(
           jsonDecode(response.body), response.statusCode);
     } else {
-      return DeviceResponseModel.fromJson(
-          jsonDecode({} as dynamic), response.statusCode);
+      return DeviceResponseModel.fromJson([], response.statusCode);
     }
   }
 

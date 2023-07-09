@@ -26,7 +26,7 @@ class AnomalyModel {
 
   factory AnomalyModel.fromJson(Map<String, dynamic> responseBody) {
     return AnomalyModel(
-      sensorType: responseBody['sensorType'],
+      sensorType: responseBody['sensor_type'],
       action: responseBody['action'],
     );
   }

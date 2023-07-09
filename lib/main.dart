@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -10,6 +11,8 @@ import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
+
+import 'package:smart_water_meter/utils/notification_manager.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,17 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   HttpOverrides.global = MyHttpOverrides();
+
+  //TODO: Recheck
+  late final notificationManager = NotificationManager();
+  notificationManager.initialize();
+  FirebaseMessaging.onMessage.listen((event) async {
+    if (event.notification == null) return;
+    await notificationManager.showNotification(
+        id: 0,
+        title: event.notification?.title,
+        body: event.notification?.body);
+  });
 
   runApp(MaterialApp(
     title: 'Flutter Demo',

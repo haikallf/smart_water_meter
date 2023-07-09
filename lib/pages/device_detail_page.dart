@@ -4,53 +4,89 @@ import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/controllers/devices-dummy.dart';
+import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
+import 'package:smart_water_meter/models/device_detail_model.dart';
+import 'package:smart_water_meter/models/device_model.dart';
 import 'package:smart_water_meter/models/device_model1.dart';
 import 'package:web_socket_channel/io.dart';
 
 class DeviceDetailPage extends StatefulWidget {
-  const DeviceDetailPage({super.key, required this.deviceId});
+  const DeviceDetailPage(
+      {super.key, required this.deviceId, required this.deviceName});
   final String deviceId;
+  final String deviceName;
 
   @override
   State<DeviceDetailPage> createState() => _DeviceDetailPageState();
 }
 
 class _DeviceDetailPageState extends State<DeviceDetailPage> {
-  final channel = IOWebSocketChannel.connect("ws://localhost:8000/ws");
+  final channel = IOWebSocketChannel.connect(
+      "ws://smartwater-be-cjuo2jvqkq-et.a.run.app/ws");
 
   // String btcUsdtPrice = "0";
 
   DeviceModel1 device = DeviceModel1();
 
+  DeviceDetailModel deviceDetails = DeviceDetailModel();
+  List<DeviceModel> devices = [];
+
+  List<DeviceModel> anomalyDevices = [];
+  List<AnomalyModel> anomalies = [];
+
+  List<AnomalyModel> currentAnomalies = [];
+  List<AnomalyModel> futureAnomalies = [];
+
   @override
   void initState() {
     super.initState();
-    channel.sink.add(widget.deviceId);
-    loadData();
+    // loadData();
     streamListener();
   }
 
-  void loadData() async {
-    final detailsTemp =
-        await DevicesDummyController().getSensorDetailsById("dev001");
-    setState(() {
-      device = detailsTemp;
-    });
+  bool checkAnomalyParameter(List<AnomalyModel> anomalyArr, String sensorType) {
+    for (var e in anomalyArr) {
+      if (sensorType == e.sensorType) return true;
+    }
+    return false;
+  }
+
+  AnomalyModel? checkAnomalyParameterValue(
+      List<AnomalyModel> anomalyArr, String sensorType) {
+    for (var e in anomalyArr) {
+      if (sensorType == e.sensorType) return e;
+    }
+    return null;
   }
 
   streamListener() {
-    channel.stream.listen((message) {
+    print("device id: ${widget.deviceId}");
+    channel.sink.add(widget.deviceId);
+    channel.stream.listen((message) async {
       // channel.sink.close();
-      // Map getData = jsonDecode(message);
-      print(message);
 
-      // setState(() {
-      //   btcUsdtPrice = getData["value"];
-      // });
+      final allDevices = await DevicesController().getAllDevices();
 
-      // print(btcUsdtPrice);
+      setState(() {
+        devices = allDevices.devices ?? [];
+        anomalyDevices =
+            devices.where((device) => device.id == widget.deviceId).toList();
+        anomalies = anomalyDevices[0].anomalies;
+        futureAnomalies = anomalies
+            .where((anomaly) => anomaly.action.contains("dalam 15 menit"))
+            .toList();
+        currentAnomalies =
+            anomalies.toSet().difference(futureAnomalies.toSet()).toList();
+      });
+
+      setState(() {
+        deviceDetails = DeviceDetailModel.fromJson(jsonDecode(message));
+      });
+
+      print("FUTURE ANOMALIES: ${futureAnomalies[0].sensorType}");
+      print("CURRENT ANOMALIES: ${currentAnomalies[0].sensorType}");
     });
   }
 
@@ -74,7 +110,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: Text(
-                device.name ?? "NULL",
+                widget.deviceName,
                 style: const TextStyleConstant().heading02,
               ),
             ),
@@ -88,17 +124,16 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                         SensorParameterCard(
                             parameterName: "Suhu Air",
                             parameterBackground: "temp",
-                            parameterValue:
-                                device.current?["temp"]?.sensorValue ?? "--",
+                            parameterValue: deviceDetails.temperature ?? "--",
                             parameterUnit: " ℃",
-                            parameterStatus:
-                                device.current?["temp"]?.condition !=
-                                        ParameterStatus.normal
-                                    ? ParameterStatus.warning
-                                    : ParameterStatus.normal,
-                            parameterRecommendation:
-                                device.current?["temp"]?.recommendation ??
-                                    "Normal",
+                            parameterStatus: checkAnomalyParameter(
+                                    currentAnomalies, "temperature")
+                                ? ParameterStatus.warning
+                                : ParameterStatus.normal,
+                            parameterRecommendation: checkAnomalyParameterValue(
+                                        currentAnomalies, "temperature")
+                                    ?.action ??
+                                "Normal",
                             parameterValuePrediction:
                                 device.predictions?["temp"]?.sensorValue,
                             parameterWarningPrediction:
@@ -109,7 +144,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                           height: 14,
                         ),
                         SensorParameterCard(
-                            parameterName: "Oksigen",
+                            parameterName: "Oksigen Terlarut",
                             parameterBackground: "do",
                             parameterValue:
                                 device.current?["do"]?.sensorValue ?? "--",
@@ -157,15 +192,16 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                         SensorParameterCard(
                           parameterName: "pH Air",
                           parameterBackground: "ph",
-                          parameterValue:
-                              device.current?["ph"]?.sensorValue ?? "--",
-                          parameterUnit: " ℃",
-                          parameterStatus: device.current?["ph"]?.condition !=
-                                  ParameterStatus.normal
-                              ? ParameterStatus.warning
-                              : ParameterStatus.normal,
+                          parameterValue: deviceDetails.ph ?? "--",
+                          parameterUnit: " pH",
+                          parameterStatus:
+                              checkAnomalyParameter(currentAnomalies, "ph")
+                                  ? ParameterStatus.warning
+                                  : ParameterStatus.normal,
                           parameterRecommendation:
-                              device.current?["ph"]?.recommendation ?? "Normal",
+                              checkAnomalyParameterValue(currentAnomalies, "ph")
+                                      ?.action ??
+                                  "Normal",
                           parameterValuePrediction:
                               device.predictions?["ph"]?.sensorValue,
                           parameterWarningPrediction:
