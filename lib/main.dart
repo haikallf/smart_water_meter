@@ -45,26 +45,27 @@ void main() async {
   runApp(MaterialApp(
     title: 'Flutter Demo',
     theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: ColorConstant.colorsprimary,
-          primary: Colors.white,
-          secondary: Colors.black,
-        ),
-        appBarTheme: const AppBarTheme(
-          color: Colors.white,
-          //other options
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(
-                    Colors.white.withOpacity(0.1)))),
-        iconButtonTheme: IconButtonThemeData(
-            style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(
-                    Colors.grey.withOpacity(0.05)))),
-        textSelectionTheme: const TextSelectionThemeData(
-            cursorColor: ColorConstant.colorsprimary)),
+      useMaterial3: true,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: ColorConstant.colorsprimary,
+        primary: Colors.white,
+        secondary: Colors.black,
+      ),
+      appBarTheme: const AppBarTheme(
+        color: Colors.white,
+        //other options
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all<Color>(
+                  Colors.white.withOpacity(0.1)))),
+      iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all<Color>(
+                  Colors.grey.withOpacity(0.05)))),
+      textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: ColorConstant.colorsprimary),
+    ),
     home: isLoggedIn ? HomePage() : LoginPage(),
   ));
 

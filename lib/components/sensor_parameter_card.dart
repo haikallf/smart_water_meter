@@ -35,6 +35,8 @@ class SensorParameterCard extends StatefulWidget {
 }
 
 class _SensorParameterCardState extends State<SensorParameterCard> {
+  String sheetTitle = "";
+
   Tuple3<Color, Color, AssetImage> getParameterColorAndBackground() {
     switch (widget.parameterStatus) {
       case ParameterStatus.warning:
@@ -55,6 +57,10 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
     }
   }
 
+  bool isSensorOff() {
+    return widget.parameterValue == "null" || widget.parameterValue == "--";
+  }
+
   @override
   Widget build(BuildContext context) {
     void sensorPredictionModalBottomSheet(BuildContext context) {
@@ -65,6 +71,7 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
             borderRadius: BorderRadius.circular(16),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
+          barrierColor: Colors.black.withOpacity(0.4),
           builder: (context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
@@ -77,16 +84,6 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                       width: MediaQuery.of(context).size.width,
                       color: Colors.white,
                       child: Column(children: [
-                        // // MARK: Sheet Indicator
-                        // Container(
-                        //   height: 6,
-                        //   width: 180,
-                        //   margin: const EdgeInsets.symmetric(vertical: 12),
-                        //   decoration: BoxDecoration(
-                        //       color: ColorConstant.colorsNeutral80,
-                        //       borderRadius: BorderRadius.circular(120)),
-                        // ),
-
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: const BoxDecoration(
@@ -103,7 +100,7 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                               const SizedBox(
                                 width: 8,
                               ),
-                              Text("Prediksi 15 Menit ke Depan",
+                              Text(sheetTitle,
                                   style: const TextStyleConstant().title03),
                             ],
                           ),
@@ -147,7 +144,10 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                                 height: 12,
                               ),
                               Text(
-                                widget.parameterWarningPrediction ?? "",
+                                widget.parameterStatus ==
+                                        ParameterStatus.warning
+                                    ? "${widget.parameterName} Tidak Normal"
+                                    : widget.parameterWarningPrediction ?? "",
                                 style: const TextStyleConstant().body03,
                               ),
                               const SizedBox(
@@ -171,14 +171,21 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
                                       const SizedBox(
                                         height: 4,
                                       ),
-                                      Text(
-                                        widget.parameterRecommendationPrediction ??
-                                            "",
-                                        style: const TextStyleConstant()
-                                            .paragraph03
-                                            .copyWith(
-                                                color: ColorConstant
-                                                    .colorsVariant20),
+                                      SizedBox(
+                                        width: 355,
+                                        child: Text(
+                                          widget.parameterStatus ==
+                                                  ParameterStatus.warning
+                                              ? widget.parameterRecommendation ??
+                                                  "Tidak ada rekomendasi aksi"
+                                              : widget.parameterRecommendationPrediction ??
+                                                  "Tidak ada rekomendasi aksi",
+                                          style: const TextStyleConstant()
+                                              .paragraph03
+                                              .copyWith(
+                                                  color: ColorConstant
+                                                      .colorsVariant20),
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 57,
@@ -199,73 +206,93 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
           });
     }
 
-    return Container(
-      height: 172,
-      width: 172,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 17),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          // border: Border.all(color: getParameterColorAndBackground().item1),
-          image: DecorationImage(
-              image: getParameterColorAndBackground().item3,
-              fit: BoxFit.cover)),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.parameterName,
-                        style: const TextStyleConstant().title03,
-                      ),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        widget.parameterStatus == ParameterStatus.normal
-                            ? "Normal"
-                            : widget.parameterRecommendation ?? "null",
-                        style: const TextStyleConstant().body03.copyWith(
-                            color: getParameterColorAndBackground().item2),
-                        // softWrap: true,
-                        // overflow: TextOverflow.ellipsis,
-                      )
-                    ],
+    void openSheet(BuildContext context) {
+      setState(() {
+        if (widget.parameterStatus == ParameterStatus.normal) {
+          if (widget.parameterRecommendationPrediction != null) {
+            sheetTitle = "Prediksi 15 Menit ke Depan";
+            sensorPredictionModalBottomSheet(context);
+          }
+        } else {
+          sheetTitle = "Kondisi Saat Ini";
+          sensorPredictionModalBottomSheet(context);
+        }
+      });
+    }
+
+    return GestureDetector(
+      onTap: () {
+        openSheet(context);
+      },
+      child: Container(
+        height: 172,
+        width: 172,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 17),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            // border: Border.all(color: getParameterColorAndBackground().item1),
+            image: DecorationImage(
+                image: isSensorOff()
+                    ? const AssetImage('assets/param-off.png')
+                    : getParameterColorAndBackground().item3,
+                fit: BoxFit.cover)),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.parameterName,
+                          style: const TextStyleConstant().title03,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          isSensorOff()
+                              ? "Sensor Mati"
+                              : (widget.parameterStatus ==
+                                      ParameterStatus.normal
+                                  ? "Normal"
+                                  : "Tidak Normal"),
+                          style: const TextStyleConstant().body03.copyWith(
+                              color: getParameterColorAndBackground().item2),
+                          // softWrap: true,
+                          // overflow: TextOverflow.ellipsis,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                if (widget.parameterValuePrediction != null &&
-                    widget.parameterRecommendationPrediction != null)
-                  WarningFadeIcon(
-                    onTap: () {
-                      sensorPredictionModalBottomSheet(context);
-                    },
-                  )
-              ],
-            ),
-            RichText(
-                text: TextSpan(
-                    text: "",
-                    style: DefaultTextStyle.of(context).style,
-                    children: [
-                  TextSpan(
-                      text: widget.parameterStatus == ParameterStatus.abnormal
-                          ? "--"
-                          : widget.parameterValue,
-                      style: const TextStyleConstant().heading01.copyWith(
-                          color: getParameterColorAndBackground().item1)),
-                  TextSpan(
-                      text: widget.parameterUnit,
-                      style: const TextStyleConstant().heading04.copyWith(
-                          color: getParameterColorAndBackground().item2))
-                ])),
-          ]),
+                  if (widget.parameterValuePrediction != null &&
+                      widget.parameterRecommendationPrediction != null)
+                    WarningFadeIcon(
+                      onTap: () {},
+                    )
+                ],
+              ),
+              RichText(
+                  text: TextSpan(
+                      text: "",
+                      style: DefaultTextStyle.of(context).style,
+                      children: [
+                    TextSpan(
+                        text: isSensorOff() ? "--" : widget.parameterValue,
+                        style: const TextStyleConstant().heading01.copyWith(
+                            color: getParameterColorAndBackground().item1)),
+                    TextSpan(
+                        text: widget.parameterUnit,
+                        style: const TextStyleConstant().heading04.copyWith(
+                            color: getParameterColorAndBackground().item2))
+                  ])),
+            ]),
+      ),
     );
   }
 }

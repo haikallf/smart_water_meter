@@ -28,7 +28,8 @@ class _CustomButtonState extends State<CustomButton> {
     return ElevatedButton(
       onPressed: widget.onTap,
       style: ButtonStyle(
-          surfaceTintColor: MaterialStateProperty.all<Color>(Colors.white),
+          surfaceTintColor:
+              MaterialStateProperty.all<Color>(Colors.transparent),
           foregroundColor:
               MaterialStateProperty.all<Color>(widget.foregroundColor),
           backgroundColor: MaterialStateProperty.all<Color>(widget.isDisabled

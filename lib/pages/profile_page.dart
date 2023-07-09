@@ -74,6 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
   ) async {
     bool? dialogResult = await showDialog<bool>(
         context: context,
+        barrierColor: Colors.black.withOpacity(0.4),
         builder: (BuildContext context) {
           return CustomAlert(
               content: content,
@@ -104,6 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
           borderRadius: BorderRadius.circular(8),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
+        barrierColor: Colors.black.withOpacity(0.4),
         builder: (bc) {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setModalState) {
@@ -256,12 +258,6 @@ class _ProfilePageState extends State<ProfilePage> {
       Tuple2<String, VoidCallback?>("Tentang Aplikasi", () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const AboutPage()));
-      }),
-      Tuple2<String, VoidCallback?>("Syarat & Ketentuan", () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const TermsAndConditionsPage()));
       }),
     ];
 

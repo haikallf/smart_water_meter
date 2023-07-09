@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
 import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/controllers/devices.dart';
+import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/models/device_detail_model.dart';
@@ -103,165 +105,255 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // MARK: Sensor Detail Heading
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Text(
-                widget.deviceName,
-                style: const TextStyleConstant().heading02,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // MARK: Sensor Detail Heading
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Text(
+                  widget.deviceName,
+                  style: const TextStyleConstant().heading02,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        SensorParameterCard(
-                            parameterName: "Suhu Air",
-                            parameterBackground: "temp",
-                            parameterValue: deviceDetails.temperature ?? "--",
-                            parameterUnit: " ℃",
-                            parameterStatus: checkAnomalyParameter(
-                                    currentAnomalies, "temperature")
-                                ? ParameterStatus.warning
-                                : ParameterStatus.normal,
-                            parameterRecommendation: checkAnomalyParameterValue(
-                                        currentAnomalies, "temperature")
-                                    ?.action ??
-                                "Normal",
-                            parameterValuePrediction:
-                                device.predictions?["temp"]?.sensorValue,
-                            parameterWarningPrediction:
-                                device.predictions?["temp"]?.condition,
-                            parameterRecommendationPrediction:
-                                device.predictions?["temp"]?.recommendation),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        SensorParameterCard(
-                            parameterName: "Oksigen Terlarut",
-                            parameterBackground: "do",
-                            parameterValue:
-                                device.current?["do"]?.sensorValue ?? "--",
-                            parameterUnit: " ℃",
-                            parameterStatus: device.current?["do"]?.condition !=
-                                    ParameterStatus.normal
-                                ? ParameterStatus.warning
-                                : ParameterStatus.normal,
-                            parameterRecommendation:
-                                device.current?["do"]?.recommendation ??
-                                    "Normal",
-                            parameterValuePrediction:
-                                device.predictions?["do"]?.sensorValue,
-                            parameterWarningPrediction:
-                                device.predictions?["do"]?.condition,
-                            parameterRecommendationPrediction:
-                                device.predictions?["do"]?.recommendation),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        SensorParameterCard(
-                            parameterName: "Amonia",
-                            parameterBackground: "ammonia",
-                            parameterValue:
-                                device.current?["ammonia"]?.sensorValue ?? "--",
-                            parameterUnit: " ℃",
-                            parameterStatus:
-                                device.current?["ammonia"]?.condition !=
-                                        ParameterStatus.normal
-                                    ? ParameterStatus.warning
-                                    : ParameterStatus.normal,
-                            parameterRecommendation:
-                                device.current?["ammonia"]?.recommendation ??
-                                    "Normal",
-                            parameterValuePrediction:
-                                device.predictions?["ammonia"]?.sensorValue,
-                            parameterWarningPrediction:
-                                device.predictions?["ammonia"]?.condition,
-                            parameterRecommendationPrediction:
-                                device.predictions?["ammonia"]?.recommendation),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        SensorParameterCard(
-                          parameterName: "pH Air",
-                          parameterBackground: "ph",
-                          parameterValue: deviceDetails.ph ?? "--",
-                          parameterUnit: " pH",
-                          parameterStatus:
-                              checkAnomalyParameter(currentAnomalies, "ph")
+              CustomButton(
+                onTap: () {},
+                text: "Pengecekan Selesai",
+                backgroundColor: Colors.white,
+                foregroundColor: ColorConstant.colorsprimary,
+                borderColor: ColorConstant.colorsNeutral40,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          SensorParameterCard(
+                              parameterName: "Suhu Air",
+                              parameterBackground: "temp",
+                              parameterValue: deviceDetails.temperature ?? "--",
+                              parameterUnit: " ℃",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "temperature")
                                   ? ParameterStatus.warning
                                   : ParameterStatus.normal,
-                          parameterRecommendation:
-                              checkAnomalyParameterValue(currentAnomalies, "ph")
-                                      ?.action ??
-                                  "Normal",
-                          parameterValuePrediction:
-                              device.predictions?["ph"]?.sensorValue,
-                          parameterWarningPrediction:
-                              device.predictions?["ph"]?.condition,
-                          parameterRecommendationPrediction:
-                              device.predictions?["ph"]?.recommendation,
-                        ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        SensorParameterCard(
-                          parameterName: "Kekeruhan",
-                          parameterBackground: "turbidity",
-                          parameterValue:
-                              device.current?["turbidity"]?.sensorValue ?? "--",
-                          parameterUnit: " ℃",
-                          parameterStatus:
-                              device.current?["turbidity"]?.condition !=
-                                      ParameterStatus.normal
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "temperature")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.temperature ?? "--",
+                              parameterWarningPrediction: checkAnomalyParameter(
+                                      futureAnomalies, "temperature")
+                                  ? "Suhu Air Tidak Normal"
+                                  : "Suhu Air Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "temperature")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "Oksigen Terlarut",
+                              parameterBackground: "do",
+                              parameterValue:
+                                  deviceDetails.dissolvedOxygen ?? "--",
+                              parameterUnit: " mg/L",
+                              parameterStatus:
+                                  checkAnomalyParameter(currentAnomalies, "do")
+                                      ? ParameterStatus.warning
+                                      : ParameterStatus.normal,
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "do")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.dissolvedOxygen ?? "--",
+                              parameterWarningPrediction:
+                                  checkAnomalyParameter(futureAnomalies, "do")
+                                      ? "Oksigen Terlarut Tidak Normal"
+                                      : "Oksigen Terlarut Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "do")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "TDS",
+                              parameterBackground: "tds",
+                              parameterValue: deviceDetails.dissolvedOxygen ??
+                                  "--",
+                              parameterUnit: "",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "tds")
                                   ? ParameterStatus.warning
                                   : ParameterStatus.normal,
-                          parameterRecommendation:
-                              device.current?["turbidity"]?.recommendation ??
-                                  "Normal",
-                          parameterValuePrediction:
-                              device.predictions?["turbidity"]?.sensorValue,
-                          parameterWarningPrediction:
-                              device.predictions?["turbidity"]?.condition,
-                          parameterRecommendationPrediction:
-                              device.predictions?["turbidity"]?.recommendation,
-                        ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        SensorParameterCard(
-                          parameterName: "Salinitas",
-                          parameterBackground: "salinity",
-                          parameterValue:
-                              device.current?["salinity"]?.sensorValue ?? "--",
-                          parameterUnit: " ℃",
-                          parameterStatus:
-                              device.current?["salinity"]?.condition !=
-                                      ParameterStatus.normal
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "tds")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.tds ?? "--",
+                              parameterWarningPrediction:
+                                  checkAnomalyParameter(futureAnomalies, "tds")
+                                      ? "TDS Tidak Normal"
+                                      : "TDS Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "tds")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "Tegangan Sel Surya",
+                              parameterBackground: "volt_solar",
+                              parameterValue: deviceDetails.voltSolar ?? "--",
+                              parameterUnit: " Volt",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "volt_solar")
                                   ? ParameterStatus.warning
                                   : ParameterStatus.normal,
-                          parameterRecommendation:
-                              device.current?["salinity"]?.recommendation ??
-                                  "Normal",
-                          parameterValuePrediction:
-                              device.predictions?["salinity"]?.sensorValue,
-                          parameterWarningPrediction:
-                              device.predictions?["salinity"]?.condition,
-                          parameterRecommendationPrediction:
-                              device.predictions?["salinity"]?.recommendation,
-                        ),
-                      ],
-                    )
-                  ]),
-            )
-          ],
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "volt_solar")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.tds ?? "--",
+                              parameterWarningPrediction: checkAnomalyParameter(
+                                      futureAnomalies, "volt_solar")
+                                  ? "Tegangan Surya Tidak Normal"
+                                  : "Tegangan Surya Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "volt_solar")
+                                      ?.action),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SensorParameterCard(
+                              parameterName: "Keasaman Air",
+                              parameterBackground: "ph",
+                              parameterValue: deviceDetails.ph ?? "--",
+                              parameterUnit: "pH",
+                              parameterStatus:
+                                  checkAnomalyParameter(currentAnomalies, "ph")
+                                      ? ParameterStatus.warning
+                                      : ParameterStatus.normal,
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "ph")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.ph ?? "--",
+                              parameterWarningPrediction:
+                                  checkAnomalyParameter(futureAnomalies, "ph")
+                                      ? "pH Air Tidak Normal"
+                                      : "pH Air Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "ph")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "Kekeruhan",
+                              parameterBackground: "turbidity",
+                              parameterValue: deviceDetails.turbidity ?? "--",
+                              parameterUnit: "",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "turbidity")
+                                  ? ParameterStatus.warning
+                                  : ParameterStatus.normal,
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "turbidity")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.turbidity ?? "--",
+                              parameterWarningPrediction: checkAnomalyParameter(
+                                      futureAnomalies, "turbidity")
+                                  ? "Kekeruhan Tidak Normal"
+                                  : "Kekeruhan Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "turbidity")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "Suhu Udara",
+                              parameterBackground: "temperature_air",
+                              parameterValue:
+                                  deviceDetails.airTemperature ?? "--",
+                              parameterUnit: " ℃",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "temperature_air")
+                                  ? ParameterStatus.warning
+                                  : ParameterStatus.normal,
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(currentAnomalies,
+                                              "temperature_air")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.airTemperature ?? "--",
+                              parameterWarningPrediction: checkAnomalyParameter(
+                                      futureAnomalies, "temperature_air")
+                                  ? "Suhu Udara Tidak Normal"
+                                  : "Suhu Udara Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "temperature_air")
+                                      ?.action),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          SensorParameterCard(
+                              parameterName: "Tegangan Baterai",
+                              parameterBackground: "volt_battery",
+                              parameterValue: deviceDetails.voltBattery ?? "--",
+                              parameterUnit: " Volt",
+                              parameterStatus: checkAnomalyParameter(
+                                      currentAnomalies, "volt_battery")
+                                  ? ParameterStatus.warning
+                                  : ParameterStatus.normal,
+                              parameterRecommendation:
+                                  checkAnomalyParameterValue(
+                                              currentAnomalies, "volt_battery")
+                                          ?.action ??
+                                      "Normal",
+                              parameterValuePrediction:
+                                  deviceDetails.voltBattery ?? "--",
+                              parameterWarningPrediction: checkAnomalyParameter(
+                                      futureAnomalies, "volt_battery")
+                                  ? "Tegangan Baterai Tidak Normal"
+                                  : "Tegangan Baterai Normal",
+                              parameterRecommendationPrediction:
+                                  checkAnomalyParameterValue(
+                                          futureAnomalies, "volt_battery")
+                                      ?.action),
+                        ],
+                      )
+                    ]),
+              )
+            ],
+          ),
         ),
       )),
     );

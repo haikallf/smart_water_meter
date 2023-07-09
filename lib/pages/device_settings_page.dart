@@ -120,6 +120,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
       bool? isDanger]) async {
     bool? dialogResult = await showDialog<bool>(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.4),
       builder: (BuildContext context) {
         return CustomAlert(
             content: content,
@@ -211,6 +212,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             borderRadius: BorderRadius.circular(8),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
+          barrierColor: Colors.black.withOpacity(0.4),
           builder: (context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
@@ -325,6 +327,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             borderRadius: BorderRadius.circular(8),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
+          barrierColor: Colors.black.withOpacity(0.4),
           builder: (BuildContext context) {
             return IntrinsicHeight(
               child: Container(
@@ -369,6 +372,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      Navigator.of(context).pop();
                       showDeleteDeviceAlertDialog(
                           context,
                           "Apakah kamu yakin ingin menghapus alat ini?",
@@ -408,6 +412,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
             borderRadius: BorderRadius.circular(8),
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
+          barrierColor: Colors.black.withOpacity(0.4),
           builder: (context) {
             return StatefulBuilder(
                 builder: (BuildContext context, StateSetter setModalState) {
