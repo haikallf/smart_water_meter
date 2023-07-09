@@ -4,12 +4,10 @@ import 'package:smart_water_meter/components/custom_alert.dart';
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/custom_list_view.dart';
 import 'package:smart_water_meter/components/custom_snackbar.dart';
-import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/models/device_model.dart';
-import 'package:smart_water_meter/models/device_response_model.dart';
 import 'package:tuple/tuple.dart';
 
 class DeviceSettingsPage extends StatefulWidget {
@@ -120,7 +118,7 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
       bool? isDanger]) async {
     bool? dialogResult = await showDialog<bool>(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.4),
+      barrierColor: Colors.black.withOpacity(0),
       builder: (BuildContext context) {
         return CustomAlert(
             content: content,
@@ -372,7 +370,6 @@ class _DeviceSettingsPageState extends State<DeviceSettingsPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
                       showDeleteDeviceAlertDialog(
                           context,
                           "Apakah kamu yakin ingin menghapus alat ini?",

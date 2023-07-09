@@ -1,5 +1,4 @@
 import 'package:smart_water_meter/models/device_model.dart';
-import 'package:smart_water_meter/models/user_model.dart';
 
 class DeviceResponseModel {
   List<DeviceModel>? devices;

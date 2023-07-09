@@ -18,7 +18,7 @@ class _ListItemState extends State<ListItem> {
       onTap: widget.onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 16, 8, 16),
+        padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(

@@ -1,5 +1,3 @@
-import "dart:io" show Platform;
-
 class GlobalConfig {
   const GlobalConfig();
 

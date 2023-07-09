@@ -1,12 +1,8 @@
 import 'dart:async';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/profile_circle.dart';
 import 'package:smart_water_meter/components/abnormal_sensor_card.dart';
-import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/device_card.dart';
-import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';

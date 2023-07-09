@@ -12,7 +12,6 @@ import 'package:smart_water_meter/models/user_response_model.dart';
 import 'package:smart_water_meter/pages/about_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/pages/device_settings_page.dart';
-import 'package:smart_water_meter/pages/terms_and_conditions_page.dart';
 import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:tuple/tuple.dart';

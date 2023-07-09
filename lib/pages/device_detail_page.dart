@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
 import 'package:smart_water_meter/components/custom_button.dart';
 import 'package:smart_water_meter/components/sensor_parameter_card.dart';
-import 'package:smart_water_meter/controllers/devices-dummy.dart';
 import 'package:smart_water_meter/controllers/devices.dart';
 import 'package:smart_water_meter/enums/color_constant.dart';
 import 'package:smart_water_meter/enums/parameter_status.dart';
 import 'package:smart_water_meter/enums/text_style_constant.dart';
 import 'package:smart_water_meter/models/device_detail_model.dart';
 import 'package:smart_water_meter/models/device_model.dart';
-import 'package:smart_water_meter/models/device_model1.dart';
 import 'package:web_socket_channel/io.dart';
 
 class DeviceDetailPage extends StatefulWidget {
@@ -28,10 +26,6 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
   final channel = IOWebSocketChannel.connect(
       "ws://smartwater-be-cjuo2jvqkq-et.a.run.app/ws");
 
-  // String btcUsdtPrice = "0";
-
-  DeviceModel1 device = DeviceModel1();
-
   DeviceDetailModel deviceDetails = DeviceDetailModel();
   List<DeviceModel> devices = [];
 
@@ -44,7 +38,6 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
   @override
   void initState() {
     super.initState();
-    // loadData();
     streamListener();
   }
 

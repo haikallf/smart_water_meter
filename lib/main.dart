@@ -9,7 +9,6 @@ import 'package:smart_water_meter/firebase_options.dart';
 import 'package:smart_water_meter/pages/home_page.dart';
 import 'package:smart_water_meter/pages/login_page.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 
 import 'package:smart_water_meter/utils/notification_manager.dart';
