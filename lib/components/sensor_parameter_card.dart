@@ -58,7 +58,11 @@ class _SensorParameterCardState extends State<SensorParameterCard> {
   }
 
   bool isSensorOff() {
-    return widget.parameterValue == "null" || widget.parameterValue == "--";
+    return (widget.parameterBackground == "turbidity"
+            ? widget.parameterValue == "3316.0"
+            : widget.parameterValue == "0.0") ||
+        widget.parameterValue == "null" ||
+        widget.parameterValue == "--";
   }
 
   @override

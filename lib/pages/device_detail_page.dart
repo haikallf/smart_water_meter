@@ -26,6 +26,8 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
   final channel = IOWebSocketChannel.connect(
       "ws://smartwater-be-cjuo2jvqkq-et.a.run.app/ws");
 
+  bool showCheckConfirmationButton = false;
+
   DeviceDetailModel deviceDetails = DeviceDetailModel();
   List<DeviceModel> devices = [];
 
@@ -60,6 +62,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     print("device id: ${widget.deviceId}");
     channel.sink.add(widget.deviceId);
     channel.stream.listen((message) async {
+      print("message: $message");
       // channel.sink.close();
 
       final allDevices = await DevicesController().getAllDevices();
@@ -74,15 +77,86 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
             .toList();
         currentAnomalies =
             anomalies.toSet().difference(futureAnomalies.toSet()).toList();
+
+        if (anomalies.isNotEmpty) {
+          showCheckConfirmationButton = true;
+        }
       });
 
       setState(() {
         deviceDetails = DeviceDetailModel.fromJson(jsonDecode(message));
       });
 
-      print("FUTURE ANOMALIES: ${futureAnomalies[0].sensorType}");
-      print("CURRENT ANOMALIES: ${currentAnomalies[0].sensorType}");
+      // print("FUTURE ANOMALIES: ${futureAnomalies[0].sensorType}");
+      // print("CURRENT ANOMALIES: ${currentAnomalies[0].sensorType}");
     });
+  }
+
+  void showCustomAlertDialog(
+    BuildContext context,
+  ) async {
+    bool? dialogResult = await showDialog<bool>(
+        context: context,
+        barrierColor: Colors.black.withOpacity(0.4),
+        builder: (BuildContext context) {
+          return Dialog(
+            insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(16)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const iconoir.WarningHexagon(
+                    width: 66,
+                    height: 66,
+                    color: ColorConstant.colorswarning,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Perhatian",
+                    style: const TextStyleConstant().heading04,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "Jika Anda telah melakukan tindakan pada kolam, alat akan memuat ulang status kurang lebih 15 menit",
+                    style: const TextStyleConstant().paragraph02,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  CustomButton(
+                    onTap: () {
+                      Navigator.pop(context, true);
+                    },
+                    text: "Mengerti",
+                    backgroundColor: Colors.white,
+                    foregroundColor: ColorConstant.colorsprimary,
+                    borderColor: ColorConstant.colorsNeutral40,
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+
+    if (context.mounted) {
+      if (dialogResult == true) {
+        int responseStatusCode =
+            await DevicesController().setPoolToNormalById(widget.deviceId);
+        if (responseStatusCode == 200) {
+          setState(() {
+            showCheckConfirmationButton = false;
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -110,13 +184,20 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                   style: const TextStyleConstant().heading02,
                 ),
               ),
-              CustomButton(
-                onTap: () {},
-                text: "Pengecekan Selesai",
-                backgroundColor: Colors.white,
-                foregroundColor: ColorConstant.colorsprimary,
-                borderColor: ColorConstant.colorsNeutral40,
-              ),
+              if (showCheckConfirmationButton)
+                CustomButton(
+                  onTap: () {
+                    showCustomAlertDialog(context);
+                  },
+                  text: "Pengecekan Selesai",
+                  backgroundColor: Colors.white,
+                  foregroundColor: ColorConstant.colorsprimary,
+                  borderColor: ColorConstant.colorsNeutral40,
+                ),
+              if (showCheckConfirmationButton)
+                const SizedBox(
+                  height: 12,
+                ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 child: Row(
