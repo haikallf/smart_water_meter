@@ -58,6 +58,26 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
     return null;
   }
 
+  void loadData() async {
+    final allDevices = await DevicesController().getAllDevices();
+
+    setState(() {
+      devices = allDevices.devices ?? [];
+      anomalyDevices =
+          devices.where((device) => device.id == widget.deviceId).toList();
+      anomalies = anomalyDevices[0].anomalies;
+      futureAnomalies = anomalies
+          .where((anomaly) => anomaly.action.contains("dalam 15 menit"))
+          .toList();
+      currentAnomalies =
+          anomalies.toSet().difference(futureAnomalies.toSet()).toList();
+
+      if (anomalies.isNotEmpty) {
+        showCheckConfirmationButton = true;
+      }
+    });
+  }
+
   streamListener() {
     print("device id: ${widget.deviceId}");
     channel.sink.add(widget.deviceId);
@@ -65,23 +85,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
       print("message: $message");
       // channel.sink.close();
 
-      final allDevices = await DevicesController().getAllDevices();
-
-      setState(() {
-        devices = allDevices.devices ?? [];
-        anomalyDevices =
-            devices.where((device) => device.id == widget.deviceId).toList();
-        anomalies = anomalyDevices[0].anomalies;
-        futureAnomalies = anomalies
-            .where((anomaly) => anomaly.action.contains("dalam 15 menit"))
-            .toList();
-        currentAnomalies =
-            anomalies.toSet().difference(futureAnomalies.toSet()).toList();
-
-        if (anomalies.isNotEmpty) {
-          showCheckConfirmationButton = true;
-        }
-      });
+      loadData();
 
       setState(() {
         deviceDetails = DeviceDetailModel.fromJson(jsonDecode(message));
@@ -154,6 +158,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
           setState(() {
             showCheckConfirmationButton = false;
           });
+          loadData();
         }
       }
     }
@@ -263,8 +268,7 @@ class _DeviceDetailPageState extends State<DeviceDetailPage> {
                           SensorParameterCard(
                               parameterName: "TDS",
                               parameterBackground: "tds",
-                              parameterValue: deviceDetails.dissolvedOxygen ??
-                                  "--",
+                              parameterValue: deviceDetails.tds ?? "--",
                               parameterUnit: "",
                               parameterStatus: checkAnomalyParameter(
                                       currentAnomalies, "tds")
