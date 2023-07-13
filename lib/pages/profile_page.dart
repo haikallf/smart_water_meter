@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (context.mounted) {
       if (dialogResult == true) {
         await LocalStorage.clearEmail();
-        await SessionManager().destroy();
+        await SessionManager().remove("token");
         if (context.mounted) {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => LoginPage()),

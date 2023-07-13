@@ -12,6 +12,7 @@ import 'package:smart_water_meter/pages/profile_page.dart';
 import 'package:smart_water_meter/utils/extensions.dart';
 import 'package:smart_water_meter/utils/local_storage.dart';
 import 'package:smart_water_meter/utils/notification_manager.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,18 +23,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final NotificationManager notificationManager;
+
   String currentFullName = "";
 
-  String btcUsdtPrice = "0";
+  bool isLoading = true;
 
   List<DeviceModel> devices = [];
   List<DeviceModel> anomalyDevices = [];
   List<dynamic> predictions = [];
 
   void loadData() async {
-    // final devicesTemp = await DevicesDummyController().getAllDevices();
-    // final predictionsTemp =
-    //     await DevicesDummyController().getAllAbnormalSensors();
+    setState(() {
+      isLoading = true;
+    });
 
     final allDevices = await DevicesController().getAllDevices();
 
@@ -41,7 +43,12 @@ class _HomePageState extends State<HomePage> {
       devices = allDevices.devices ?? [];
       anomalyDevices =
           devices.where((device) => device.anomalies.isNotEmpty).toList();
-      // predictions = predictionsTemp;
+
+      Future.delayed(Duration(milliseconds: 500)).then((value) => {
+            setState(() {
+              isLoading = false;
+            })
+          });
     });
     print("devices: ${devices}");
     print("anomalies: $anomalyDevices");
@@ -88,144 +95,161 @@ class _HomePageState extends State<HomePage> {
     loadData();
   }
 
+  final spinkit = const SpinKitRing(
+    color: ColorConstant.colorsprimary,
+    size: 50,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFBFCFE),
       body: SafeArea(
-        child: Align(
-          alignment: Alignment.topLeft,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            // MARK: Heading
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+        child: isLoading
+            ? spinkit
+            : Align(
+                alignment: Alignment.topLeft,
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Halo,",
-                        style: const TextStyleConstant().paragraph02,
-                      ),
-                      Text(
-                        currentFullName.toTitleCase(),
-                        style: const TextStyleConstant().heading04,
-                      )
-                    ],
-                  ),
-                  // MARK: Change Icon
-                  IconButton(
-                      onPressed: goToProfilePage,
-                      icon: const ProfileCircle(
-                        height: 32,
-                        width: 32,
-                        color: ColorConstant.colorsprimary,
-                      )),
-                ],
-              ),
-            ),
-
-            // MARK: Banner
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              child: Image(
-                image: const AssetImage(
-                  'assets/banner-image.jpeg',
-                ),
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-              ),
-            ),
-
-            // MARK: Abnormal Sensors
-            if (anomalyDevices.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 14, left: 16, bottom: 14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${anomalyDevices.length} Alat Butuh Dicek",
-                      style: const TextStyleConstant().label02,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 133,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(right: 6),
-                        children: [
-                          for (int i = 0; i < anomalyDevices.length; i++) ...[
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              child: AbnormalSensorCard(
-                                deviceName: anomalyDevices[i].name ?? "NULL",
-                                sensorCount: anomalyDevices[i]
-                                    .anomalies
-                                    .length
-                                    .toString(),
-                                onBack: () {
-                                  goToDeviceDetailPage(
-                                      anomalyDevices[i].id ?? "",
-                                      anomalyDevices[i].name ?? "");
-                                },
-                              ),
+                      // MARK: Heading
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Halo,",
+                                  style: const TextStyleConstant().paragraph02,
+                                ),
+                                Text(
+                                  currentFullName.toTitleCase(),
+                                  style: const TextStyleConstant().heading04,
+                                )
+                              ],
                             ),
+                            // MARK: Change Icon
+                            IconButton(
+                                onPressed: goToProfilePage,
+                                icon: const ProfileCircle(
+                                  height: 32,
+                                  width: 32,
+                                  color: ColorConstant.colorsprimary,
+                                )),
                           ],
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+
+                      // MARK: Banner
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 16),
+                        child: Image(
+                          image: const AssetImage(
+                            'assets/banner-image.jpeg',
+                          ),
+                          fit: BoxFit.fitWidth,
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      ),
+
+                      // MARK: Abnormal Sensors
+                      if (anomalyDevices.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 14, left: 16, bottom: 14),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${anomalyDevices.length} Alat Butuh Dicek",
+                                style: const TextStyleConstant().label02,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 133,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  padding: const EdgeInsets.only(right: 6),
+                                  children: [
+                                    for (int i = 0;
+                                        i < anomalyDevices.length;
+                                        i++) ...[
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        child: AbnormalSensorCard(
+                                          deviceName:
+                                              anomalyDevices[i].name ?? "NULL",
+                                          sensorCount: anomalyDevices[i]
+                                              .anomalies
+                                              .length
+                                              .toString(),
+                                          onBack: () {
+                                            goToDeviceDetailPage(
+                                                anomalyDevices[i].id ?? "",
+                                                anomalyDevices[i].name ?? "");
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      // MARK: All Sensors
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 16),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                devices.isNotEmpty
+                                    ? "Semua Alat"
+                                    : "Tidak ada alat",
+                                style: const TextStyleConstant().label02,
+                              ),
+                              const SizedBox(
+                                height: 14,
+                              ),
+                              for (int i = 0; i < devices.length; i++) ...[
+                                DeviceCard(
+                                  sensorName: devices[i].name ?? "",
+                                  onTap: () {
+                                    goToDeviceDetailPage(devices[i].id ?? "",
+                                        devices[i].name ?? "");
+                                  },
+                                ),
+                                SizedBox(
+                                  height: (i < devices.length - 1) ? 14 : 0,
+                                )
+                              ],
+                            ]),
+                      ),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.all(16),
+                      //   child: CustomButton(
+                      //       onTap: () async {
+                      //         await notificationManager.showNotification(
+                      //             id: 0,
+                      //             title: "Notification Title",
+                      //             body: "Notification Body");
+                      //       },
+                      //       text: "Trigger Notif"),
+                      // )
+                    ]),
               ),
-
-            // MARK: All Sensors
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Semua Alat",
-                      style: const TextStyleConstant().label02,
-                    ),
-                    const SizedBox(
-                      height: 14,
-                    ),
-                    for (int i = 0; i < devices.length; i++) ...[
-                      DeviceCard(
-                        sensorName: devices[i].name ?? "",
-                        onTap: () {
-                          goToDeviceDetailPage(
-                              devices[i].id ?? "", devices[i].name ?? "");
-                        },
-                      ),
-                      SizedBox(
-                        height: (i < devices.length - 1) ? 14 : 0,
-                      )
-                    ],
-                  ]),
-            ),
-
-            // Padding(
-            //   padding: const EdgeInsets.all(16),
-            //   child: CustomButton(
-            //       onTap: () async {
-            //         await notificationManager.showNotification(
-            //             id: 0,
-            //             title: "Notification Title",
-            //             body: "Notification Body");
-            //       },
-            //       text: "Trigger Notif"),
-            // )
-          ]),
-        ),
       ),
     );
   }

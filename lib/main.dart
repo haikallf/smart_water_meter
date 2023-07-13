@@ -70,12 +70,6 @@ void main() async {
 
   Future.delayed(Duration(seconds: 2))
       .then((value) => {FlutterNativeSplash.remove()});
-
-  // await Permission.notification.isDenied.then((value) {
-  //   if (value) {
-  //     Permission.notification.request();
-  //   }
-  // });
 }
 
 class MyHttpOverrides extends HttpOverrides {
